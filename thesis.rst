@@ -23,8 +23,8 @@ PDB ID	Reference	Description
 2v5w	[1]_		HDAC8 in complex with a p53-derived diacetylated peptide 
 			with a Y306F catalysis abolishing mutation
 3f07	[2]_		HDAC8 complexed with APHA
-3ew8	[?]		HDAC8 solved as a monomer, with a catalysis abolished mutation: D101L
-1t67	[?]		HDAC8 complexed with hydroxamate inhibitor (MS-344), residues 62-68 
+3ew8	[3]_		HDAC8 solved as a monomer, with a catalysis abolished mutation: D101L
+1t67	[4]_		HDAC8 complexed with hydroxamate inhibitor (MS-344), residues 62-68 
 			were discarded from the model
 ======	=========	============================================================
 
@@ -52,3 +52,5 @@ Phosphosite database
 
 .. [1] Vannini A, Volpari C, Gallinari P, et al. Substrate binding to histone deacetylases as shown by the crystal structure of the HDAC8-substrate complex. EMBO Rep. 2007;8(9):879-84.
 .. [2] Dowling DP, Gantt SL, Gattis SG, Fierke CA, Christianson DW. Structural studies of human histone deacetylase 8 and its site-specific variants complexed with substrate and inhibitors. Biochemistry. 2008;47(51):13554-63.
+.. [3] Dowling DP, Gantt SL, Gattis SG, Fierke CA, Christianson DW. Structural studies of human histone deacetylase 8 and its site-specific variants complexed with substrate and inhibitors. Biochemistry. 2008;47(51):13554-63.
+.. [4] Somoza JR, Skene RJ, Katz BA, et al. Structural snapshots of human HDAC8 provide insights into the class I histone deacetylases. Structure. 2004;12(7):1325-34.
