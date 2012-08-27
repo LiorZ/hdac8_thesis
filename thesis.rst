@@ -16,17 +16,19 @@ Template selection
 ----------------------
 	As we've previously discussed, our protocol models the interaction between a peptide and its corresponding receptor. FlexPepDock demands a three dimensional structure of the receptor and a low resolution approximation of the peptide. In our case, the receptor is HDAC8, its three dimensional structure was solved on numerous occasions and under different conditions in the last few years. In this study we tried to use multiple structures as our template, hoping that one of them will give an accurate complex with the peptidic substrates. Below is a table that summarizes the structures that were tested as templates for this study:
 
-======	=========	============================================================
-PDB ID	Reference	Description
-------	---------	------------------------------------------------------------
-2v5w	[1]_		HDAC8 in complex with a p53-derived diacetylated peptide 
-			with a Y306F catalysis abolishing mutation
-3f07	[2]_		HDAC8 complexed with APHA
-3ew8	[3]_		HDAC8 solved as a monomer, with a catalysis abolished mutation: D101L
-1t67	[4]_		HDAC8 complexed with hydroxamate inhibitor (MS-344), residues 62-68 
-			were discarded from the model
-======	=========	============================================================
+	======	=========	============================================================
+	PDB ID	Reference	Description
+	------	---------	------------------------------------------------------------
+	2v5w	[1]_		HDAC8 in complex with a p53-derived diacetylated peptide 
+				with a Y306F catalysis abolishing mutation
+	3f07	[2]_		HDAC8 complexed with APHA
+	3ew8	[3]_		HDAC8 solved as a monomer, with a 
+				catalysis abolished mutation: D101L
+	1t67	[4]_		HDAC8 complexed with hydroxamate inhibitor (MS-344), 
+				residues 62-68 were discarded from the model
+	======	=========	============================================================
 
+Choosing the right template is a formidable challenge - some structures were solved with inhibitors - a thing that could induce a different *bound* structure than the actual real substrates. Others were solved with mutations that abolished catalysis and/or binding. And most of all, most structures were solved as dimers that interacted with their highly flexible regions, creating crystal contacts and potential interactions that might have altered the specificity profile of the enzyme.
 
 Preparation of starting structure (+derivation of constraints)
 -----------------------------------------------------------------
