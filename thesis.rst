@@ -18,16 +18,14 @@ Template selection
 	The three dimensional structure of HDAC8 was solved on numerous occasions and under different conditions in the last few years. [Add references] Below is a table that summarizes the HDAC8 structures that were tested as templates for our protocol:
 
 ======	=========	============================================================
-PDB ID	Reference	Remarks
+PDB ID	Reference	Description
 ------	---------	------------------------------------------------------------
-2v5w	[?]		This structure was solved as a dimer with a peptide
-			substrate with 2 acetylated lysines, the peptide was taken 
-			from p53 (a known substrate of HDAC8)
-1vkg	[?]		First structure of HDAC ever solved, dimer with Na and Zn 
-			Hydroxamate inhibitors
-3ew8	[?]		Complexed as a monomer
-3mz6	[?]		Fe co-factor, with D101L mutation. I mutated this 
-			residue back to D, to create 3mz6_A.
+2v5w	[1]_		HDAC8 in complex with a p53-derived diacetylated peptide 
+			with a Y306F catalysis abolishing mutation
+3f07	[2]_		HDAC8 complexed with APHA
+3ew8	[?]		HDAC8 solved as a monomer, with a catalysis abolished mutation: D101L
+1t67	[?]		HDAC8 complexed with hydroxamate inhibitor (MS-344), residues 62-68 
+			were discarded from the model
 ======	=========	============================================================
 
 
@@ -51,3 +49,6 @@ Whole data set analysis
 
 Phosphosite database
 ------------------------
+
+.. [1] Vannini A, Volpari C, Gallinari P, et al. Substrate binding to histone deacetylases as shown by the crystal structure of the HDAC8-substrate complex. EMBO Rep. 2007;8(9):879-84.
+.. [2] Dowling DP, Gantt SL, Gattis SG, Fierke CA, Christianson DW. Structural studies of human histone deacetylase 8 and its site-specific variants complexed with substrate and inhibitors. Biochemistry. 2008;47(51):13554-63.
