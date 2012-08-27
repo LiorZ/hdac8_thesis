@@ -14,8 +14,7 @@ Description of the dataset
 	
 Template selection
 ----------------------
-
-	The three dimensional structure of HDAC8 was solved on numerous occasions and under different conditions in the last few years. [Add references] Below is a table that summarizes the HDAC8 structures that were tested as templates for our protocol:
+	As we've previously discussed, our protocol models the interaction between a peptide and its corresponding receptor. FlexPepDock demands a three dimensional structure of the receptor and a low resolution approximation of the peptide. In our case, the receptor is HDAC8, its three dimensional structure was solved on numerous occasions and under different conditions in the last few years. In this study we tried to use multiple structures as our template, hoping that one of them will give an accurate complex with the peptidic substrates. Below is a table that summarizes the structures that were tested as templates for this study:
 
 ======	=========	============================================================
 PDB ID	Reference	Description
