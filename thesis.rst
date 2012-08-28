@@ -14,7 +14,7 @@ Description of the dataset
 	
 Template selection
 ----------------------
-	As we've previously discussed, our protocol models the interaction between a peptide and its corresponding receptor. FlexPepDock demands a three dimensional structure of the receptor and a low resolution approximation of the peptide. In our case, the receptor is HDAC8, its three dimensional structure was solved on numerous occasions and under different conditions in the last few years. In this study we tried to use multiple structures as our template, hoping that one of them will give an accurate complex with the peptidic substrates. Below is a table that summarizes the structures that were tested as templates for this study:
+	As we've previously discussed, our protocol models the interaction between a peptide and its corresponding receptor. FlexPepDock takes as input a three dimensional structure of the receptor and a low resolution approximation of the peptide. In our case, the receptor is HDAC8, its three dimensional structure was solved on numerous occasions and under different conditions in the last few years. In this study we tried to use multiple structures as our template, hoping that one of them will give an accurate complex with the peptidic substrates. Below is a table that summarizes the structures that were tested as templates for this study:
 
 	======	=========	============================================================
 	PDB ID	Reference	Description
@@ -30,8 +30,9 @@ Template selection
 
 Choosing the right template is a formidable challenge - some structures were solved with inhibitors - a thing that could induce a different *bound* structure than the actual real substrates. Others were solved with mutations that abolished catalysis and/or binding. And most of all, most structures were solved as dimers that interacted with their highly flexible regions, creating crystal contacts and potential interactions that might have altered the specificity profile of the enzyme.
 
-Preparation of starting structure (+derivation of constraints)
------------------------------------------------------------------
+Preparation of starting structure
+---------------------------------
+	For each of the peptide sequences a coarse model of the complex was generated based on the selected template, that coarse model is the starting structure that serves as the input to the FlexPepDock protocol. According to the *no free lunch theorem*, all search algorithms have the same average performance over all problems, and thus implies that to gain in performance on a certain application one must use a specialized algorithm that includes some prior knowledge about that problem. In previous studies we found that incorporating key interactions between the peptide and the receptor as constraints in FlexPepDock's search algorithm greatly improves the performance of the resulting predictor.
 	#) taking the backbone from the native peptide of 2v5w, fixing the acetylated lysine , extending and mutating the residues to the desired peptide sequence.
 
 Calibration of the protocol
