@@ -32,25 +32,28 @@ Template selection
 
 Preparation of starting structure
 ---------------------------------
-	For each of the peptide sequences a coarse model of the complex was generated based on the selected template, that coarse model is the starting structure that serves as the input to the FlexPepDock protocol. According to the *no free lunch theorem*, all search algorithms have the same average performance over all problems, and thus implies that to gain in performance on a certain application one must use a specialized algorithm that includes some prior knowledge about that problem. In previous studies we found that incorporating key interactions between the peptide and the receptor as constraints in FlexPepDock's search algorithm greatly improves the performance of the resulting predictor. 
-	
+
+	For each of the peptide sequences a coarse model of the complex was generated based on the selected template, that coarse model is the starting structure that serves as input to the FlexPepDock protocol. We tested 2 approaches to create the starting complex, one involved threading the peptide sequence onto the backbone configuration taken from solved structures, the other approach included the extension of peptide to a complete linear polypeptide (all phi angles were set to -135.0 degrees, all psi angles to +135.0 degrees) and superimposing only the acetylated Lysine onto a position taken from the crystal structure. 
+
+	The *no free lunch* theorem suggests that all search algorithms have the same average performance over all problems, and thus implies that to gain in performance on a certain application one must use a specialized algorithm that includes some prior knowledge about that problem. In previous studies we found that incorporating key interactions between the peptide and the receptor as constraints in FlexPepDock's search algorithm greatly improves the performance of the resulting predictor. 
+
 	Unlike previous studies, where the key interactions from which the constraints were derived relied heavily on backbone atoms, we found that the dominant interactions in our case are mostly concentrated around the acetylated Lysine. 
 
 .. figure:: images/figure_1.png
 	:scale: 100 %
-	:alt: map to buried treasure
 
-	**Figure 1:** The key interactions from which the constraints were derived, taken from a solved crystal complex (PDB: 2v5w). 
+	**Figure 1:** The key interactions from which the constraints were derived, taken from a solved crystal complex (PDB: 2v5w).
 
-	#) taking the backbone from the native peptide of 2v5w, fixing the acetylated lysine , extending and mutating the residues to the desired peptide sequence.
+		For example, the interaction between D101 in the receptor and the N atom in the acetylared Lysine is critically important, a mutation D101A resulted in a complete loss of enzyme activity on the peptidic substrate and also on purified histones. [1]_ Additional constraints were derived from the interaction between the acetyl group and the two His, Asp in the active site - mostly in the purpose of fixating the acetylated Lysine in the active site.
+
 
 Calibration of the protocol
 ------------------------------
-	#) Explanation of scoring terms
-	#) Different approaches for modeling (10 representatives)
-		#) Naive scoring mechanism
-		#) approach with different scoring 
-		#) Clustering and how it influenced the results
+	*Fierke et al* performed **type of experiment** to the determine the binding of different peptides to HDAC8. As we've previously discussed, there are several solved structures for HDAC8 each of them can be a potential template for our protocol. In addition, FlexPepDock uses several scoring schemas in addition to the generic scoring function used in Rosetta (*total score*);
+	
+	#) **Peptide score** - includes an estimation of the internal energy of the peptide
+	#) **Interface score** - includes an estimation of the interactions across the interface
+	#) **Reweighted score** - the sum of peptide score, interface score and total score.
 
 Whole data set analysis
 --------------------------
@@ -65,3 +68,7 @@ Phosphosite database
 .. [2] Dowling DP, Gantt SL, Gattis SG, Fierke CA, Christianson DW. Structural studies of human histone deacetylase 8 and its site-specific variants complexed with substrate and inhibitors. Biochemistry. 2008;47(51):13554-63.
 .. [3] Dowling DP, Gantt SL, Gattis SG, Fierke CA, Christianson DW. Structural studies of human histone deacetylase 8 and its site-specific variants complexed with substrate and inhibitors. Biochemistry. 2008;47(51):13554-63.
 .. [4] Somoza JR, Skene RJ, Katz BA, et al. Structural snapshots of human HDAC8 provide insights into the class I histone deacetylases. Structure. 2004;12(7):1325-34.
+
+
+.. footer::
+	Page ###Page### of ###Total###

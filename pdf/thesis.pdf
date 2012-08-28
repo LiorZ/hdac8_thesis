@@ -41,10 +41,10 @@ endobj
  0
  0 ]
  /Contents ()
- /Dest [ 18 0 R
+ /Dest [ 20 0 R
  /XYZ
  68.69291
- 738.6772
+ 630.9843
  0 ]
  /Rect [ 124.6841
  378.7736
@@ -59,10 +59,10 @@ endobj
  0
  0 ]
  /Contents ()
- /Dest [ 18 0 R
+ /Dest [ 20 0 R
  /XYZ
  68.69291
- 702.6772
+ 594.9843
  0 ]
  /Rect [ 124.6841
  348.7736
@@ -77,10 +77,10 @@ endobj
  0
  0 ]
  /Contents ()
- /Dest [ 18 0 R
+ /Dest [ 20 0 R
  /XYZ
  68.69291
- 666.6772
+ 558.9843
  0 ]
  /Rect [ 124.6841
  330.7736
@@ -95,10 +95,10 @@ endobj
  0
  0 ]
  /Contents ()
- /Dest [ 18 0 R
+ /Dest [ 20 0 R
  /XYZ
  68.69291
- 630.6772
+ 522.9843
  0 ]
  /Rect [ 124.6841
  312.7736
@@ -114,12 +114,12 @@ endobj
  6 0 R
  7 0 R
  8 0 R ]
- /Contents 29 0 R
+ /Contents 31 0 R
  /MediaBox [ 0
  0
  595.2756
  841.8898 ]
- /Parent 28 0 R
+ /Parent 30 0 R
  /Resources << /Font 1 0 R
  /ProcSet [ /PDF
  /Text
@@ -170,15 +170,34 @@ endobj
  /Subtype /Type1
  /Type /Font >>
 endobj
-% 'Page2': class PDFPage 
+% 'Annot.NUMBER5': class LinkAnnotation 
 13 0 obj
+<< /Border [ 0
+ 0
+ 0 ]
+ /Contents ()
+ /Dest [ 20 0 R
+ /XYZ
+ 68.69291
+ 630.9843
+ 0 ]
+ /Rect [ 314.9148
+ 352.1336
+ 323.3328
+ 364.1336 ]
+ /Subtype /Link
+ /Type /Annot >>
+endobj
+% 'Page2': class PDFPage 
+14 0 obj
 % Page dictionary
-<< /Contents 30 0 R
+<< /Annots [ 13 0 R ]
+ /Contents 32 0 R
  /MediaBox [ 0
  0
  595.2756
  841.8898 ]
- /Parent 28 0 R
+ /Parent 30 0 R
  /Resources << /Font 1 0 R
  /ProcSet [ /PDF
  /Text
@@ -190,24 +209,6 @@ endobj
  /Trans <<  >>
  /Type /Page >>
 endobj
-% 'Annot.NUMBER5': class LinkAnnotation 
-14 0 obj
-<< /Border [ 0
- 0
- 0 ]
- /Contents ()
- /Dest [ 9 0 R
- /XYZ
- 124.6841
- 392.0236
- 0 ]
- /Rect [ 68.69291
- 725.4272
- 74.25291
- 737.4272 ]
- /Subtype /Link
- /Type /Annot >>
-endobj
 % 'Annot.NUMBER6': class LinkAnnotation 
 15 0 obj
 << /Border [ 0
@@ -217,12 +218,12 @@ endobj
  /Dest [ 9 0 R
  /XYZ
  124.6841
- 362.0236
+ 392.0236
  0 ]
- /Rect [ 68.69291
- 689.4272
- 74.25291
- 701.4272 ]
+ /Rect [ 77.58291
+ 617.7343
+ 83.14291
+ 629.7343 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -232,15 +233,15 @@ endobj
  0
  0 ]
  /Contents ()
- /Dest [ 9 0 R
+ /Dest [ 14 0 R
  /XYZ
- 124.6841
- 344.0236
+ 302.6929
+ 365.3836
  0 ]
- /Rect [ 68.69291
- 653.4272
- 74.25291
- 665.4272 ]
+ /Rect [ 88.70291
+ 617.7343
+ 94.26291
+ 629.7343 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -253,28 +254,65 @@ endobj
  /Dest [ 9 0 R
  /XYZ
  124.6841
+ 362.0236
+ 0 ]
+ /Rect [ 68.69291
+ 581.7343
+ 74.25291
+ 593.7343 ]
+ /Subtype /Link
+ /Type /Annot >>
+endobj
+% 'Annot.NUMBER9': class LinkAnnotation 
+18 0 obj
+<< /Border [ 0
+ 0
+ 0 ]
+ /Contents ()
+ /Dest [ 9 0 R
+ /XYZ
+ 124.6841
+ 344.0236
+ 0 ]
+ /Rect [ 68.69291
+ 545.7343
+ 74.25291
+ 557.7343 ]
+ /Subtype /Link
+ /Type /Annot >>
+endobj
+% 'Annot.NUMBER10': class LinkAnnotation 
+19 0 obj
+<< /Border [ 0
+ 0
+ 0 ]
+ /Contents ()
+ /Dest [ 9 0 R
+ /XYZ
+ 124.6841
  326.0236
  0 ]
  /Rect [ 68.69291
- 617.4272
+ 509.7343
  74.25291
- 629.4272 ]
+ 521.7343 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
 % 'Page3': class PDFPage 
-18 0 obj
+20 0 obj
 % Page dictionary
-<< /Annots [ 14 0 R
- 15 0 R
+<< /Annots [ 15 0 R
  16 0 R
- 17 0 R ]
- /Contents 31 0 R
+ 17 0 R
+ 18 0 R
+ 19 0 R ]
+ /Contents 33 0 R
  /MediaBox [ 0
  0
  595.2756
  841.8898 ]
- /Parent 28 0 R
+ /Parent 30 0 R
  /Resources << /Font 1 0 R
  /ProcSet [ /PDF
  /Text
@@ -285,115 +323,115 @@ endobj
  /Trans <<  >>
  /Type /Page >>
 endobj
-% 'R19': class PDFCatalog 
-19 0 obj
+% 'R21': class PDFCatalog 
+21 0 obj
 % Document Root
-<< /Outlines 21 0 R
- /PageLabels 32 0 R
+<< /Outlines 23 0 R
+ /PageLabels 34 0 R
  /PageMode /UseNone
- /Pages 28 0 R
+ /Pages 30 0 R
  /Type /Catalog >>
 endobj
-% 'R20': class PDFInfo 
-20 0 obj
+% 'R22': class PDFInfo 
+22 0 obj
 << /Author ()
- /CreationDate (D:20120828140221-02'00')
+ /CreationDate (D:20120828165757-02'00')
  /Creator (\(unspecified\))
  /Keywords ()
  /Producer (ReportLab PDF Library - www.reportlab.com)
  /Subject (\(unspecified\))
  /Title (Lior's Thesis) >>
 endobj
-% 'R21': class PDFOutlines 
-21 0 obj
+% 'R23': class PDFOutlines 
+23 0 obj
 << /Count 6
- /First 22 0 R
- /Last 27 0 R
+ /First 24 0 R
+ /Last 29 0 R
  /Type /Outlines >>
 endobj
 % 'Outline.0': class OutlineEntryObject 
-22 0 obj
+24 0 obj
 << /Dest [ 9 0 R
  /XYZ
  62.69291
  699.0236
  0 ]
- /Next 23 0 R
- /Parent 21 0 R
+ /Next 25 0 R
+ /Parent 23 0 R
  /Title (Description of the dataset) >>
 endobj
 % 'Outline.1': class OutlineEntryObject 
-23 0 obj
+25 0 obj
 << /Dest [ 9 0 R
  /XYZ
  62.69291
  546.0236
  0 ]
- /Next 24 0 R
- /Parent 21 0 R
- /Prev 22 0 R
+ /Next 26 0 R
+ /Parent 23 0 R
+ /Prev 24 0 R
  /Title (Template selection) >>
 endobj
 % 'Outline.2': class OutlineEntryObject 
-24 0 obj
+26 0 obj
 << /Dest [ 9 0 R
  /XYZ
  62.69291
  219.0236
  0 ]
- /Next 25 0 R
- /Parent 21 0 R
- /Prev 23 0 R
+ /Next 27 0 R
+ /Parent 23 0 R
+ /Prev 25 0 R
  /Title (Preparation of starting structure) >>
 endobj
 % 'Outline.3': class OutlineEntryObject 
-25 0 obj
-<< /Dest [ 13 0 R
+27 0 obj
+<< /Dest [ 14 0 R
  /XYZ
  62.69291
- 402.3836
+ 306.3836
  0 ]
- /Next 26 0 R
- /Parent 21 0 R
- /Prev 24 0 R
+ /Next 28 0 R
+ /Parent 23 0 R
+ /Prev 26 0 R
  /Title (Calibration of the protocol) >>
 endobj
 % 'Outline.4': class OutlineEntryObject 
-26 0 obj
-<< /Dest [ 13 0 R
+28 0 obj
+<< /Dest [ 14 0 R
  /XYZ
  62.69291
- 264.3836
+ 159.3836
  0 ]
- /Next 27 0 R
- /Parent 21 0 R
- /Prev 25 0 R
+ /Next 29 0 R
+ /Parent 23 0 R
+ /Prev 27 0 R
  /Title (Whole data set analysis) >>
 endobj
 % 'Outline.5': class OutlineEntryObject 
-27 0 obj
-<< /Dest [ 13 0 R
+29 0 obj
+<< /Dest [ 20 0 R
  /XYZ
  62.69291
- 165.3836
+ 741.0236
  0 ]
- /Parent 21 0 R
- /Prev 26 0 R
+ /Parent 23 0 R
+ /Prev 28 0 R
  /Title (Phosphosite database) >>
 endobj
-% 'R28': class PDFPages 
-28 0 obj
+% 'R30': class PDFPages 
+30 0 obj
 % page tree
 << /Count 3
  /Kids [ 9 0 R
- 13 0 R
- 18 0 R ]
+ 14 0 R
+ 20 0 R ]
  /Type /Pages >>
 endobj
-% 'R29': class PDFStream 
-29 0 obj
+% 'R31': class PDFStream 
+31 0 obj
 % page stream
-<< /Length 7391 >>
+<< /Length 7397 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -617,33 +655,46 @@ q
 1 0 0 1 62.69291 186.0236 cm
 Q
 q
-1 0 0 1 62.69291 90.02362 cm
+1 0 0 1 62.69291 102.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 BT 1 0 0 1 0 2 Tm  T* ET
 q
 1 0 0 1 20 0 cm
 q
-BT 1 0 0 1 0 86 Tm 1.74936 Tw 12 TL /F1 10 Tf 0 0 0 rg (For each of the peptide sequences a coarse model of the complex was generated based on the) Tj T* 0 Tw 3.238651 Tw (selected template, that coarse model is the starting structure that serves as the input to the) Tj T* 0 Tw .613555 Tw (FlexPepDock protocol. According to the ) Tj /F3 10 Tf (no free lunch theorem) Tj /F1 10 Tf (, all search algorithms have the same) Tj T* 0 Tw 1.424651 Tw (average performance over all problems, and thus implies that to gain in performance on a certain) Tj T* 0 Tw 2.156136 Tw (application one must use a specialized algorithm that includes some prior knowledge about that) Tj T* 0 Tw .014983 Tw (problem. In previous studies we found that incorporating key interactions between the peptide and the) Tj T* 0 Tw 1.068314 Tw (receptor as constraints in FlexPepDock's search algorithm greatly improves the performance of the) Tj T* 0 Tw (resulting predictor.) Tj T* ET
+0 0 0 rg
+BT 1 0 0 1 0 74 Tm /F1 10 Tf 12 TL 1.74936 Tw (For each of the peptide sequences a coarse model of the complex was generated based on the) Tj T* 0 Tw .201318 Tw (selected template, that coarse model is the starting structure that serves as input to the FlexPepDock) Tj T* 0 Tw .570697 Tw (protocol. We tested 2 approaches to create the starting complex, one involved threading the peptide) Tj T* 0 Tw .29498 Tw (sequence onto the backbone configuration taken from solved structures, the other approach included) Tj T* 0 Tw .67311 Tw (the extension of peptide to a complete linear polypeptide \(all phi angles were set to -135.0 degrees,) Tj T* 0 Tw .328651 Tw (all psi angles to +135.0 degrees\) and superimposing only the acetylated Lysine onto a position taken) Tj T* 0 Tw (from the crystal structure.) Tj T* ET
 Q
 Q
 q
+Q
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+BT 1 0 0 1 0 2 Tm 215.3699 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Page 1 of 3) Tj T* -215.3699 0 Td ET
 Q
 Q
  
 endstream
 endobj
-% 'R30': class PDFStream 
-30 0 obj
+% 'R32': class PDFStream 
+32 0 obj
 % page stream
-<< /Length 5017 >>
+<< /Length 5716 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 729.0236 cm
+1 0 0 1 62.69291 663.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 BT 1 0 0 1 0 2 Tm  T* ET
+q
+1 0 0 1 20 42 cm
+q
+BT 1 0 0 1 0 50 Tm .692126 Tw 12 TL /F1 10 Tf 0 0 0 rg (The ) Tj /F3 10 Tf (no free lunch ) Tj /F1 10 Tf (theorem suggests that all search algorithms have the same average performance) Tj T* 0 Tw .341163 Tw (over all problems, and thus implies that to gain in performance on a certain application one must use) Tj T* 0 Tw 1.045366 Tw (a specialized algorithm that includes some prior knowledge about that problem. In previous studies) Tj T* 0 Tw .96784 Tw (we found that incorporating key interactions between the peptide and the receptor as constraints in) Tj T* 0 Tw (FlexPepDock's search algorithm greatly improves the performance of the resulting predictor.) Tj T* ET
+Q
+Q
 q
 1 0 0 1 20 0 cm
 q
@@ -655,47 +706,37 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 729.0236 cm
+1 0 0 1 62.69291 663.0236 cm
 Q
 q
-1 0 0 1 62.69291 414.3836 cm
+1 0 0 1 62.69291 318.3836 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
-1 0 0 1 115.5449 87 cm
+1 0 0 1 115.5449 117 cm
 q
 238.8 0 0 224.64 0 0 cm
 /FormXob.c7dade85854df47999f3390e8de28bd5 Do
 Q
 Q
 q
-1 0 0 1 6 57 cm
+1 0 0 1 6 87 cm
 q
 BT 1 0 0 1 0 14 Tm 9.979882 0 Td 12 TL /F4 10 Tf 0 0 0 rg (Figure 1: ) Tj /F3 10 Tf (The key interactions from which the constraints were derived, taken from a solved crystal) Tj T* 169.51 0 Td (complex \(PDB: 2v5w\).) Tj T* -179.4899 0 Td ET
 Q
 Q
 q
-1 0 0 1 234.9449 45 cm
-Q
-q
-1 0 0 1 234.9449 39 cm
+1 0 0 1 234.9449 75 cm
 Q
 q
 1 0 0 1 6 9 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 0 2 Tm  T* ET
 q
-1 0 0 1 6 9 cm
+1 0 0 1 20 0 cm
 q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
-Q
-Q
-q
-1 0 0 1 23 -3 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .680651 Tw (taking the backbone from the native peptide of 2v5w, fixing the acetylated lysine , extending and) Tj T* 0 Tw (mutating the residues to the desired peptide sequence.) Tj T* ET
+BT 1 0 0 1 0 50 Tm .06311 Tw 12 TL /F1 10 Tf 0 0 0 rg (For example, the interaction between D101 in the receptor and the N atom in the acetylared Lysine) Tj T* 0 Tw 1.885984 Tw (is critically important, a mutation D101A resulted in a complete loss of enzyme activity on the) Tj T* 0 Tw 1.745982 Tw (peptidic substrate and also on purified histones. ) Tj /F1 8 Tf 0 0 .501961 rg 5 Ts (1 ) Tj /F1 10 Tf 0 0 0 rg 0 Ts (Additional constraints were derived from the) Tj T* 0 Tw .241654 Tw (interaction between the acetyl group and the two His, Asp in the active site - mostly in the purpose) Tj T* 0 Tw (of fixating the acetylated Lysine in the active site.) Tj T* ET
 Q
 Q
 q
@@ -708,72 +749,25 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 381.3836 cm
+1 0 0 1 62.69291 285.3836 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Calibration of the protocol) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 369.3836 cm
+1 0 0 1 62.69291 273.3836 cm
 Q
 q
-1 0 0 1 62.69291 276.3836 cm
+1 0 0 1 62.69291 171.3836 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 BT 1 0 0 1 0 2 Tm  T* ET
 q
-1 0 0 1 20 87 cm
-Q
+1 0 0 1 20 54 cm
 q
-1 0 0 1 20 87 cm
-Q
-q
-1 0 0 1 20 75 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 6 -3 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (1.) Tj T* -5.66 0 Td ET
+BT 1 0 0 1 0 38 Tm 2.127984 Tw 12 TL /F3 10 Tf 0 0 0 rg (Fierke et al ) Tj /F1 10 Tf (performed ) Tj /F2 10 Tf (type of experiment ) Tj /F1 10 Tf (to the determine the binding of different peptides to) Tj T* 0 Tw .360697 Tw (HDAC8. As we've previously discussed, there are several solved structures for HDAC8 each of them) Tj T* 0 Tw .454269 Tw (can be a potential template for our protocol. In addition, FlexPepDock uses several scoring schemas) Tj T* 0 Tw (in addition to the generic scoring function used in Rosetta \() Tj /F3 10 Tf (total score) Tj /F1 10 Tf (\);) Tj T* ET
 Q
 Q
-q
-1 0 0 1 23 -3 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Explanation of scoring terms) Tj T* ET
-Q
-Q
-q
-Q
-Q
-q
-1 0 0 1 20 69 cm
-Q
-q
-1 0 0 1 20 0 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-q
-1 0 0 1 6 54 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL 5.66 0 Td (2.) Tj T* -5.66 0 Td ET
-Q
-Q
-q
-1 0 0 1 23 54 cm
-q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Different approaches for modeling \(10 representatives\)) Tj T* ET
-Q
-Q
-q
-1 0 0 1 23 -3 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 0 44 Tm  T* ET
 q
 1 0 0 1 20 48 cm
 Q
@@ -794,8 +788,7 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Naive scoring mechanism) Tj T* ET
+BT 1 0 0 1 0 2 Tm 12 TL /F2 10 Tf 0 0 0 rg (Peptide score ) Tj /F1 10 Tf (- includes an estimation of the internal energy of the peptide) Tj T* ET
 Q
 Q
 q
@@ -818,8 +811,7 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (approach with different scoring) Tj T* ET
+BT 1 0 0 1 0 2 Tm 12 TL /F2 10 Tf 0 0 0 rg (Interface score ) Tj /F1 10 Tf (- includes an estimation of the interactions across the interface) Tj T* ET
 Q
 Q
 q
@@ -842,8 +834,7 @@ Q
 q
 1 0 0 1 23 -3 cm
 q
-0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Clustering and how it influenced the results) Tj T* ET
+BT 1 0 0 1 0 2 Tm 12 TL /F2 10 Tf 0 0 0 rg (Reweighted score ) Tj /F1 10 Tf (- the sum of peptide score, interface score and total score.) Tj T* ET
 Q
 Q
 q
@@ -856,39 +847,30 @@ q
 Q
 Q
 q
-Q
-Q
-q
-1 0 0 1 20 0 cm
+1 0 0 1 62.69291 171.3836 cm
 Q
 q
-Q
-Q
-q
-1 0 0 1 62.69291 276.3836 cm
-Q
-q
-1 0 0 1 62.69291 243.3836 cm
+1 0 0 1 62.69291 138.3836 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Whole data set analysis) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 231.3836 cm
+1 0 0 1 62.69291 126.3836 cm
 Q
 q
-1 0 0 1 62.69291 177.3836 cm
+1 0 0 1 62.69291 94.86614 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 BT 1 0 0 1 0 2 Tm  T* ET
 q
-1 0 0 1 20 48 cm
+1 0 0 1 20 25.51748 cm
 Q
 q
-1 0 0 1 20 48 cm
+1 0 0 1 20 25.51748 cm
 Q
 q
-1 0 0 1 20 36 cm
+1 0 0 1 20 13.51748 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -909,10 +891,10 @@ q
 Q
 Q
 q
-1 0 0 1 20 30 cm
+1 0 0 1 20 7.51748 cm
 Q
 q
-1 0 0 1 20 18 cm
+1 0 0 1 20 -4.48252 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -933,8 +915,31 @@ q
 Q
 Q
 q
-1 0 0 1 20 12 cm
+1 0 0 1 20 0 cm
 Q
+q
+Q
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+BT 1 0 0 1 0 2 Tm 215.3699 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Page 2 of 3) Tj T* -215.3699 0 Td ET
+Q
+Q
+ 
+endstream
+endobj
+% 'R33': class PDFStream 
+33 0 obj
+% page stream
+<< /Length 2948 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 753.0236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 0 2 Tm  T* ET
 q
 1 0 0 1 20 0 cm
 0 0 0 rg
@@ -963,38 +968,29 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 177.3836 cm
+1 0 0 1 62.69291 753.0236 cm
 Q
 q
-1 0 0 1 62.69291 144.3836 cm
+1 0 0 1 62.69291 720.0236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Phosphosite database) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 81.69071 cm
+1 0 0 1 62.69291 657.3307 cm
 Q
- 
-endstream
-endobj
-% 'R31': class PDFStream 
-31 0 obj
-% page stream
-<< /Length 2107 >>
-stream
-1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 736.6772 cm
+1 0 0 1 62.69291 628.9843 cm
 n 0 14.17323 m 469.8898 14.17323 l S
 Q
 q
-1 0 0 1 62.69291 700.6772 cm
+1 0 0 1 62.69291 592.9843 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
 1 0 0 1 6 24 cm
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 .501961 rg (1) Tj T* ET
+BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (1\() Tj 0 0 .501961 rg (1) Tj 0 0 0 rg (, ) Tj 0 0 .501961 rg (2) Tj 0 0 0 rg (\)) Tj T* ET
 Q
 Q
 q
@@ -1008,7 +1004,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 664.6772 cm
+1 0 0 1 62.69291 556.9843 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -1028,7 +1024,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 628.6772 cm
+1 0 0 1 62.69291 520.9843 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -1048,7 +1044,7 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 604.6772 cm
+1 0 0 1 62.69291 496.9843 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -1067,39 +1063,48 @@ Q
 q
 Q
 Q
+q
+1 0 0 1 62.69291 496.9843 cm
+Q
+q
+1 0 0 1 56.69291 56.69291 cm
+q
+BT 1 0 0 1 0 2 Tm 215.3699 0 Td 12 TL /F1 10 Tf 0 0 0 rg (Page 3 of 3) Tj T* -215.3699 0 Td ET
+Q
+Q
  
 endstream
 endobj
-% 'R32': class PDFPageLabels 
-32 0 obj
+% 'R34': class PDFPageLabels 
+34 0 obj
 % Document Root
 << /Nums [ 0
- 33 0 R
+ 35 0 R
  1
- 34 0 R
+ 36 0 R
  2
- 35 0 R ] >>
-endobj
-% 'R33': class PDFPageLabel 
-33 0 obj
-% None
-<< /S /D
- /St 1 >>
-endobj
-% 'R34': class PDFPageLabel 
-34 0 obj
-% None
-<< /S /D
- /St 2 >>
+ 37 0 R ] >>
 endobj
 % 'R35': class PDFPageLabel 
 35 0 obj
 % None
 << /S /D
+ /St 1 >>
+endobj
+% 'R36': class PDFPageLabel 
+36 0 obj
+% None
+<< /S /D
+ /St 2 >>
+endobj
+% 'R37': class PDFPageLabel 
+37 0 obj
+% None
+<< /S /D
  /St 3 >>
 endobj
 xref
-0 36
+0 38
 0000000000 65535 f
 0000000113 00000 n
 0000000246 00000 n
@@ -1113,37 +1118,39 @@ xref
 0000002095 00000 n
 0000668857 00000 n
 0000784831 00000 n
-0000785019 00000 n
-0000785380 00000 n
-0000785621 00000 n
-0000785862 00000 n
-0000786103 00000 n
-0000786329 00000 n
-0000786658 00000 n
-0000786817 00000 n
-0000787078 00000 n
-0000787203 00000 n
-0000787389 00000 n
-0000787582 00000 n
-0000787790 00000 n
-0000787993 00000 n
-0000788192 00000 n
-0000788357 00000 n
-0000788482 00000 n
-0000795972 00000 n
-0000801088 00000 n
-0000803298 00000 n
-0000803417 00000 n
-0000803494 00000 n
-0000803571 00000 n
+0000785034 00000 n
+0000785261 00000 n
+0000785643 00000 n
+0000785884 00000 n
+0000786126 00000 n
+0000786367 00000 n
+0000786609 00000 n
+0000786835 00000 n
+0000787173 00000 n
+0000787332 00000 n
+0000787593 00000 n
+0000787718 00000 n
+0000787904 00000 n
+0000788097 00000 n
+0000788305 00000 n
+0000788508 00000 n
+0000788707 00000 n
+0000788872 00000 n
+0000788997 00000 n
+0000796493 00000 n
+0000802308 00000 n
+0000805359 00000 n
+0000805478 00000 n
+0000805555 00000 n
+0000805632 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(\337'\361\001\365\022\320\325\300j\371/\231z\276p) (\337'\361\001\365\022\320\325\300j\371/\231z\276p)] 
+ [(Qj\360qG+\362\217y%\310\223\241\343\275\345) (Qj\360qG+\362\217y%\310\223\241\343\275\345)] 
 
- /Info 20 0 R
- /Root 19 0 R
- /Size 36 >>
+ /Info 22 0 R
+ /Root 21 0 R
+ /Size 38 >>
 startxref
-803618
+805679
 %%EOF
