@@ -49,14 +49,18 @@ Preparation of starting structure
 
 Calibration of the protocol
 ------------------------------
-	Previous studies have shown that the calibration of a FlexPepBind protocol results in a more accurate predictor than one that created using a default set of parameters [citation]. The calibration process usually involves the selection of a template, adapting the scoring function[citation to bcl] and finding the right amount of sampling.  
-	As we've previously discussed, there are several solved structures for HDAC8 each of them can be a potential template for our protocol. In addition, FlexPepDock uses several scoring schemas in addition to the generic scoring function used in Rosetta (*total score*) in the purpose of defining the relative binding energy of the peptide to the receptor;
+	Previous studies have shown that a calibration process of a FlexPepBind protocol results in a more accurate predictor than a predictor that's created using a default set of parameters [citation]. The calibration process usually involves the selection of a template, adapting the scoring function[citation to bcl] and finding the right amount of sampling.  
 	
+Calibration of the scoring function
+....................................
+
+	FlexPepDock uses several scoring schemas in addition to the generic scoring function used in Rosetta (*total score*). These scoring schemes were shown to perform better in defining the relative binding energy of a peptide to a receptor.[citation]
+
 	#) **Peptide score** - includes an estimation of the internal energy of the peptide
 	#) **Interface score** - includes an estimation of the interactions across the interface
 	#) **Reweighted score** - the sum of peptide score, interface score and total score.
-	
-	
+
+	As we've previously discussed, there are several solved structures for HDAC8 each of them can serve as a potential template for our protocol. In addition, 
 	To select the most suitable template for our protocol we modeled each of the peptide sequences in the library with a HDAC8 template and evaluated the resulting complex based on each of the above scoring schemes. 
 
 Whole data set analysis
