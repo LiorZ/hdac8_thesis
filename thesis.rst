@@ -132,12 +132,35 @@ Constraints
 .. refer to supp for constraints.
 	
 Summary of calibration runs
-----------------------------
-	The following table summarizes the simulations we've tested to calibrate FlexPepBind for the HDAC8 system:
+............................
+	The first calibration round was made by taking 5 best binders and 5 bad binders, trying to generate a set of parameters to be used for the entire training set.
 	
-	======		================	===============================	========	==================
+	+---------------+----------------------+------------------+
+	|Sequence	|	% deacetylation|	annotation|
+	+===============+======================+==================+
+	|GYK(ac)FGC	|93		       |		  |
+	+---------------+----------------------+		  |
+	|GYK(ac)FGC	|93		       |		  |
+	+---------------+----------------------+   Good Binders	  |
+	|GYK(ac)FGC	|93		       |		  |
+	+---------------+----------------------+		  |
+	|	s	|	    s          |		  |
+	+---------------+----------------------+------------------+
+	|GYK(ac)FGC	|93		       |		  |
+	+---------------+----------------------+		  |
+	|GYK(ac)FGC	|93		       |		  |
+	+---------------+----------------------+   Bad Binders	  |
+	|GYK(ac)FGC	|93		       |		  |
+	+---------------+----------------------+		  |
+	|	d	|	   d           |		  |
+	+---------------+----------------------+------------------+
+	
+	
+	This set of simulation allowed us to quickly distinguish between sets of parameters;
+	
+	======		================	===============================	===========	==================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
-	------		----------------	-------------------------------	--------	------------------
+	------		----------------	-------------------------------	-----------	------------------
 	1		366			* perturbation size = 30	2v5w		* Lazaridis-Karplus
 						* 200 simulations per peptide.			* hack_elec = 0.5
 	
@@ -157,34 +180,61 @@ Summary of calibration runs
 			automatically		* 200 simulations per peptide.			* hack_elec = 0.5
 			since its the 
 			center of mass)	
-	7
-	======		================	===============================	========	==================
+			
+	7		366			* perturbation size = 20	2v5w		* Rosetta's default
+						* 200 simulations per peptide.			  score function
+												  (score12)
+	8		366			* perturbation size = 6 
+						  (default)			2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
 
+	9		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
 
-8	Manually setting the anchor to be 366, the smove_angle_range=20, regular score_12 with constraints!
-no nir’s patch!				
-9	Manually setting the anchor to be 366, the smove_angle_range=default, score patch (elec.0.5.patch) 				
-10	Manually setting the anchor to be 366, the smove_angle_range=15, score_patch (elec.0.5.patch)				
-11					
-12	anually setting the anchor to be 366, the smove_angle_range=15, 
-deacetylase_score_0.25 (hack_elec = 0.25)				
-13	same as 10 , only with starting from the native structure				
-14	same as 10, only setting the peptide anchor atom to be CH				
-15	Whole data set , same conditions as 10, interrupted in the middle of it				
+	10		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.25
+	
+	11		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
+										[*]_	
+														
+	12		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+			(anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+			atom, instead of
+			CA)	
+	
+	13		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+	
+	14		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
+			(anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+			atom instead of
+			CA)								
+	
+	15		366			* perturbation size = 15	1t67		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+
+	16		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+						* low resolution step 
+						  (centroid mode)						
+	
+	18		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+			receptor anchor		* 200 simulations per peptide.			* hack_elec = 0.5
+			was 289 
+			(manually)
+			[*]_
+			
+	======		================	===============================	===========	==================
+
+.. [*] The sequence was threaded on the peptidic substrate backbone in the 2v5w crystal. Since this peptidic substrate was only 4 amino acid long (the train/test sequences were 6 residues long), the 2 extra amino acids backbone conformation attained an extended conformation.
+
+.. [*] Setting the receptor anchor to be the 289 residue , creating an axis that aligns with the Lysine residue side-chain. This axis is directed inside the pocket , and allowed the peptide to rotate while the Lysine residue stays fixed (see figure :ref:`mc`)
+
+After an initial phase of calibration , we were set to examine the parameters we learned from the brief simulations on the whole training set;
+
 16	Whole data set , same conditions as 10
-correlation with clustering got a great p-value and seperation.	KS=0.008
-AUC=0.715
-cutoff=0.35	KS=0.0004
-AUC=0.752
-cutoff=0.35	KS=4.4*10^-6
-AUC=0.873
-cutoff=0.34	KS=2.64*10^-6
-AUC=0.816
-cutoff=0.34
-17	made with 3f07 template, with 10 settings. Problem was that there was a clash with the cysteines of both structures, resulted in dslf_ss_dst=6000. Rescoring with this scoring term				
 18	Threaded peptide, whole dataset, same as 16.				
-19					
-20					
 21	made with same conditions of 10, only the starting structure was made by applying first prepacking and the a rough minimization with tolerance of 0.2. Also, the scoring term of disulfide distance was set to zero (2v5w)				
 22	same as 21 only with 3f07 template				
 23	Running was made with 10 configuration only, with - deacetylase_score_nodisulf
@@ -199,19 +249,8 @@ preparation of the starting structure was made with prepacking first then minimi
 30					
 31	Structure was prepared like 29, only was ran with deacetylase_score_nodisulf.
 Good separation.				
-32	3f07 template, CH as anchor, same terms as 10				
 33	Whole dataset, 3f07 template, same as 10	KS=0.003
-cutoff=0.35
-AUC=0.69	KS=0.022
-cutoff=0.11
-AUC=0.624	KS=0.019
-cutoff=0.63
-AUC=0.25	KS=0.05
-cutoff=0.11
-AUC=0.608
-34	Structure was prepared with regular minimization + prepacking. template was 1t67 and flags similar to 10				
-35	Structure was prepared with regular minimization + prepacking. template was 1t67				
-36	Same as 10 only with low resolution step				
+
 37	Threaded peptide (same conditions as 18) with peptide anchor atom set to be CH should be compared to 18				
 38	Same as 10, setting the anchor to CH, whole dataset.				
 39	Same as 10, with lowres_preoptimize flag set. whole dataset.				
