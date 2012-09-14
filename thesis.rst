@@ -1,7 +1,20 @@
+.. role:: ref
+
+.. role:: label
+
+.. raw::  latex
+
+  \newcommand*{\docutilsroleref}{\ref}
+  \newcommand*{\docutilsrolelabel}{\label}
+
+
 ==============
 Lior's Thesis
 ==============
 
+Introduction
+=============
+bla
 
 Results
 ========
@@ -23,7 +36,7 @@ Preparation of starting structure
 	Unlike previous studies, where the key interactions from which the constraints were derived relied heavily on backbone atoms, we found that the dominant interactions in our case are mostly concentrated around the acetylated Lysine. 
 
 .. figure:: images/figure_1.png
-	:scale: 100 %
+	:scale: 20%
 
 	The key interactions from which the constraints were derived, taken from a solved crystal complex (PDB: 2v5w).
 
@@ -39,7 +52,7 @@ Calibration of the protocol
 Scoring function
 .................
 
-	The FlexPepDock simulations were performed using the standard Rosetta scoring schema (*score12*) and with a slightly modified *score12* that includes several minor adjustments that were shown to improve the resulting predictor. One such change was the introduction of a weak short range Coulombic electrostatic energy term. In our calibration process we validated some of these parameters, verifying that they indeed introduce an improvement to the resulting predictor.
+	The FlexPepDock simulations were performed using the standard Rosetta scoring schema (*score12*) and with a slightly modified *score12* that includes several minor adjustments that were shown to improve the resulting predictor. One such change was the introduction of a weak short range Coulombic electrostatic energy term (hack_elec). In our calibration process we validated some of these parameters, verifying that they indeed introduce an improvement to the resulting predictor.
 	
 	We've seen in several studies conducted in our lab that a slight *post-simulation* change to the scoring function might be beneficial in determining the relative binding affinity of the peptide to the receptor. In other words, the scoring function that is used for the modeling process might be slightly different than the scoring function used to evaluate the complexes after the simulation has been completed. These changes are:
 
@@ -74,7 +87,7 @@ Template selection
 	In order to select a template we applied a short FlexPepDock run on each of the above recetors, complexed with the top and bottom 5 binders while using Kolmogorov-Smirnov statistical to determine how well we could distinguish between the two classes. I also used a short round of minimization that proved useful in earlier studies. Both approaches nominated *2v5w* as the best candidate.
 	
 .. figure:: images/allReceptors.png
-	:scale: 100 %
+	:scale: 20 %
 
 	An alignment of the structures from Table 1, demonstrating the conformational flexibility of the interface of HDAC8.
 
@@ -94,10 +107,123 @@ Rigid body movements
 .. figure:: images/anchor_arrows.png
 	:scale: 30 %
 	
-	The 2 main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other around the backbone of the peptide.
+	:label:`mc` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other around the vector that is formed by the linear conformation of the peptide .
 
 Constraints
 ............
+	HDAC8 has the ability to catalyze a deacetylation reaction with more than one substrate. We believe that its ability to maintain such a diverse specificity profile stems from the fact that its binding motif is encoded in the structure of its substrates. One of our most basic assumptions when applying the FlexPepBind protocol is that the ability to characterize the structural interaction motif properly correlates the capacity to reconstruct the entire specificity profile. To this date (10/2012) there is only one solved complex containing a peptidic substrate bound to HDAC8 (PDB *2v5w*) , so finding a motif in our case was somewhat a challenge. Figure :ref:`mc` illustrates the conserved interactions we derived from the solved complexes.
+	
+	Once a structural motif is determined, the scoring function must be modified to favor conformations that include that particular strucural motif. This is done via the introduction of constraints to the simulation. The most common constraints available in Rosetta are summarized below:
+	
+	
+	=================	==========	=======================================
+	Type of function	Parameters			Formula
+	-----------------	----------	---------------------------------------
+	Harmonic		x0, sd		.. image:: images/harmonic.png
+							:scale: 50%
+	Circular Harmonic	x0, sd		.. image:: images/circular_harmonic.png
+							:scale: 50%
+	Gaussian		mean,sd		.. image:: images/gaussian.png
+							:scale: 50%
+	=================	==========	=======================================
+	
+	Since we didn't want to alow much flexibility in the particular conserved interactions we defined as *conserved*, we used the harmonic function as our constraint, testing several standard deviations in our calibrations.
+	
+.. refer to supp for constraints.
+	
+Summary of calibration runs
+----------------------------
+	The following table summarizes the simulations we've tested to calibrate FlexPepBind for the HDAC8 system:
+	
+	======		================	===============================	========	==================
+	No.		Anchor (residue)	Sampling			Template	Scoring function
+	------		----------------	-------------------------------	--------	------------------
+	1		366			* perturbation size = 30	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+	
+	2		366			* perturbation size = 60	2v5w		* Lazaridis-Karplus
+						* 500 simulations per peptide.			* hack_elec = 0.5
+						
+	3		366			* perturbation size = 90	2v5w		* Lazaridis-Karplus
+						* 900 simulations per peptide.			* hack_elec = 0.5
+
+	4		366			* perturbation size = 30	2v5w		* Lazaridis-Karplus
+						* 500 simulations per peptide.			* hack_elec = 0.5
+	
+	5		366			* perturbation size = 20	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+
+	6		367 (chosen		* perturbation size = 20	2v5w		* Lazaridis-Karplus
+			automatically		* 200 simulations per peptide.			* hack_elec = 0.5
+			since its the 
+			center of mass)	
+	7
+	======		================	===============================	========	==================
+
+
+8	Manually setting the anchor to be 366, the smove_angle_range=20, regular score_12 with constraints!
+no nir’s patch!				
+9	Manually setting the anchor to be 366, the smove_angle_range=default, score patch (elec.0.5.patch) 				
+10	Manually setting the anchor to be 366, the smove_angle_range=15, score_patch (elec.0.5.patch)				
+11					
+12	anually setting the anchor to be 366, the smove_angle_range=15, 
+deacetylase_score_0.25 (hack_elec = 0.25)				
+13	same as 10 , only with starting from the native structure				
+14	same as 10, only setting the peptide anchor atom to be CH				
+15	Whole data set , same conditions as 10, interrupted in the middle of it				
+16	Whole data set , same conditions as 10
+correlation with clustering got a great p-value and seperation.	KS=0.008
+AUC=0.715
+cutoff=0.35	KS=0.0004
+AUC=0.752
+cutoff=0.35	KS=4.4*10^-6
+AUC=0.873
+cutoff=0.34	KS=2.64*10^-6
+AUC=0.816
+cutoff=0.34
+17	made with 3f07 template, with 10 settings. Problem was that there was a clash with the cysteines of both structures, resulted in dslf_ss_dst=6000. Rescoring with this scoring term				
+18	Threaded peptide, whole dataset, same as 16.				
+19					
+20					
+21	made with same conditions of 10, only the starting structure was made by applying first prepacking and the a rough minimization with tolerance of 0.2. Also, the scoring term of disulfide distance was set to zero (2v5w)				
+22	same as 21 only with 3f07 template				
+23	Running was made with 10 configuration only, with - deacetylase_score_nodisulf
+preparation of the starting structure was made with prepacking first then minimization with deacetylase_score_nodisulf
+3f07	bad			
+24	same as 23, with 2v5w				
+25	same as 24, only minimization was performed before prepacking				
+26	same as 25 , only with 3f07				
+27	Structure prepared with minimization and then prepacking with deacetylase score, threaded on the 2v5w peptide				
+28	same as 27 only prepacking without minimization. (Threading -> prepacking)				
+29	Structure was prepared by applying minimization, then prepacking with deacetylase_score. then, same parameters as 10.				
+30					
+31	Structure was prepared like 29, only was ran with deacetylase_score_nodisulf.
+Good separation.				
+32	3f07 template, CH as anchor, same terms as 10				
+33	Whole dataset, 3f07 template, same as 10	KS=0.003
+cutoff=0.35
+AUC=0.69	KS=0.022
+cutoff=0.11
+AUC=0.624	KS=0.019
+cutoff=0.63
+AUC=0.25	KS=0.05
+cutoff=0.11
+AUC=0.608
+34	Structure was prepared with regular minimization + prepacking. template was 1t67 and flags similar to 10				
+35	Structure was prepared with regular minimization + prepacking. template was 1t67				
+36	Same as 10 only with low resolution step				
+37	Threaded peptide (same conditions as 18) with peptide anchor atom set to be CH should be compared to 18				
+38	Same as 10, setting the anchor to CH, whole dataset.				
+39	Same as 10, with lowres_preoptimize flag set. whole dataset.				
+40	Same settings as 10, preparing the structure with the deacetylase_score scoring function				
+41	Same as 40 , sampling up to 500 decoys				
+42	Same as 16, constraints are set to be 0.15				
+43	Same as 16, constraints are set to be 0.25				
+44					
+45	Same as 10, only setting the receptor anchor to be 289, creating an axis that aligns with the lysine residue				
+
+	
+	
 Whole data set analysis
 --------------------------
 	#) measures of success
