@@ -140,23 +140,27 @@ Summary of calibration runs
 	+===============+======================+==================+
 	|GYK(ac)FGC	|93		       |		  |
 	+---------------+----------------------+		  |
-	|GYK(ac)FGC	|93		       |		  |
+	|GYK(ac)WGC	|80		       |		  |
 	+---------------+----------------------+   Good Binders	  |
-	|GYK(ac)FGC	|93		       |		  |
+	|GLK(ac)FGC	|66		       |		  |
 	+---------------+----------------------+		  |
-	|	s	|	    s          |		  |
+	|GIK(ac)FGC	|64		       |		  |
+	+---------------+----------------------+		  |
+	|GRK(ac)YGC	|62		       |		  |
 	+---------------+----------------------+------------------+
-	|GYK(ac)FGC	|93		       |		  |
+	|GQK(ac)YGC	|0		       |		  |
 	+---------------+----------------------+		  |
-	|GYK(ac)FGC	|93		       |		  |
+	|GIK(ac)VGC	|0		       |		  |
 	+---------------+----------------------+   Bad Binders	  |
-	|GYK(ac)FGC	|93		       |		  |
+	|GMK(ac)VGC	|0		       |		  |
 	+---------------+----------------------+		  |
-	|	d	|	   d           |		  |
+	|GDK(ac)YGC	|0		       |		  |
+	+---------------+----------------------+		  |
+	|GMK(ac)YGC	|0		       |		  |
 	+---------------+----------------------+------------------+
 	
 	
-	This set of simulation allowed us to quickly distinguish between sets of parameters;
+	This set of simulations allowed us to quickly distinguish between sets of parameters;
 	
 	======		================	===============================	===========	==================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
