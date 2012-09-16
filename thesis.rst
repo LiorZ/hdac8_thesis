@@ -235,10 +235,41 @@ Summary of calibration runs
 
 .. [*] Setting the receptor anchor to be the 289 residue , creating an axis that aligns with the Lysine residue side-chain. This axis is directed inside the pocket , and allowed the peptide to rotate while the Lysine residue stays fixed (see figure :ref:`mc`)
 
-After an initial phase of calibration , we were set to examine the parameters we learned from the brief simulations on the whole training set;
+	After an initial phase of calibration , we were set to examine the parameters we learned from the brief simulations on the whole training set, this step allowed us to examine whether the parameters learned from the small training set, applies to the larger one.
 
-16	Whole data set , same conditions as 10
-18	Threaded peptide, whole dataset, same as 16.				
+	======		================	===============================	===========	==================
+	No.		Anchor (residue)	Sampling			Template	Scoring function
+	------		----------------	-------------------------------	-----------	------------------
+	1		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+	
+	2		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
+										[*]_	
+	
+	3		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+
+	4		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+												* sd of constraints
+												  is 0.15
+	
+	5		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+						* 200 simulations per peptide.			* hack_elec = 0.5
+												* sd of constraints
+												  is 0.25
+												  
+	6		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
+			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+			atom									
+	
+	7		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+			anchor was CH		* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
+			atom							[*]_	
+	======		================	===============================	===========	==================
+
+
 21	made with same conditions of 10, only the starting structure was made by applying first prepacking and the a rough minimization with tolerance of 0.2. Also, the scoring term of disulfide distance was set to zero (2v5w)				
 22	same as 21 only with 3f07 template				
 23	Running was made with 10 configuration only, with - deacetylase_score_nodisulf
@@ -253,17 +284,10 @@ preparation of the starting structure was made with prepacking first then minimi
 30					
 31	Structure was prepared like 29, only was ran with deacetylase_score_nodisulf.
 Good separation.				
-33	Whole dataset, 3f07 template, same as 10	KS=0.003
 
-37	Threaded peptide (same conditions as 18) with peptide anchor atom set to be CH should be compared to 18				
-38	Same as 10, setting the anchor to CH, whole dataset.				
 39	Same as 10, with lowres_preoptimize flag set. whole dataset.				
 40	Same settings as 10, preparing the structure with the deacetylase_score scoring function				
 41	Same as 40 , sampling up to 500 decoys				
-42	Same as 16, constraints are set to be 0.15				
-43	Same as 16, constraints are set to be 0.25				
-44					
-45	Same as 10, only setting the receptor anchor to be 289, creating an axis that aligns with the lysine residue				
 
 	
 	
