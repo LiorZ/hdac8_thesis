@@ -160,7 +160,7 @@ Summary of calibration runs
 	+---------------+----------------------+------------------+
 	
 	
-	This set of simulations allowed us to quickly distinguish between sets of parameters;
+	This set of short simulations allowed us to quickly distinguish between sets of parameters;
 	
 	======		================	===============================	===========	==================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
@@ -231,11 +231,16 @@ Summary of calibration runs
 			
 	======		================	===============================	===========	==================
 
+
+	The following table summarizes the performance of each of these simulations by measuring the Pearson correlation coefficient and the Kolmogorov - Smirnov p-value by averaging the top 3 models with the lowest peptide , interface and reweighted score against the experimental deacetylation values. 
+	
+	
 .. [*] The sequence was threaded on the peptidic substrate backbone in the 2v5w crystal. Since this peptidic substrate was only 4 amino acid long (the train/test sequences were 6 residues long), the 2 extra amino acids backbone conformation attained an extended conformation.
 
 .. [*] Setting the receptor anchor to be the 289 residue , creating an axis that aligns with the Lysine residue side-chain. This axis is directed inside the pocket , and allowed the peptide to rotate while the Lysine residue stays fixed (see figure :ref:`mc`)
 
-	After an initial phase of calibration , we were set to examine the parameters we learned from the brief simulations on the whole training set, this step allowed us to examine whether the parameters learned from the small training set, applies to the larger one.
+
+After an initial phase of calibration , we were set to examine the parameters we learned from the brief simulations on the whole training set, this step allowed us to examine whether the parameters learned from the small training set, applies to the larger one.
 
 	======		================	===============================	===========	==================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
@@ -244,8 +249,7 @@ Summary of calibration runs
 						* 200 simulations per peptide.			* hack_elec = 0.5
 	
 	2		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
-										[*]_	
+						* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5	
 	
 	3		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
 						* 200 simulations per peptide.			* hack_elec = 0.5
@@ -266,7 +270,7 @@ Summary of calibration runs
 	
 	7		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
 			anchor was CH		* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
-			atom							[*]_	
+			atom								
 	======		================	===============================	===========	==================
 
 
