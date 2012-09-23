@@ -242,7 +242,7 @@ Summary of calibration runs
 Peptide Score
 ``````````````
 	=====	==========================================	==========================================
-	No.	KS Test						Pearson Correlation
+	No.	KS Test						Pearson correlation coefficient
 	-----	------------------------------------------	------------------------------------------
 	1	* D-Statistics: 0.6				* R: -0.45
 		* p-value: 0.2					* p-Value: 0.18
@@ -300,7 +300,7 @@ Peptide Score
 Interface Score
 `````````````````
 	=====	==========================================	==========================================
-	No.	KS Test						Pearson Correlation
+	No.	KS Test						Pearson correlation coefficient
 	-----	------------------------------------------	------------------------------------------
 	1	* D-Statistics: 0.6				* R: -0.69
 		* p-value: 0.2					* p-Value: 0.02
@@ -358,7 +358,7 @@ Interface Score
 Reweighted Score
 `````````````````
 	=====	==========================================	==========================================
-	No.	KS Test						Pearson Correlation
+	No.	KS Test						Pearson correlation coefficient
 	-----	------------------------------------------	------------------------------------------
 	1	* D-Statistics: 0.6				* R: -0.32
 		* p-value: 0.2					* p-Value: 0.35
@@ -455,9 +455,101 @@ No.		Anchor (residue)	Sampling			Template	Scoring function
 		atom								
 ======		================	===============================	===========	===================
 	
-	For each of these simulations we calculated the Pearson's correlation coefficient to evaluate its fitness to experimental data. Furthermore, Our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary predictor, we needed to adapt our dataset accordingly. To accomplish that, we learned a cutoff from the training set data so that each sequence with activity that is lower from the cutoff is labeled as a non-binder and vice versa. We derived a cutoff by applying 2 samples KS test on all possible cutoffs, the cutoff we chose was the one that had the lowest p-value.
-	The 2 samples KS test we used,  quantifies a distance between the empirical distributions of two samples - in our case - binders and non-binders. The resulting p-value is calculated under the null hypothesis that the samples are drawn from the same distribution (in the two-sample case). 
+	For each of these simulations and for each scoring scheme we calculated the Pearson's correlation coefficient to evaluate its fitness to experimental data
 
+.. list-table:: Pearson's correlation coefficient for training set simulations (Interface score)
+   :widths: 5 15 10
+   :header-rows: 1
+
+   * - No.
+     - Pearson correlation coefficient
+     - p-value
+   * - 1
+     - R = -0.22
+     - 0.002
+   * - 2
+     - R = -0.168
+     - 0.02
+   * - 3
+     - R = 0.003
+     - 0.96
+   * - 4
+     - R = -0.21
+     - 0.004
+   * - 5
+     - R = -0.08
+     - 0.27
+   * - 6
+     - R = -0.22
+     - 0.002
+   * - 7
+     - R = -0.27
+     - 0.0002
+
+.. list-table:: Pearson's correlation coefficient for training set simulations (Peptide score)
+   :widths: 5 15 10
+   :header-rows: 1
+
+   * - No.
+     - Pearson correlation coefficient
+     - p-value
+   * - 1
+     - R = -0.15
+     - 0.04
+   * - 2
+     - R = -0.13
+     - 0.06
+   * - 3
+     - R = -0.1
+     - 0.14
+   * - 4
+     - R = -0.14
+     - 0.04
+   * - 5
+     - R = -0.21
+     - 0.004
+   * - 6
+     - R = -0.15
+     - 0.03
+   * - 7
+     - R = -0.15
+     - 0.03
+     
+.. list-table:: Pearson's correlation coefficient for training set simulations (Reweighted score)
+   :widths: 5 15 10
+   :header-rows: 1
+
+   * - No.
+     - Pearson correlation coefficient
+     - p-value
+   * - 1
+     - R = -0.09
+     - 0.2
+   * - 2
+     - R = -0.03
+     - 0.68
+   * - 3
+     - R = 0.004
+     - 0.95
+   * - 4
+     - R = -0.08
+     - 0.26
+   * - 5
+     - R = -0.02
+     - 0.7
+   * - 6
+     - R = -0.07
+     - 0.28
+   * - 7
+     - R = -0.09
+     - 0.19
+
+	We applied a clustering step to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each sequence. This step improved the correlation greatly; 
+	
+	
+	Furthermore, Our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary predictor, we needed to adapt our dataset accordingly. To accomplish that, we learned a cutoff from the training set data so that each sequence with activity that is lower from the cutoff is labeled as a non-binder and vice versa. We derived a cutoff by applying 2 samples KS test on all possible cutoffs, the cutoff we chose was the one that had the lowest p-value.
+	The 2 samples KS test we used,  quantifies a distance between the empirical distributions of two samples - in our case - binders and non-binders. The resulting p-value is calculated under the null hypothesis that the samples are drawn from the same distribution (in the two-sample case). 
+	
 .. figure:: plots/cutoff.png
 	:scale: 50 %
 	
