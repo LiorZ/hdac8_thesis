@@ -413,45 +413,57 @@ Reweighted Score
 	=====	==========================================	==========================================
 
 plots that show the distribution of score of each sequence against its experimental activity are available in section `Calibration - score vs. activity plots`_ in the `Supplementary Material`_.
-Simulation 11 and its set of parameters, using the interface scoring scheme yielded the best performance in terms of correlation and the Kolmogorov-Smirnov p-value. A clustering step further improved our ability to distinguish between binders and non-binders. The same tables with an additional clustering step is located in the .......
+Simulation 11 and its set of parameters, using the interface scoring scheme yielded the best performance in terms of correlation and the Kolmogorov-Smirnov p-value.
 	
-	
-After an initial phase of calibration , we were set to examine the parameters we learned from the brief simulations on the whole training set, this step allowed us to examine whether the parameters learned from the small training set, applies to the larger one.
-
-	======		================	===============================	===========	==================
-	No.		Anchor (residue)	Sampling			Template	Scoring function
-	------		----------------	-------------------------------	-----------	------------------
-	1		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
-	
-	2		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5	
-	
-	3		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
-
-	4		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
-												* sd of constraints
-												  is 0.15
-	
-	5		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
-												* sd of constraints
-												  is 0.25
-												  
-	6		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
-			atom									
-	
-	7		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			anchor was CH		* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
-			atom								
-	======		================	===============================	===========	==================
-
 	
 Whole data set analysis
 --------------------------
+	
+Training a classifier
+.....................
+
+	After an initial phase of calibration , we were set to examine the parameters we learned from the brief simulations on the whole training set, this step allowed us to refine our initial, coarse set of parameters. Below is a table that summarizes the simulations we've performed on the complete training set.
+
+======		================	===============================	===========	===================
+No.		Anchor (residue)	Sampling			Template	Scoring function
+======		================	===============================	===========	===================
+1		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+					* 200 simulations per peptide.			* hack_elec = 0.5
+
+2		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+					* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5	
+
+3		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
+					* 200 simulations per peptide.			* hack_elec = 0.5
+
+4		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+					* 200 simulations per peptide.			* hack_elec = 0.5
+											* sd of constraints
+											  is 0.15
+
+5		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+					* 200 simulations per peptide.			* hack_elec = 0.5
+											* sd of constraints
+											  is 0.25
+											  
+6		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
+		anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+		atom									
+
+7		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+		anchor was CH		* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
+		atom								
+======		================	===============================	===========	===================
+	
+	For each of these simulations we calculated the Pearson's correlation coefficient to evaluate its fitness to experimental data. Furthermore, Our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary predictor, we needed to adapt our dataset accordingly. To accomplish that, we learned a cutoff from the training set data so that each sequence with activity that is lower from the cutoff is labeled as a non-binder and vice versa. We derived a cutoff by applying 2 samples KS test on all possible cutoffs, the cutoff we chose was the one that had the lowest p-value.
+	The 2 samples KS test we used,  quantifies a distance between the empirical distributions of two samples - in our case - binders and non-binders. The resulting p-value is calculated under the null hypothesis that the samples are drawn from the same distribution (in the two-sample case). 
+
+.. figure:: plots/cutoff.png
+	:scale: 50 %
+	
+	:label:`cutoff` log(p-value) of KS test when using the cutoff from the X axis (simulation 1). Clearly, the best cutoff we can choose in this case is 0.34.
+
+		
 	#) measures of success
 	#) determination of cutoff
 	#) statistical tests
@@ -470,55 +482,55 @@ Calibration - score vs. activity plots
 No.	Reweighted Score							Peptide Score									Interface Score
 ---	-------------------------------------------------------------------	-------------------------------------------------------------------------	------------------------------------------------------------------------
 1	.. image:: plots/ShortCalibration/calibration2_activity_score.png 	.. image:: plots/ShortCalibration/calibration2_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration2_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 2	.. image:: plots/ShortCalibration/calibration3_activity_score.png 	.. image:: plots/ShortCalibration/calibration3_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration3_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 3	.. image:: plots/ShortCalibration/calibration4_activity_score.png 	.. image:: plots/ShortCalibration/calibration4_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration4_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 4	.. image:: plots/ShortCalibration/calibration5_activity_score.png 	.. image:: plots/ShortCalibration/calibration5_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration5_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 5	.. image:: plots/ShortCalibration/calibration6_activity_score.png 	.. image:: plots/ShortCalibration/calibration6_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration6_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 6	.. image:: plots/ShortCalibration/calibration7_activity_score.png 	.. image:: plots/ShortCalibration/calibration7_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration7_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 7	.. image:: plots/ShortCalibration/calibration8_activity_score.png 	.. image:: plots/ShortCalibration/calibration8_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration8_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 8	.. image:: plots/ShortCalibration/calibration9_activity_score.png 	.. image:: plots/ShortCalibration/calibration9_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration9_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 9	.. image:: plots/ShortCalibration/calibration10_activity_score.png 	.. image:: plots/ShortCalibration/calibration10_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration10_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 10	.. image:: plots/ShortCalibration/calibration12_activity_score.png 	.. image:: plots/ShortCalibration/calibration12_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration12_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 11	.. image:: plots/ShortCalibration/calibration13_activity_score.png 	.. image:: plots/ShortCalibration/calibration13_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration13_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 12	.. image:: plots/ShortCalibration/calibration14_activity_score.png 	.. image:: plots/ShortCalibration/calibration14_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration14_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 		
 13	.. image:: plots/ShortCalibration/calibration33_activity_score.png 	.. image:: plots/ShortCalibration/calibration33_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration33_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 
 14	.. image:: plots/ShortCalibration/calibration32_activity_score.png 	.. image:: plots/ShortCalibration/calibration32_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration32_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23
+		:scale: 20%								:scale: 20%									:scale: 23
 		
 15	.. image:: plots/ShortCalibration/calibration34_activity_score.png 	.. image:: plots/ShortCalibration/calibration34_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration34_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 
 16	.. image:: plots/ShortCalibration/calibration36_activity_score.png 	.. image:: plots/ShortCalibration/calibration36_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration36_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 
 17	.. image:: plots/ShortCalibration/calibration45_activity_score.png 	.. image:: plots/ShortCalibration/calibration45_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration45_I_sc_activity_score.png	
-		:scale: 23%								:scale: 23%									:scale: 23%
+		:scale: 20%								:scale: 20%									:scale: 20%
 ===	===================================================================	=========================================================================	========================================================================
 
 
@@ -589,35 +601,35 @@ Interface Score
 	1	* D-Statistics: 0.6				* R: -0.46
 		* p-value: 0.2					* p-Value: 0.17
 		
-	2	* D-Statistics: 0.8				* R: -0.65
-		* p-value: 0.03					* p-Value: 0.04
+	2	* D-Statistics: 0.6				* R: -0.7
+		* p-value: 0.2					* p-Value: 0.02
 
-	3	* D-Statistics: 0.4				* R: -0.58
-		* p-value: 0.69					* p-Value: 0.07
+	3	* D-Statistics: 0.6				* R: -0.7
+		* p-value: 0.2					* p-Value: 0.02
 
-	4	* D-Statistics: 0.8				* R: -0.75
-		* p-value: 0.03					* p-Value: 0.012
+	4	* D-Statistics: 0.6				* R: -0.67
+		* p-value: 0.2					* p-Value: 0.03
 
-	5	* D-Statistics: 0.8				* R: -0.76
-		* p-value: 0.03					* p-Value: 0.01
+	5	* D-Statistics: 0.6				* R: -0.5
+		* p-value: 0.2					* p-Value: 0.13
 		
-	6	* D-Statistics: 0.6				* R: -0.65
-		* p-value: 0.2					* p-Value: 0.04
+	6	* D-Statistics: 0.6				* R: -0.46
+		* p-value: 0.2					* p-Value: 0.18
 		
-	7	* D-Statistics: 0.8				* R: -0.7
-		* p-value: 0.03					* p-Value: 0.02
+	7	* D-Statistics: 0.8				* R: -0.57
+		* p-value: 0.03					* p-Value: 0.08
 		
-	8	* D-Statistics: 0.8				* R: -0.72
-		* p-value: 0.03					* p-Value: 0.018
+	8	* D-Statistics: 0.6				* R: -0.46
+		* p-value: 0.2					* p-Value: 0.17
 		
-	9	* D-Statistics: 0.8				* R: -0.77
-		* p-value: 0.03					* p-Value: 0.008
+	9	* D-Statistics: 0.4				* R: -0.44
+		* p-value: 0.69					* p-Value: 0.19
 
-	10	* D-Statistics: 0.6				* R: -0.56
-		* p-value: 0.2					* p-Value: 0.085
+	10	* D-Statistics: 0.8				* R: -0.51
+		* p-value: 0.03					* p-Value: 0.12
 
-	11	* D-Statistics: 0.6				* R: -0.784
-		* p-value: 0.2					* p-Value: 0.007
+	11	* D-Statistics: 0.6				* R: -0.735
+		* p-value: 0.2					* p-Value: 0.015
 		
 	12	* D-Statistics: 0.8				* R: -0.77
 		* p-value: 0.03					* p-Value: 0.009
@@ -637,244 +649,163 @@ Interface Score
 	17	* D-Statistics: 0.8				* R: -0.74
 		* p-value: 0.03					* p-Value: 0.013
 	=====	==========================================	==========================================
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.462221575533
-p-Value: 0.178629557846
-2
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.463648476588
-p-Value: 0.177115656589
-3
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.706242523172
-p-Value: 0.0224410922752
-4
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.670409761848
-p-Value: 0.0338800626063
-5
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.506457647859
-p-Value: 0.135230685122
-6
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.461332543244
-p-Value: 0.179576657429
-7
-KS-Test (Isc)
-D-Statistics: 0.8
-p-Value: 0.0361461907693
-Pearson Correlation
-Correlation: -0.575097877599
-p-Value: 0.0819846755319
-8
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.466518067046
-p-Value: 0.174094219419
-9
-KS-Test (Isc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.447637068749
-p-Value: 0.194541574896
-10
-KS-Test (Isc)
-D-Statistics: 0.8
-p-Value: 0.0361461907693
-Pearson Correlation
-Correlation: -0.515190382406
-p-Value: 0.127519165603
-11
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.735445994682
-p-Value: 0.0153487852856
-12
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.486702054727
-p-Value: 0.153712600895
-13
-KS-Test (Isc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: 0.336801477926
-p-Value: 0.341286044072
-14
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.532218394009
-p-Value: 0.113280604995
-15
-KS-Test (Isc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: 0.278522074394
-p-Value: 0.435837335957
-16
-KS-Test (Isc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.532580230483
-p-Value: 0.112989398079
-17
-KS-Test (Isc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.484984538542
-p-Value: 0.155387754105
+
+
+	13
+	KS-Test (Isc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: 0.336801477926
+	p-Value: 0.341286044072
+	14
+	KS-Test (Isc)
+	D-Statistics: 0.6
+	p-Value: 0.208984830575
+	Pearson Correlation
+	Correlation: -0.532218394009
+	p-Value: 0.113280604995
+	15
+	KS-Test (Isc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: 0.278522074394
+	p-Value: 0.435837335957
+	16
+	KS-Test (Isc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.532580230483
+	p-Value: 0.112989398079
+	17
+	KS-Test (Isc)
+	D-Statistics: 0.6
+	p-Value: 0.208984830575
+	Pearson Correlation
+	Correlation: -0.484984538542
+	p-Value: 0.155387754105
 
 
 
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.36644188764
-p-Value: 0.297650967079
-2
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.391843881863
-p-Value: 0.262769738044
-3
-KS-Test (reweighted_sc)
-D-Statistics: 0.8
-p-Value: 0.0361461907693
-Pearson Correlation
-Correlation: 0.322857953534
-p-Value: 0.362876017253
-4
-KS-Test (reweighted_sc)
-D-Statistics: 0.8
-p-Value: 0.0361461907693
-Pearson Correlation
-Correlation: -0.433110169071
-p-Value: 0.211184894059
-5
-KS-Test (reweighted_sc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.535809360655
-p-Value: 0.110411361438
-6
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.418093889638
-p-Value: 0.22922090811
-7
-KS-Test (reweighted_sc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.483985736229
-p-Value: 0.156366970705
-8
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.337480585041
-p-Value: 0.340251661078
-9
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.377476389025
-p-Value: 0.282209714764
-10
-KS-Test (reweighted_sc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: -0.407934816428
-p-Value: 0.241900986009
-11
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: 0.00172039703656
-p-Value: 0.996236642621
-12
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.386156257012
-p-Value: 0.270374893625
-13
-KS-Test (reweighted_sc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: 0.687621354478
-p-Value: 0.0279844391474
-14
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.00493533810782
-p-Value: 0.989204210851
-15
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: 0.046587314878
-p-Value: 0.898311143496
-16
-KS-Test (reweighted_sc)
-D-Statistics: 0.6
-p-Value: 0.208984830575
-Pearson Correlation
-Correlation: 0.148201333408
-p-Value: 0.682836640006
-17
-KS-Test (reweighted_sc)
-D-Statistics: 0.4
-p-Value: 0.697404878021
-Pearson Correlation
-Correlation: -0.392739854857
-p-Value: 0.261582551526
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.36644188764
+	p-Value: 0.297650967079
+	2
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.391843881863
+	p-Value: 0.262769738044
+	3
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.8
+	p-Value: 0.0361461907693
+	Pearson Correlation
+	Correlation: 0.322857953534
+	p-Value: 0.362876017253
+	4
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.8
+	p-Value: 0.0361461907693
+	Pearson Correlation
+	Correlation: -0.433110169071
+	p-Value: 0.211184894059
+	5
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.6
+	p-Value: 0.208984830575
+	Pearson Correlation
+	Correlation: -0.535809360655
+	p-Value: 0.110411361438
+	6
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.418093889638
+	p-Value: 0.22922090811
+	7
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.6
+	p-Value: 0.208984830575
+	Pearson Correlation
+	Correlation: -0.483985736229
+	p-Value: 0.156366970705
+	8
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.337480585041
+	p-Value: 0.340251661078
+	9
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.377476389025
+	p-Value: 0.282209714764
+	10
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.6
+	p-Value: 0.208984830575
+	Pearson Correlation
+	Correlation: -0.407934816428
+	p-Value: 0.241900986009
+	11
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: 0.00172039703656
+	p-Value: 0.996236642621
+	12
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.386156257012
+	p-Value: 0.270374893625
+	13
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.6
+	p-Value: 0.208984830575
+	Pearson Correlation
+	Correlation: 0.687621354478
+	p-Value: 0.0279844391474
+	14
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.00493533810782
+	p-Value: 0.989204210851
+	15
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: 0.046587314878
+	p-Value: 0.898311143496
+	16
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.6
+	p-Value: 0.208984830575
+	Pearson Correlation
+	Correlation: 0.148201333408
+	p-Value: 0.682836640006
+	17
+	KS-Test (reweighted_sc)
+	D-Statistics: 0.4
+	p-Value: 0.697404878021
+	Pearson Correlation
+	Correlation: -0.392739854857
+	p-Value: 0.261582551526
 
 
 .. [1] Vannini A, Volpari C, Gallinari P, et al. Substrate binding to histone deacetylases as shown by the crystal structure of the HDAC8-substrate complex. EMBO Rep. 2007;8(9):879-84.
