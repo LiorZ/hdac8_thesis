@@ -7,6 +7,8 @@
   \newcommand*{\docutilsroleref}{\ref}
   \newcommand*{\docutilsrolelabel}{\label}
 
+.. role:: raw-math(raw)
+    :format: latex html
 
 ==============
 Lior's Thesis
@@ -133,6 +135,7 @@ Constraints
 	
 Summary of calibration runs
 ............................
+	
 	The first calibration round was made by taking 5 best binders and 5 bad binders, trying to generate a set of parameters to be used for the entire training set.
 	
 	+---------------+----------------------+------------------+
@@ -158,8 +161,7 @@ Summary of calibration runs
 	+---------------+----------------------+		  |
 	|GMK(ac)YGC	|0		       |		  |
 	+---------------+----------------------+------------------+
-	
-	
+
 	This set of short simulations allowed us to quickly distinguish between sets of parameters;
 	
 	======		================	===============================	===========	==================
@@ -455,107 +457,282 @@ No.		Anchor (residue)	Sampling			Template	Scoring function
 		atom								
 ======		================	===============================	===========	===================
 	
-	For each of these simulations and for each scoring scheme we calculated the Pearson's correlation coefficient to evaluate its fitness to experimental data
+	For each of these simulations and for each scoring scheme we calculated the Pearson's correlation coefficient to evaluate its fitness to experimental data. 
+	Furthermore, Our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary predictor, we needed to adapt our dataset accordingly. To accomplish that, we learned a cutoff from the training set data so that each sequence with activity that is lower from the cutoff is labeled as a non-binder and vice versa. We derived that cutoff by applying 2 samples KS test on all possible cutoffs, the chosen activity level to be served as cutoff was the one that had the lowest p-value on the KS test. Using this cutoff we labeled each sequence in our dataset as binder/non binder and plotted an ROC plot.
+
 
 .. list-table:: Pearson's correlation coefficient for training set simulations (Interface score)
-   :widths: 5 15 10
+   :widths: 5 20 20
    :header-rows: 1
 
    * - No.
-     - Pearson correlation coefficient
-     - p-value
+     - Pearson correlation
+     - KS Test
    * - 1
-     - R = -0.22
-     - 0.002
+     - * R: -0.22
+       * p-value: 0.002
+     - * Cutoff: 0.35
+       * p-value: 0.008
    * - 2
-     - R = -0.168
-     - 0.02
+     - * R: -0.168
+       * p-value: 0.020
+     - * Cutoff: 0.35
+       * p-value: 0.02
    * - 3
-     - R = 0.003
-     - 0.96
+     - * R: 0.003
+       * p-value: 0.96
+     - * Cutoff: 0.35
+       * p-value: 0.001
    * - 4
-     - R = -0.21
-     - 0.004
+     - * R: -0.21
+       * p-value: 0.004
+     - * Cutoff: 0.28
+       * p-value: 0.0004
    * - 5
-     - R = -0.08
-     - 0.27
+     - * R: -0.08
+       * p-value: 0.27
+     - * Cutoff: 0.22
+       * p-value: 0.13
    * - 6
-     - R = -0.22
-     - 0.002
+     - * R: -0.22
+       * p-value: 0.002
+     - * Cutoff: 0.35
+       * p-value: 0.0005
    * - 7
-     - R = -0.27
-     - 0.0002
+     - * R: -0.27
+       * p-value: 0.0002
+     - * Cutoff: 0.35
+       * p-value: 0.007
 
 .. list-table:: Pearson's correlation coefficient for training set simulations (Peptide score)
-   :widths: 5 15 10
+   :widths: 5 20 20
    :header-rows: 1
 
    * - No.
-     - Pearson correlation coefficient
-     - p-value
+     - Pearson correlation
+     - KS Test
    * - 1
-     - R = -0.15
-     - 0.04
+     - * R: -0.15
+       * p-value: 0.04
+     - * Cutoff: 0.44
+       * p-value: 0.0001
    * - 2
-     - R = -0.13
-     - 0.06
+     - * R: -0.13
+       * p-value: 0.06
+     - * Cutoff: 0.53
+       * p-value: 0.0003
    * - 3
-     - R = -0.1
-     - 0.14
+     - * R: -0.1
+       * p-value: 0.14
+     - * Cutoff: 0.03
+       * p-value: 0.02
    * - 4
-     - R = -0.14
-     - 0.04
+     - * R: -0.14
+       * p-value: 0.04
+     - * Cutoff: 0.35
+       * p-value: :raw-math:`$$ 4.63 \times 10^{-5} $$`
    * - 5
-     - R = -0.21
-     - 0.004
+     - * R: -0.21
+       * p-value: 0.004
+     - * Cutoff: 0.63
+       * p-value: 0.002
    * - 6
-     - R = -0.15
-     - 0.03
+     - * R: -0.15
+       * p-value: 0.03
+     - * Cutoff: 0.44
+       * p-value: :raw-math:`$$ 1.51 \times 10^{-5} $$`
    * - 7
-     - R = -0.15
-     - 0.03
-     
+     - * R: -0.15
+       * p-value: 0.03
+     - * Cutoff: 0.44
+       * p-value: :raw-math:`$$ 2.79 \times 10^{-5} $$`
+
 .. list-table:: Pearson's correlation coefficient for training set simulations (Reweighted score)
-   :widths: 5 15 10
+   :widths: 5 20 20
    :header-rows: 1
 
    * - No.
-     - Pearson correlation coefficient
-     - p-value
+     - Pearson correlation
+     - KS Test
    * - 1
-     - R = -0.09
-     - 0.2
+     - * R: -0.09
+       * p-value: 0.2
+     - * Cutoff: 0.31
+       * p-value: 0.0005
    * - 2
-     - R = -0.03
-     - 0.68
+     - * R: -0.03
+       * p-value: 0.68
+     - * Cutoff: 0.09
+       * p-value: 0.04
    * - 3
-     - R = 0.004
-     - 0.95
+     - * R: 0.004
+       * p-value: 0.95
+     - * Cutoff: 0.52
+       * p-value: 0.15
    * - 4
-     - R = -0.08
-     - 0.26
+     - * R: -0.08
+       * p-value: 0.04
+     - * Cutoff: 0.31
+       * p-value: 0.003
    * - 5
-     - R = -0.02
-     - 0.7
+     - * R: -0.02
+       * p-value: 0.7
+     - * Cutoff: 0.31
+       * p-value: 0.017
    * - 6
-     - R = -0.07
-     - 0.28
+     - * R: -0.07
+       * p-value: 0.28
+     - * Cutoff: 0.31
+       * p-value: 0.0015
    * - 7
-     - R = -0.09
-     - 0.19
+     - * R: -0.09
+       * p-value: 0.19
+     - * Cutoff: 0.31
+       * p-value: 0.0005
+       
+--------------------------------------
 
-	We applied a clustering step to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each sequence. This step improved the correlation greatly; 
-	
-	
-	Furthermore, Our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary predictor, we needed to adapt our dataset accordingly. To accomplish that, we learned a cutoff from the training set data so that each sequence with activity that is lower from the cutoff is labeled as a non-binder and vice versa. We derived a cutoff by applying 2 samples KS test on all possible cutoffs, the cutoff we chose was the one that had the lowest p-value.
-	The 2 samples KS test we used,  quantifies a distance between the empirical distributions of two samples - in our case - binders and non-binders. The resulting p-value is calculated under the null hypothesis that the samples are drawn from the same distribution (in the two-sample case). 
-	
+
+	We applied a clustering step [citation] to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each sequence. Looking at the KS test p-values , it is easy to see that this step improved our ability to distinguish between binders and non binders significantly. The 2 samples KS test we used,  quantifies a distance between the empirical distributions of two samples - in our case - binders and non-binders. The resulting p-value is calculated under the null hypothesis that the samples are drawn from the same distribution. 
+
+
+.. list-table:: Pearson's correlation coefficient for training set simulations after a clustering step (Interface score)
+   :widths: 5 20 20
+   :header-rows: 1
+
+   * - No.
+     - Pearson correlation
+     - KS Test
+   * - 1
+     - * R: -0.22
+       * p-value: 0.002
+     - * Cutoff: 0.35
+       * p-value: 0.008
+   * - 2
+     - * R: -0.168
+       * p-value: 0.020
+     - * Cutoff: 0.35
+       * p-value: 0.02
+   * - 3
+     - * R: 0.003
+       * p-value: 0.96
+     - * Cutoff: 0.35
+       * p-value: 0.001
+   * - 4
+     - * R: -0.21
+       * p-value: 0.004
+     - * Cutoff: 0.28
+       * p-value: 0.0004
+   * - 5
+     - * R: -0.08
+       * p-value: 0.27
+     - * Cutoff: 0.22
+       * p-value: 0.13
+   * - 6
+     - * R: -0.22
+       * p-value: 0.002
+     - * Cutoff: 0.35
+       * p-value: 0.0005
+   * - 7
+     - * R: -0.27
+       * p-value: 0.0002
+     - * Cutoff: 0.35
+       * p-value: 0.007
+
+.. list-table:: Pearson's correlation coefficient for training set simulations (Peptide score)
+   :widths: 5 20 20
+   :header-rows: 1
+
+   * - No.
+     - Pearson correlation
+     - KS Test
+   * - 1
+     - * R: -0.15
+       * p-value: 0.04
+     - * Cutoff: 0.44
+       * p-value: 0.0001
+   * - 2
+     - * R: -0.13
+       * p-value: 0.06
+     - * Cutoff: 0.53
+       * p-value: 0.0003
+   * - 3
+     - * R: -0.1
+       * p-value: 0.14
+     - * Cutoff: 0.03
+       * p-value: 0.02
+   * - 4
+     - * R: -0.14
+       * p-value: 0.04
+     - * Cutoff: 0.36
+       * p-value: 0.0001
+   * - 5
+     - * R: -0.21
+       * p-value: 0.004
+     - * Cutoff: 0.63
+       * p-value: 0.002
+   * - 6
+     - * R: -0.15
+       * p-value: 0.03
+     - * Cutoff: 0.53
+       * p-value: 0.0001
+   * - 7
+     - * R: -0.15
+       * p-value: 0.03
+     - * Cutoff: 0.47
+       * p-value: 0.0001
+
+.. list-table:: Pearson's correlation coefficient for training set simulations (Reweighted score)
+   :widths: 5 20 20
+   :header-rows: 1
+
+   * - No.
+     - Pearson correlation
+     - KS Test
+   * - 1
+     - * R: -0.09
+       * p-value: 0.2
+     - * Cutoff: 0.31
+       * p-value: 0.0005
+   * - 2
+     - * R: -0.03
+       * p-value: 0.68
+     - * Cutoff: 0.09
+       * p-value: 0.04
+   * - 3
+     - * R: 0.004
+       * p-value: 0.95
+     - * Cutoff: 0.52
+       * p-value: 0.15
+   * - 4
+     - * R: -0.08
+       * p-value: 0.04
+     - * Cutoff: 0.31
+       * p-value: 0.003
+   * - 5
+     - * R: -0.02
+       * p-value: 0.7
+     - * Cutoff: 0.31
+       * p-value: 0.017
+   * - 6
+     - * R: -0.07
+       * p-value: 0.28
+     - * Cutoff: 0.31
+       * p-value: 0.0015
+   * - 7
+     - * R: -0.09
+       * p-value: 0.19
+     - * Cutoff: 0.31
+       * p-value: 0.0005
+
 .. figure:: plots/cutoff.png
 	:scale: 50 %
-	
-	:label:`cutoff` log(p-value) of KS test when using the cutoff from the X axis (simulation 1). Clearly, the best cutoff we can choose in this case is 0.34.
 
-		
+:label:`cutoff` log(p-value) of KS test when using the cutoff from the X axis (simulation 1). Clearly, the best cutoff we can choose in this case is 0.34.
+	
+	To visualize the comparison of our ability to distinguish binders from non binders with and without clustering, we plotted *score vs. activity* plots for all simulations. They are available in the `Supplementary Material`_ - `Training set - score vs. activity plots`_
+	From the results above we were able to derive a modeling scheme that could serve us in our future predictions for additional substrates - the scheme we used in simulation #1 together with a clustering step achieved best AUC together with the 0.34 cutoff we obtained. 
+	
 	#) measures of success
 	#) determination of cutoff
 	#) statistical tests
@@ -570,9 +747,9 @@ Supplementary Material
 Calibration - score vs. activity plots
 ---------------------------------------
 	
-===	===================================================================	=========================================================================	========================================================================
+===	====================================================================	=========================================================================	=======================================================================
 No.	Reweighted Score							Peptide Score									Interface Score
----	-------------------------------------------------------------------	-------------------------------------------------------------------------	------------------------------------------------------------------------
+---	--------------------------------------------------------------------	-------------------------------------------------------------------------	-----------------------------------------------------------------------
 1	.. image:: plots/ShortCalibration/calibration2_activity_score.png 	.. image:: plots/ShortCalibration/calibration2_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration2_I_sc_activity_score.png	
 		:scale: 20%								:scale: 20%									:scale: 20%
 		
@@ -623,7 +800,7 @@ No.	Reweighted Score							Peptide Score									Interface Score
 
 17	.. image:: plots/ShortCalibration/calibration45_activity_score.png 	.. image:: plots/ShortCalibration/calibration45_pep_sc_activity_score.png	.. image:: plots/ShortCalibration/calibration45_I_sc_activity_score.png	
 		:scale: 20%								:scale: 20%									:scale: 20%
-===	===================================================================	=========================================================================	========================================================================
+===	====================================================================	=========================================================================	=======================================================================
 
 
 Calibration with clustering step
@@ -742,162 +919,129 @@ Interface Score
 		* p-value: 0.03					* p-Value: 0.013
 	=====	==========================================	==========================================
 
-
-	13
-	KS-Test (Isc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: 0.336801477926
-	p-Value: 0.341286044072
-	14
-	KS-Test (Isc)
-	D-Statistics: 0.6
-	p-Value: 0.208984830575
-	Pearson Correlation
-	Correlation: -0.532218394009
-	p-Value: 0.113280604995
-	15
-	KS-Test (Isc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: 0.278522074394
-	p-Value: 0.435837335957
-	16
-	KS-Test (Isc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.532580230483
-	p-Value: 0.112989398079
-	17
-	KS-Test (Isc)
-	D-Statistics: 0.6
-	p-Value: 0.208984830575
-	Pearson Correlation
-	Correlation: -0.484984538542
-	p-Value: 0.155387754105
+Training set - score vs. activity plots
+........................................
 
 
+.. list-table:: Training set - score vs. activity plots
+   :widths: 5 30 30 30
+   :header-rows: 1
 
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.36644188764
-	p-Value: 0.297650967079
-	2
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.391843881863
-	p-Value: 0.262769738044
-	3
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.8
-	p-Value: 0.0361461907693
-	Pearson Correlation
-	Correlation: 0.322857953534
-	p-Value: 0.362876017253
-	4
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.8
-	p-Value: 0.0361461907693
-	Pearson Correlation
-	Correlation: -0.433110169071
-	p-Value: 0.211184894059
-	5
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.6
-	p-Value: 0.208984830575
-	Pearson Correlation
-	Correlation: -0.535809360655
-	p-Value: 0.110411361438
-	6
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.418093889638
-	p-Value: 0.22922090811
-	7
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.6
-	p-Value: 0.208984830575
-	Pearson Correlation
-	Correlation: -0.483985736229
-	p-Value: 0.156366970705
-	8
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.337480585041
-	p-Value: 0.340251661078
-	9
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.377476389025
-	p-Value: 0.282209714764
-	10
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.6
-	p-Value: 0.208984830575
-	Pearson Correlation
-	Correlation: -0.407934816428
-	p-Value: 0.241900986009
-	11
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: 0.00172039703656
-	p-Value: 0.996236642621
-	12
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.386156257012
-	p-Value: 0.270374893625
-	13
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.6
-	p-Value: 0.208984830575
-	Pearson Correlation
-	Correlation: 0.687621354478
-	p-Value: 0.0279844391474
-	14
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.00493533810782
-	p-Value: 0.989204210851
-	15
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: 0.046587314878
-	p-Value: 0.898311143496
-	16
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.6
-	p-Value: 0.208984830575
-	Pearson Correlation
-	Correlation: 0.148201333408
-	p-Value: 0.682836640006
-	17
-	KS-Test (reweighted_sc)
-	D-Statistics: 0.4
-	p-Value: 0.697404878021
-	Pearson Correlation
-	Correlation: -0.392739854857
-	p-Value: 0.261582551526
+   * - No.
+     - Reweighted Score
+     - Peptide Score
+     - Interface Score
+   * - 1
+     - .. image:: plots/TrainingSetAnalysis/calibration16_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration16_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration16_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 2
+     - .. image:: plots/TrainingSetAnalysis/calibration18_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration18_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration18_I_sc_activity_score.png
+     	:scale: 21%    
+   * - 3
+     - .. image:: plots/TrainingSetAnalysis/calibration33_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration33_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration33_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 4
+     - .. image:: plots/TrainingSetAnalysis/calibration38_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration38_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration38_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 5
+     - .. image:: plots/TrainingSetAnalysis/calibration39_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration39_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration39_I_sc_activity_score.png
+     	:scale: 21%   
+   * - 6
+     - .. image:: plots/TrainingSetAnalysis/calibration42_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration42_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration42_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 7
+     - .. image:: plots/TrainingSetAnalysis/calibration43_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration43_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration43_I_sc_activity_score.png
+     	:scale: 21%     
+     	
+
+.. list-table:: Training set - score vs. activity plots after clustering
+   :widths: 5 30 30 30
+   :header-rows: 1
+
+   * - No.
+     - Reweighted Score
+     - Peptide Score
+     - Interface Score
+   * - 1
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration16_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration16_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration16_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 2
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_I_sc_activity_score.png
+     	:scale: 21%    
+   * - 3
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 4
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 5
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration39_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration39_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration39_I_sc_activity_score.png
+     	:scale: 21%   
+   * - 6
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration42_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration42_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration42_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 7
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration43_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration43_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration43_I_sc_activity_score.png
+     	:scale: 21%
+
+
+ 
 
 
 .. [1] Vannini A, Volpari C, Gallinari P, et al. Substrate binding to histone deacetylases as shown by the crystal structure of the HDAC8-substrate complex. EMBO Rep. 2007;8(9):879-84.
