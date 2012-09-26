@@ -1,0 +1,133 @@
+calibration16
+KS-Test (Isc)
+D-Statistics:  0.363406712378
+p-Value:  0.025082425992
+Pearson Correlation (Isc):\n============== 
+Correlation:  -0.224476438136
+p-Value:  0.00245004516871
+KS-Test (pep_sc)
+D-Statistics:  0.501984843017
+p-Value:  0.000470459105635
+Pearson Correlation (pep_sc): 
+Correlation:  -0.152831683666
+p-Value:  0.0405388708731
+KS-Test (reweighted_sc)
+D-Statistics:  0.42475640563
+p-Value:  0.00504782230964
+Pearson Correlation (reweighted_sc): 
+Correlation:  -0.0955136118622
+p-Value:  0.202153517965
+calibration18
+KS-Test (Isc)
+D-Statistics:  0.348637015782
+p-Value:  0.0354680811003
+Pearson Correlation (Isc):\n============== 
+Correlation:  -0.168564578367
+p-Value:  0.0233079310522
+KS-Test (pep_sc)
+D-Statistics:  0.419296987088
+p-Value:  0.00586221604953
+Pearson Correlation (pep_sc): 
+Correlation:  -0.138897957601
+p-Value:  0.0622116971633
+KS-Test (reweighted_sc)
+D-Statistics:  0.279411764706
+p-Value:  0.149984280591
+Pearson Correlation (reweighted_sc): 
+Correlation:  -0.0306822745953
+p-Value:  0.681787971117
+calibration33
+KS-Test (Isc)
+D-Statistics:  0.412840746055
+p-Value:  0.00700592396109
+Pearson Correlation (Isc):\n============== 
+Correlation:  0.0037817140635
+p-Value:  0.959703667835
+KS-Test (pep_sc)
+D-Statistics:  0.293041606887
+p-Value:  0.115806153437
+Pearson Correlation (pep_sc): 
+Correlation:  -0.108821280734
+p-Value:  0.144776698251
+KS-Test (reweighted_sc)
+D-Statistics:  0.111908177905
+p-Value:  0.985510206212
+Pearson Correlation (reweighted_sc): 
+Correlation:  0.00464392444883
+p-Value:  0.950526920933
+calibration38
+KS-Test (Isc)
+D-Statistics:  0.461979913917
+p-Value:  0.00168313832626
+Pearson Correlation (Isc):\n============== 
+Correlation:  -0.211201457019
+p-Value:  0.00431718564408
+KS-Test (pep_sc)
+D-Statistics:  0.534791965567
+p-Value:  0.000151520827269
+Pearson Correlation (pep_sc): 
+Correlation:  -0.149482156558
+p-Value:  0.0445962791492
+KS-Test (reweighted_sc)
+D-Statistics:  0.362266857963
+p-Value:  0.0257180701113
+Pearson Correlation (reweighted_sc): 
+Correlation:  -0.0831541024304
+p-Value:  0.265750535659
+calibration39
+KS-Test (Isc)
+D-Statistics:  0.190459110473
+p-Value:  0.584152961664
+Pearson Correlation (Isc):\n============== 
+Correlation:  -0.0821620973053
+p-Value:  0.271515161818
+KS-Test (pep_sc)
+D-Statistics:  0.384505021521
+p-Value:  0.0148244112969
+Pearson Correlation (pep_sc): 
+Correlation:  -0.211880575889
+p-Value:  0.00419126655199
+KS-Test (reweighted_sc)
+D-Statistics:  0.297345767575
+p-Value:  0.106448482398
+Pearson Correlation (reweighted_sc): 
+Correlation:  -0.0278369404292
+p-Value:  0.70990386821
+calibration42
+KS-Test (Isc)
+D-Statistics:  0.472381635581
+p-Value:  0.00121925496937
+Pearson Correlation (Isc):\n============== 
+Correlation:  -0.221870650829
+p-Value:  0.0026839872524
+KS-Test (pep_sc)
+D-Statistics:  0.475968436155
+p-Value:  0.00108914845118
+Pearson Correlation (pep_sc): 
+Correlation:  -0.153930799417
+p-Value:  0.0385529734476
+KS-Test (reweighted_sc)
+D-Statistics:  0.400645624103
+p-Value:  0.00973632700838
+Pearson Correlation (reweighted_sc): 
+Correlation:  -0.079302235053
+p-Value:  0.28860671689
+calibration43
+KS-Test (Isc)
+D-Statistics:  0.385781306388
+p-Value:  0.0143878170241
+Pearson Correlation (Isc):\n============== 
+Correlation:  -0.272017707348
+p-Value:  0.000220773872636
+KS-Test (pep_sc)
+D-Statistics:  0.491158426561
+p-Value:  0.000671966692039
+Pearson Correlation (pep_sc): 
+Correlation:  -0.155163466201
+p-Value:  0.0375395858631
+KS-Test (reweighted_sc)
+D-Statistics:  0.42475640563
+p-Value:  0.00504782230964
+Pearson Correlation (reweighted_sc): 
+Correlation:  -0.097238812249
+p-Value:  0.194085915087
