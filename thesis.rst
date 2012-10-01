@@ -50,7 +50,7 @@ Preparation of starting structure
 .. figure:: images/figure_1.png
 	:scale: 20%
 
-	The key interactions from which the constraints were derived, taken from a solved crystal complex (PDB: 2v5w).
+	:label:`keyint` The key interactions from which the constraints were derived, taken from a solved crystal complex (PDB: 2v5w).
 
 	The interaction between D101 in the receptor and the N atom in the acetylared Lysine is critically important, a mutation D101A resulted in a complete loss of enzyme activity on the peptidic substrate and also on purified histones. [1]_ Additional constraints were derived from the interaction between the acetyl group and the two His, Asp in the active site - mostly in the purpose of fixating the acetylated Lysine in the active site.
 
@@ -97,27 +97,37 @@ Template selection
 
 	Choosing the right template is a formidable challenge - some structures were solved with inhibitors - a thing that could induce a different *bound* structure than the actual real substrates. Others were solved with mutations that abolished catalysis and/or binding. And most of all, most structures were solved as dimers that interacted with their highly flexible regions (even though the biological active form is a monomer [1]_ ) creating crystal contacts and potential interactions that might have altered the specificity profile of the enzyme.
 
-	In order to select a template we applied a short FlexPepDock run on each of the above recetors, complexed with the top and bottom 5 binders and used Pearson's correlation to determine how well we could distinguish between the two classes. Although *London et al* showed that a short minimization to the template structure is sufficient to the selection of a proper template in the case of Bcl2 [7]_ , In our case, the highly flexible interface of HDAC8 led us to try a more robust approach that was more computationally intensive and more accurate in terms of classifier performance. This short pipeline suggested that 2v5w is the best candidate for the structural template, this structure was solved as together with an actual peptide and not 
+	In order to select a template we applied a short FlexPepDock run on each of the above recetors, complexed with the top and bottom 5 binders and used Pearson's correlation to determine how well we could distinguish between the two classes. Although *London et al* showed that a short minimization to the template structure is sufficient to the selection of a proper template in the case of Bcl2 [7]_ , In our case, the highly flexible interface of HDAC8 led us to try a more robust approach that was more computationally intensive and more accurate in terms of classifier performance. This short pipeline suggested that 2v5w is the best candidate for the structural template, this structure was solved as together with an actual peptide, not along with a small molecule or in its free form - a fact which probably contributed to its performance as a structural template.
 	
-.. figure:: images/allReceptors.png
-	:scale: 20 %
+.. figure:: images/interface_allReceptors.png
+	:scale: 30 %
 
-	An alignment of the structures from Table 1, demonstrating the conformational flexibility of the interface of HDAC8.
+	:label:`interreceptor` **A** - The interface of 2v5w with the lysine acetylated peptide and the coumarin residue up close. **B** - An alignment of the structures from Table 1, demonstrating the conformational flexibility of the interface of HDAC8.
 
 Sampling
 ..........
 	
-	The term *Sampling* in the context of FlexPepDock takes 2 different meanings. Since the entire Rosetta framework is based on non-deterministic simulation pathways, the resulting output is different from one simulation to the next and in order to capture the conformation of a complex, several simulation runs should be made in the hope that a large number of simulations converge to the lowest energy conformation. The other meaning of *sampling* in the context of FlexPepDock is the perturbation size of small/sheer moves of the peptide backbone. A large perturbation size increases the sampling space , causing the peptide to explore more conformations.
+	The term *Sampling* in the context of FlexPepDock takes 2 different meanings. Since the entire Rosetta framework is based on non-deterministic simulation pathways, the resulting output is different from one simulation to the next and in order to capture the conformation of a complex, several simulation runs should be made in the hope that at least one will find the global minimal energy conformation. The other meaning of *sampling* in the context of FlexPepDock is the perturbation size of small/sheer moves of the peptide backbone. A large perturbation size increases the sampling space , causing the peptide to explore more conformations.
 	
-	Calibrating the amount of sampling in our FlexPepBind protocol in the context of number of simulations, requires us to find the trade-off between computation time (each simulation run is computationally intensive) and number of near-native output structures (in optimal cases, the more we sample, the larger our signal/noise ratio). In the sampling space context, we aim at finding the trade-off between sampling different peptide conformations and the size of the sample space. If the peptide native structure is relatively different than the starting structure of the simulation (in term of phi/psi angles) then larger perturbations are a necessity in order to find it. Problem is, increasing the perturbation size also increases the space of possible conformations, potentially decreasing the signal/noise ratio.
+	Calibrating the amount of sampling in our FlexPepBind protocol in the context of number of simulations, requires us to find the trade-off between computation time (each simulation run is computationally intensive) and number of near-native output structures (in optimal cases, the more we sample, the larger our signal/noise ratio). In the sampling space context, we aim at finding the trade-off between sampling different peptide conformations and the size of the sample space. If the peptide native structure is relatively different than the starting structure of the simulation (in term of phi/psi angles) then larger perturbations are a necessity in order to find it. Increasing the perturbation size however, can pose a probelm as it also increases the space of possible conformations, potentially decreasing the signal/noise ratio.
 	
-	We found that a modest amount of sampling (in the context of number of simulation runs) is sufficient to generate a reliable predictor. Our findings correlate with an earlier study conducted by *London et al* [citation], that found that 200 simulation rounds are indeed sufficient for this purpose, and that a larger number of simulation rounds doesn't necessarily yield significant improvements in the perdictor's performance. However, in terms of the perturbation size, we found that the default amount of sampling that was sufficient for all previous studies, wasn't optimal in our case, perhaps since our simulation started from an extended peptide conformation, while all other studies reused an existing backbone conformation as a template that all the sequences were threaded on. It is important to note that we tested for this approach as well, threading the peptide on an existing backbone conformation - the *2v5w* PDB complex contains a 5 residues peptidic substrate, this approach didn't yield a better predictor than the one we got when we used an extended conformation, perhaps because of the nature of that particular peptidic substrate - 2 acetylated residues instead of 1, a fluorescenct Coumarin residue, and the fact that the complex was solved as a dimer - causing the peptide to maintain some interactions with the coupled receptor. [picture?]
+	We found that a modest amount of sampling (in the context of number of simulation runs) is sufficient to generate a reliable predictor. Our findings correlate with an earlier study conducted by *London et al* [8]_ , that found that 200 simulation rounds are indeed sufficient for this purpose, and that a larger number of simulation rounds doesn't necessarily yield significant improvements in the perdictor's performance. However, in terms of the perturbation size, we found that the default amount of sampling that was sufficient for all previous studies, wasn't optimal in our case, perhaps since our simulation started from an extended peptide conformation, while all other studies reused an existing backbone conformation as a template that all the sequences were threaded on. 
+	
+	
+	Threading a peptide onto an existing backbone conformation in our case proved to be problematic. As we've previously mentioned, the lack of proper substrate - receptor crystal structure didn't allow us to obtain a genuine peptide - receptor complex and as a result, we couldn't reuse a reliable backbone conformation. We tried to reuse the existing peptide backbone that was present in *2v5w*, this complex was far from optimal - the peptide was located right in the interface between the two HDAC8 dimers that formed in the crystalization process, and interacted heavily with both of them. Furthermore, it contains a fluorescent coumarin residue and two acetylated lysine residues - these facts prevented the backbone conformation of this peptide from being an optimal solution, and indeed - this approach didn't yield a better predictor than the one we got when we used an extended peptide as a starting structure for our simulations.
+	
 
+.. figure:: images/2v5w_complex.png
+	:scale: 25 %
+
+	The interface between the peptide substrate that was crystallized with *2v5w*. 
 	
+	This backbone of this peptide was found to be a poor starting structure since it interacts with both monomers in the dimer, contains a coumarin residue (which potentially has different backbone preferences than conventional amino acids ) and two acetylated lysines.
+
 Rigid body movements
 .....................
 	
-	FlexPepDock applies rigid body movements to the peptide relative to the receptor. The transformations that define these movements are calculated using an axis and the point of center of mass of the peptide. By default , the axis equals to the vector that connects the closest peptide CA atom to the center of mass the peptide , to the closest receptor atom. Since the interaction between HDAC8 and its acetylated peptidic substrate involves a deep pocket in which the acetylated Lysine lies, we tested several axes 
+	FlexPepDock applies rigid body movements to the peptide relative to the receptor. The transformations that define these movements are calculated using an axis and the point of center of mass of the peptide. By default , the axis equals to the vector that connects the closest peptide CA atom to the center of mass the peptide , to the closest receptor atom. Since the interaction between HDAC8 and its acetylated peptidic substrate involves a deep pocket in which the acetylated Lysine lies, we tested several alternative axes (described in figure :ref:`mc` )
 
 .. figure:: images/anchor_arrows.png
 	:scale: 30 %
@@ -127,9 +137,9 @@ Rigid body movements
 Constraints
 ............
 	
-	HDAC8 has the ability to catalyze a deacetylation reaction with more than one substrate. We believe that its ability to maintain such a diverse specificity profile stems from the fact that its binding motif is encoded in the structure of its substrates. One of our most basic assumptions when applying the FlexPepBind protocol is that the ability to characterize the structural interaction motif properly correlates the capacity to reconstruct the entire specificity profile. To this date (10/2012) there is only one solved complex containing a peptidic substrate bound to HDAC8 (PDB *2v5w*) , so finding a motif in our case was somewhat a challenge. Figure :ref:`mc` illustrates the conserved interactions we derived from the solved complexes.
+	HDAC8 has the ability to catalyze a deacetylation reaction with several different substrate [citation]. We believe that its ability to maintain such a diverse specificity profile stems from the fact that its binding motif is encoded in the structure of its substrates. One of our most basic assumptions when applying the FlexPepBind protocol is that the ability to characterize the structural interaction motif properly correlates the capacity to reconstruct the entire specificity profile. To this date (10/2012) there is only one solved complex containing a peptidic substrate bound to HDAC8 (PDB *2v5w*) , so finding a motif in our case was somewhat a challenge. Figure :ref:`keyint` illustrates the conserved interactions we derived from the solved complexes.
 	
-	Once a structural motif is determined, the scoring function must be modified to favor conformations that include that particular strucural motif. This is done via the introduction of constraints to the simulation. The most common constraints available in Rosetta are summarized below:
+	Once a structural motif is determined, the scoring function must be modified to favor conformations that include that particular strucural motif. This step subsequently directs the search algorithm to sample structures that satisfy this collection of constraints. The most common types of constraints that are available in Rosetta are summarized below:
 	
 .. table:: Types of constraint functions in Rosetta
 
@@ -1080,6 +1090,7 @@ Training set simulations and their performance
 .. [5] Yanover C, Bradley P. Extensive protein and DNA backbone sampling improves structure-based specificity prediction for C2H2 zinc fingers. Nucleic Acids Res. 2011;39(11):4564-76.
 .. [6] Kortemme T, Morozov AV, Baker D. An orientation-dependent hydrogen bonding potential improves prediction of specificity and structure for proteins and protein-protein complexes. J. Mol. Biol. 2003;326:1239-1259.
 .. [7] London N, Gullá S, Keating AE, Schueler-furman O. In silico and in vitro elucidation of BH3 binding specificity toward Bcl-2. Biochemistry. 2012;51(29):5841-50.
+.. [8] London N, Lamphear CL, Hougland JL, Fierke CA, Schueler-furman O. Identification of a novel class of farnesylation targets by structure-based modeling of binding specificity. PLoS Comput Biol. 2011;7(10):e1002170.
 
 .. footer::
 	Page ###Page### of ###Total###
