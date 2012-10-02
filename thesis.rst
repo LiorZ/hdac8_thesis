@@ -21,23 +21,17 @@ Introduction
 	1) Acetylation - what it is (a reversible ptm), why is it important?
 	2) Histone Deacetylases (and HAT) - description of the HDAC family, its function
 	3) HDAC8 - why is it *interesting* (the specificity switch , monomer, the syndrome that was published on nature, its role in different cancers, etc)
-	
-Results
+
+
+Methods
 ========
 
-	*London et al* have previously developed a general pipeline for the prediction of binding specificity of flexible peptides to protein receptors. In this pipeline, termed FlexPepBind, we model the structure of a collection of peptides with variable sequences to a target receptor using a high resolution peptide docking protocol - FlexPepDock[citation] and use the energy estimation given by this protocol to each of the peptide - receptor complexes to determine their relative binding affinities and subsequently train a classifier that will be able to distinguish binders from non-binders. This protocol has proven itself in 2 distinct biological systems - the farnesyltransferase (FTase) enzyme [citation] and Bcl2-BH3 [citation]. The interaction between Bcl2-like proteins and BH3 domains is a key feature in the regulation of apoptosis. *London et al* modeled the interaction between a collection of helical BH3 domains and some proteins from the Bcl-2 family and was successful in recapitulating a significant part of their specificity profile, as well as unraveling novel interactions.
+	*London et al* have previously developed a general pipeline for the prediction of binding specificity of flexible peptides to protein receptors. In this pipeline, termed FlexPepBind, we model the structure of a collection of peptides with variable sequences to a target receptor using a high resolution peptide docking protocol - FlexPepDock[citation] and use the energy estimation given by this protocol to each of the peptide - receptor complexes to determine their relative binding affinities and subsequently train a classifier that will be able to distinguish binders from non-binders. This protocol has proven itself in 2 distinct biological systems - the interaction between Bcl2-like proteins and BH3 domains [7]_ which is a key feature in the regulation of apoptosis and  the farnesyltransferase (FTase) enzyme [citation] that catalyzes the attachment of farnesyl group to a protein via a thioether bond to a cysteine at or near the carboxy terminus of the protein [1,2 citation from nir's article]. *London et al* modeled the interaction between a collection of helical BH3 domains and some proteins from the Bcl-2 family and was successful in recapitulating a significant part of their specificity profile, as well as unraveling novel interactions.
 	
-	FTase on the other hand, is an enzyme that catalyzes the attachment of farnesyl group to a protein via a thioether bond to a cysteine at or near the carboxy terminus of the protein [1,2 citation from nir's article]. Unlike the Bcl2-BH3 system, FTase is a catalytic protein that interacts primarily with *substrates*. Since FlexPepBind only models the binding between 2 proteins, *London et al* assumed that binding equals catalysis and showed that this assumption is valid for the vast majority of cases. In our study we used this assumption as well, demonstrating its validity across a wide range of peptides.  
+	Unlike Bcl2-BH3, FTase is a catalytic protein that interacts primarily with *substrates*. Since FlexPepBind only models the interface between a peptide and a receptor, *London et al* assumed that binding equals catalysis and showed that this assumption is valid for the vast majority of cases. 
 	
-	This study is yet another adaptation of this protocol to the intriguing enzyme, HDAC8 to determine its binding specificity and potentially find novel substrates. First, we calibrate and test our protocol for the binding of peptides that were validated experimentally by *Fierke et al*. Then, we derive a classifier and show that it indeed possesses an ability to differentiate between experimentally validated low and high affinity peptides substrates. Last, we try to find novel substrates from a large database of lysine-acetylated proteins.
-
-Description of the dataset
---------------------------
-
-	*Fierke et al* created a dataset composed of 361 6-mer peptides with the sequence GXK(Ac)YGC (where X,Y are all the amino acids except Cysteine). For each of these peptides, a level of activity with respect to HDAC8 was determined by measuring the percentage of deacetylation after 1 hour.(?) (**Add reference to the proper section in the supplementary material**)
-	We divided the dataset to training and test sets by sorting the peptides according to their experimental activity , taking all the even rows to be the test set and all the odd rows to be the training set. That division assured even distribution of peptides with respect to their activity levels (avoiding a situation where one set holds a large number of high/low activity decoys).
+	This study is yet another adaptation of this protocol to the intriguing enzyme HDAC8 to determine its binding specificity and potentially find novel substrates. In our study we also assume that binding equals catalysis, demonstrating that this assumption is valid across a wide range of peptides. The pipeline can be summarized as follows; First, we calibrate and test our protocol for the binding of peptides that were validated experimentally by *Fierke et al*. Then, we derive a classifier and show that it indeed possesses an ability to differentiate between experimentally validated low and high affinity peptides substrates. Last, we try to find novel substrates from a large database of lysine-acetylated proteins.
 	
-
 Preparation of starting structure
 ---------------------------------
 
@@ -45,7 +39,7 @@ Preparation of starting structure
 
 	The *no free lunch* theorem suggests that all search algorithms have the same average performance over all problems [4]_, and thus implies that to gain in performance on a certain application one must use a specialized algorithm that includes some prior knowledge about that problem. In previous studies we found that incorporating key interactions between the peptide and the receptor as constraints in FlexPepDock's search algorithm greatly improves the performance of the resulting predictor. 
 
-	Unlike previous studies, where the key interactions from which the constraints were derived relied heavily on backbone atoms, we found that the dominant interactions in our case are mostly concentrated around the acetylated lysine sidechain. Furthermore, Our experimental and computational results suggests that some of the sidechains of the substrates are key participants in the interaction with HDAC8, for example - we found that the presence aromatic sidechains in either of the variable positions are a good indication for activity in most peptides (TODO: insert figure), however, these findings remain unverified until solved structure of the enzyme together with genuine substrates is introduced.
+	Unlike previous studies, where the key interactions from which the constraints were derived relied heavily on backbone atoms, we found that the dominant interactions in our case are mostly mediated through the acetylated lysine sidechain. Furthermore, Our computational results suggests that the sidechains adjacent to the acetylated lysine form stablilizing stacking interactions with the receptor. Indeed, experimental data shows that aromatic amino acids at these positions are over represented in highly active peptides. However, we still lack a crystal structure that validates our structural hypothesis.
 
 .. figure:: images/figure_1.png
 	:scale: 20%
@@ -53,32 +47,16 @@ Preparation of starting structure
 	:label:`keyint` The key interactions from which the constraints were derived, taken from a solved crystal complex (PDB: 2v5w).
 
 	The interaction between D101 in the receptor and the N atom in the acetylared Lysine is critically important, a mutation D101A resulted in a complete loss of enzyme activity on the peptidic substrate and also on purified histones. [1]_ Additional constraints were derived from the interaction between the acetyl group and the two His, Asp in the active site - mostly in the purpose of fixating the acetylated Lysine in the active site.
-
-
+	
 Calibration of the protocol
 ------------------------------
 	
 	*London et al* [citation] developed a general framework for the prediction of binding specificity of flexible peptides to protein receptors. In general, the scheme of this framework follows a pipeline in which a collection of peptides are modeled in complex with the receptor using a high resolution peptide docking protocol [citation], then the energy estimations (termed *score*) for the modeled complexes are used to determine the relative binding affinity of each peptide to the receptor. In case the receptor is actually an enzyme that catalyzes a chemical reaction, we assume that binding = catalysis, although there are examples in which this assumption fails.[citation] 
 	Previous studies have shown that a calibration process of a FlexPepBind protocol results in a more accurate predictor than a predictor that's created using a default set of parameters [citation]. The calibration process usually involves the selection of a template, adapting the scoring function and finding the right amount of sampling needed to achieve time - performance balance. [citation to bcl]
 
-Scoring function
-.................
-
-	The FlexPepDock simulations were performed using both the standard Rosetta scoring schema (*score12*) and a slightly modified *score12* that includes several minor adjustments that were shown to improve the resulting classifier. The most critical change was the introduction of a weak short range Coulombic electrostatic energy term (hack_elec) In this term, a simple, linearly increasing distance-dependent dielectric was used to model solvent screening effects, with all interactions truncated at 5.5 Å, thereby preserving the short-ranged nature of the all-atom potential. *Bradly et al* [5]_ demonstrated that the incorporation of the explicit electrostatics term in addition to Rosetta's orientation-dependent hydrogen bonding potential [6]_ helped to prevent unfavorable short-range electrostatic interactions, modulated the interaction strength of charged and polar hydrogen bonds and generally, improved the performance of their DNA-protein interaction specificity predictions. This slight modification was also used by *London et al* in their Bcl-2 - BH3 specificity predictions [7]_ and in our calibration process we validated some of these parameters, verifying that they indeed introduce an improvement to the resulting predictor.
-	
-	We've seen in several studies conducted in our lab that a slight *post-simulation* change to the scoring function might be beneficial in determining the relative binding affinity of the peptide to the receptor. In other words, the scoring function that is used for the modeling process might be slightly different than the scoring function used to evaluate the modeled complexes after the simulation has been completed. These changes are:
-
-	#) **Peptide score** - includes an estimation of the internal energy of the peptide
-	#) **Interface score** - includes an estimation of the interactions across the interface
-	#) **Reweighted score** - the sum of peptide score, interface score and total score.
-
-
-	It is yet to be determined if the modification of the scoring function in the following fashion in the simulation phase itself also results in better estimation of the relative binding affinity.
-	
-
 Template selection
 ...................
-	
+
 	As we've previously discussed, our protocol models the interaction between a peptide and its corresponding receptor. FlexPepDock takes as input a three dimensional structure of the receptor and a low resolution approximation of the peptide. In our case, the receptor is HDAC8, its three dimensional structure was solved on numerous occasions and under different conditions in the last few years. In this study we tested multiple structures as templates for the FlexPepBind protocol, summarized in the table below.
 
 .. table:: Structures of HDAC8 that were tested as templates
@@ -97,7 +75,7 @@ Template selection
 
 	Choosing the right template is a formidable challenge - some structures were solved with inhibitors - a thing that could induce a different *bound* structure than the actual real substrates. Others were solved with mutations that abolished catalysis and/or binding. And most of all, most structures were solved as dimers that interacted with their highly flexible regions (even though the biological active form is a monomer [1]_ ) creating crystal contacts and potential interactions that might have altered the specificity profile of the enzyme.
 
-	In order to select a template we applied a short FlexPepDock run on each of the above recetors, complexed with the top and bottom 5 binders and used Pearson's correlation to determine how well we could distinguish between the two classes. Although *London et al* showed that a short minimization to the template structure is sufficient to the selection of a proper template in the case of Bcl2 [7]_ , In our case, the highly flexible interface of HDAC8 led us to try a more robust approach that was more computationally intensive and more accurate in terms of classifier performance. This short pipeline suggested that 2v5w is the best candidate for the structural template, this structure was solved as together with an actual peptide, not along with a small molecule or in its free form - a fact which probably contributed to its performance as a structural template.
+	In order to select a template we applied a short FlexPepDock run on each of the above recetors, complexed with the top and bottom 5 binders and used Pearson's correlation to determine how well we could distinguish between the two classes. We note that *London et al* merely used a short minimization to the template structure to select a proper template in the case of Bcl2 [7]_ , In our case, the highly flexible interface of HDAC8 indicated that a more extensive approach is needed. This short pipeline suggested that 2v5w is the best candidate for the structural template, this structure was solved as together with an actual peptide, not along with a small molecule or in its free form - a fact which probably contributed to its performance as a structural template.
 	
 .. figure:: images/interface_allReceptors.png
 	:scale: 30 %
@@ -124,6 +102,21 @@ Sampling
 	
 	This backbone of this peptide was found to be a poor starting structure since it interacts with both monomers in the dimer, contains a coumarin residue (which potentially has different backbone preferences than conventional amino acids ) and two acetylated lysines.
 
+
+Scoring function
+.................
+
+	The FlexPepDock simulations were performed using both the standard Rosetta scoring schema (*score12*) and a slightly modified *score12* that includes several minor adjustments that were shown to improve the resulting classifier. The most critical change was the introduction of a weak short range Coulombic electrostatic energy term (hack_elec) In this term, a simple, linearly increasing distance-dependent dielectric was used to model solvent screening effects, with all interactions truncated at 5.5 Å, thereby preserving the short-ranged nature of the all-atom potential. *Bradly et al* [5]_ demonstrated that the incorporation of the explicit electrostatics term in addition to Rosetta's orientation-dependent hydrogen bonding potential [6]_ helped to prevent unfavorable short-range electrostatic interactions, modulated the interaction strength of charged and polar hydrogen bonds and generally, improved the performance of their DNA-protein interaction specificity predictions. This slight modification was also used by *London et al* in their Bcl-2 - BH3 specificity predictions [7]_ and in our calibration process we validated some of these parameters, verifying that they indeed introduce an improvement to the resulting predictor.
+	
+	We've seen in several studies conducted in our lab that a slight *post-simulation* change to the scoring function might be beneficial in determining the relative binding affinity of the peptide to the receptor. In other words, the scoring function that is used for the modeling process might be slightly different than the scoring function used to evaluate the modeled complexes after the simulation has been completed. These changes are:
+
+	#) **Peptide score** - includes an estimation of the internal energy of the peptide
+	#) **Interface score** - includes an estimation of the interactions across the interface
+	#) **Reweighted score** - the sum of peptide score, interface score and total score.
+
+
+	It is yet to be determined if the modification of the scoring function in the following fashion in the simulation phase itself also results in better estimation of the relative binding affinity.
+
 Rigid body movements
 .....................
 	
@@ -132,7 +125,7 @@ Rigid body movements
 .. figure:: images/anchor_arrows.png
 	:scale: 30 %
 	
-	:label:`mc` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other around the vector that is formed by the linear conformation of the peptide.
+	:label:`mc` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other approx. around the vector that is formed by the linear conformation of the peptide, X4-Ca (X - a variable position), is the default choice of the protocol.
 
 Constraints
 ............
@@ -159,9 +152,23 @@ Constraints
 	Since we didn't want to alow much flexibility in the particular conserved interactions we defined as *conserved*, we used the harmonic function as our constraint, testing several standard deviations in our calibrations.
 	
 .. refer to supp for constraints.
+
+Results
+========
+
+
+
+Description of the dataset
+--------------------------
+
+	*Fierke et al* created a dataset composed of 361 6-mer peptides with the sequence GXK(Ac)YGC (where X,Y are all the amino acids except Cysteine). For each of these peptides, a level of activity with respect to HDAC8 was determined by measuring the percentage of deacetylation after 1 hour.(?) (**Add reference to the proper section in the supplementary material**)
+	We divided the dataset to training and test sets by sorting the peptides according to their experimental activity , taking all the even rows to be the test set and all the odd rows to be the training set. That division assured even distribution of peptides with respect to their activity levels (avoiding a situation where one set holds a large number of high/low activity decoys).
 	
-Summary of calibration runs
-............................
+
+Calibration of the protocol
+------------------------------
+	
+	Below we describe the results obtained in the calibration process. This process resulted in a coarse set of parameters, to be refined on the whole training set as part of the classifier learning process. Usually, Each step of the calibration process involved changing one degree of freedom of a certain feature (such as - amount of sampling, constraints, etc) while maintaining the others fixed.
 	
 	The first calibration round was made by taking 5 best binders and 5 bad binders, trying to generate a coarse set of parameters to be refined later using the entire training set.
 
@@ -193,7 +200,49 @@ Summary of calibration runs
 ..
 
 
-	This set of short simulations allowed us to quickly distinguish between sets of parameters;
+	This set of short simulations allowed us to quickly distinguish between sets of parameters.
+
+Sampling
+.........
+
+	We inspected different amounts of sampling in which the number of decoys generated and the amount of perturbation size were modified together, since As we've previously mentioned, the larger the perturbation size - the larger the space of possible peptide conformations.
+	
+	Since the amount of sampling was the first feature we decided to calibrate, we initialized the other features with values that were found optimal in previous studies such as:
+	
+	#) Weight of *hackelec* (electrostatic term) = 0.5
+	#) Standard deviation of constraints = 0.2
+	#) Number of decoys generated per simulation = 200
+
+	These features were of course, validated and perturbed in later phases.
+	
+	We also figured that the default anchor chosen in the FlexPepDock protocol will not be optimal in our case, so we started with a predefined anchor that we found to be suitable, and verified its optimality later on when other sets of parameters were calibrated. Furthermore, since it is unlikely that the amount of sampling will be different from one template to another, we selected 2v5w since it is the one that has the best chances to serve as a template, due to the properties we mentioned earlier (primarily since it was solved with an actual peptide and not a small molecule)
+
++---------------+----------------------+----------------------------------------------------+
+|				       |       Scoring scheme (correlation coefficient)	    |
++---------------+----------------------+---------------+-----------------+------------------+
+|No.		|	Sampling       | Peptide score | Interface score | Reweighted score |
++---------------+----------------------+---------------+-----------------+------------------+
+|1		|	asas	       | 1	       |         2       |        3         |		
++---------------+----------------------+---------------+-----------------+------------------+
+
+Template selection
+...................
+
+	As was discussed earlier, we applied a short FlexPepDock run on each of the possible templates complexed with the top and bottom 5 binders and used Pearson's correlation to determine how well we could distinguish between the two classes. 
+
+Scoring function
+.................
+
+
+Rigid body movements
+.....................
+	
+
+Constraints
+............
+	
+Summary of calibration runs
+............................
 	
 .. table:: Description and summary of calibration simulations.
 
@@ -201,65 +250,65 @@ Summary of calibration runs
 	No.		Anchor (residue)	Sampling			Template	Scoring function
 	------		----------------	-------------------------------	-----------	------------------
 	1		366			* perturbation size = 30	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+						* 200 decoys per peptide.			* hack_elec = 0.5
 	
 	2		366			* perturbation size = 60	2v5w		* Lazaridis-Karplus
-						* 500 simulations per peptide.			* hack_elec = 0.5
+						* 500 decoys per peptide.			* hack_elec = 0.5
 						
 	3		366			* perturbation size = 90	2v5w		* Lazaridis-Karplus
-						* 900 simulations per peptide.			* hack_elec = 0.5
+						* 900 decoys per peptide.			* hack_elec = 0.5
 
 	4		366			* perturbation size = 30	2v5w		* Lazaridis-Karplus
-						* 500 simulations per peptide.			* hack_elec = 0.5
+						* 500 decoys per peptide.			* hack_elec = 0.5
 	
 	5		366			* perturbation size = 20	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+						* 200 decoys per peptide.			* hack_elec = 0.5
 
 	6		367 (chosen		* perturbation size = 20	2v5w		* Lazaridis-Karplus
-			automatically		* 200 simulations per peptide.			* hack_elec = 0.5
+			automatically		* 200 decoys per peptide.			* hack_elec = 0.5
 			since its the 
 			center of mass)	
 			
 	7		366			* perturbation size = 20	2v5w		* Rosetta's default
-						* 200 simulations per peptide.			  score function
+						* 200 decoys per peptide.			  score function
 												  (score12)
 	8		366			* perturbation size = 6 
 						  (default)			2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+						* 200 decoys per peptide.			* hack_elec = 0.5
 
 	9		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+						* 200 decoys per peptide.			* hack_elec = 0.5
 
 	10		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.25
+						* 200 decoys per peptide.			* hack_elec = 0.25
 	
 	11		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
+						* 200 decoys per peptide.	(threaded)	* hack_elec = 0.5
 										[*]_	
 														
 	12		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			(anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+			(anchor was CH		* 200 decoys per peptide.			* hack_elec = 0.5
 			atom, instead of
 			CA)	
 	
 	13		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+						* 200 decoys per peptide.			* hack_elec = 0.5
 	
 	14		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-			(anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+			(anchor was CH		* 200 decoys per peptide.			* hack_elec = 0.5
 			atom instead of
 			CA)								
 	
 	15		366			* perturbation size = 15	1t67		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+						* 200 decoys per peptide.			* hack_elec = 0.5
 
 	16		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+						* 200 decoys per peptide.			* hack_elec = 0.5
 						* low resolution step 
 						  (centroid mode)						
 	
 	17		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			receptor anchor		* 200 simulations per peptide.			* hack_elec = 0.5
+			receptor anchor		* 200 decoys per peptide.			* hack_elec = 0.5
 			was 289 
 			(manually)
 			[*]_
