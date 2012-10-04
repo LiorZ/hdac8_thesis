@@ -341,7 +341,7 @@ Constraints
 Threading the peptide
 ......................
 	
-	In the Methods section we've discussed the reasons that led us to use primarily extended conformations as the starting structure for the peptide. We verified this hypothesis in a simulation that incorporated threading sequences of peptides onto the existing starting structure from *2v5w* with a parameter set that's identical to simulation 9 that achieved the best performance in terms of Pearson's correlation:
+	In the Methods section we've discussed the reasons that led us to use primarily extended conformations as the starting structure for the peptide. We verified this hypothesis in a simulation that incorporated the threading of peptides onto the existing starting structure from *2v5w* with a parameter-set that's identical to simulation 9 that achieved the best performance in terms of Pearson's correlation coefficient:
 	
 	* Pearson's Correlation coefficient:
 		* Interface score: -0.784
@@ -366,7 +366,7 @@ Training a classifier
 	After an initial phase of calibration , we were set to examine the parameters learned from the brief simulations on the whole training set, this step allowed us to refine our initial, coarse set of parameters. Below is a table that summarizes the simulations we've performed on the whole training set.
 
 	For each of these simulations and for each scoring scheme we calculated the Pearson's correlation coefficient to evaluate its fitness to experimental data. 
-	Furthermore, Our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary predictor, we needed to adapt our dataset accordingly. To accomplish that, we selected a level of activity to serve as a cutoff from the training set data so that each sequence with activity that is lower from the cutoff is labeled as a non-binder and vice versa. We derived that cutoff by applying 2 samples KS test on all possible activity levels (0-1, in resolution of 0.01), the activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that by using it we could best differentiate between binders (peptides that had higher experimental activity) and non binders (peptides that had lower experimental activity). (see figure :ref:`cutoff`)
+	Let us remember that our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary classifier, we needed to adapt our dataset accordingly - to a binary representation. To accomplish that, we selected an experimental level of activity to serve as a cutoff so that each sequence with activity that is lower than the cutoff is labeled as a non-binder and vice versa. We derived that cutoff by applying 2 samples KS test on all possible activity levels ([0,1], in resolution of 0.01), the activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that could best differentiate between the 2 distributions of *scores* - that of the binders and the score distribution of non binders.  (see figure :ref:`cutoff`)
 	
 .. figure:: plots/cutoff.png
 	:scale: 50 %
@@ -375,14 +375,10 @@ Training a classifier
 
 ..
 
-	
-	We also applied a clustering step [citation] to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each sequence. Looking at the KS test p-values , it is easy to see that this step improved our ability to distinguish between binders and non binders significantly. 
-	
-	The `Training set simulations and their performance`_ concentrates a summary of all simulations with and without a clustering step, including the statistical evaluation of their performance. 
 
-	To visualize the comparison of our ability to distinguish binders from non binders with and without clustering, we plotted *score vs. activity* plots for all simulations. They are available in the `Supplementary Material`_ - `Training set analysis`_
-	From the results above we were able to derive a modeling scheme that could serve us in our future predictions for additional substrates - the scheme we used in simulation #1 together with a clustering step achieved best AUC together with the 0.34 cutoff we obtained. (see figure :ref:`roc`)
-
+	This table summarizes the simulations we performed on the whole training set, each of the columns describe a different aspect of the parameter set used.
+	
+	
 .. table:: Summary of training set simulations
 
 	======		================	===============================	===========	===================
@@ -415,11 +411,29 @@ Training a classifier
 			anchor was CH		* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
 			atom								
 	======		================	===============================	===========	===================
+
+..
+
+	
+	We applied a clustering step [citation] to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each sequence. Looking at the KS test p-values , it is easy to see that this step improved our ability to distinguish between binders and non binders significantly. Simulations 6 and 7 achieved the best KS p-values on the training set, 1.51×10\ :sup:`-5` and 2.79×10\ :sup:`-5` respectively, using the peptide scoring scheme. However the cutoff that's responsible for these low p-values is 0.44 which is relatively high and isn't sensitive enough (there are only 11 out of 181 peptides with higher activity levels). Simulation #4 showed a potentially good ability to differentiate between binders and non-binders with cutoff of 0.35 and KS p-value of 4.63×10\ :sup:`-5`. After employing a clustering step, we witnessed an significant improvement in the p-values obtained by the KS test. Simulation #4, the one with the lower standard deviation for the constraints demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` which is a two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 , in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme it showed a p-value of 4.03×10\ :sup:`-6` using a cutoff of 0 activity level. This parameter set indeed demonstrate both specificity and a very high sensitivity in differentiating between binders and non-binders.
+	
+	Interestingly, we saw the level of activity of 0.34 reccur as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example , simulation #1 that has the parameter set that was one of the best performing in the first initial calibration phase with the interface scoring scheme achieved a p-value of 4.4×10\ :sup:`-6` - a three orders of magnitudes improvement comparing to its performance without clustering.
+
+	The `Training set simulations and their performance`_ concentrates a summary of all simulations with and without a clustering step, including the statistical evaluation of their performance. 
+
+	To visualize the comparison of our ability to distinguish binders from non binders with and without clustering, we plotted *score vs. activity* plots for all simulations. They are available in the `Supplementary Material`_ - `Training set analysis`_
+	From the results above we were able to derive a modeling scheme that could serve us in our future predictions for additional substrates - the scheme we used in simulation #1 together with a clustering step achieved best AUC together with the 0.34 cutoff we obtained. (see figure :ref:`roc`)
 	
 Comparison to a minimization only based classifier
 ...................................................
 
-	Previous studies [citation] have indicated that a minimization only scheme could yield suprisingly good predictors and as a result, posses a ability to distinguish binders and non binders in several biological systems. The FlexPepDock protocol applies a minimization scheme in which only the corresponding peptide and the interface residues are minimized while the whole receptor structure stays fixed. We've applied this minimization scheme to our training set to evaluate and compare the ability of both methods. In contrast to the FlexPepDock training scheme , we have found that the peptide scoring scheme worked provided a more accurate predictor, comparing to the other scoring schemes see figure :ref:`roc` for more details.
+	Previous studies have indicated that a minimization only scheme could yield suprisingly good predictors and as a result, posses a ability to distinguish binders and non binders in several biological systems [7]_ [8]_. The FlexPepDock protocol applies a minimization scheme in which only the corresponding peptide and the interface residues are minimized while the whole receptor structure stays fixed. We've applied several different minimization schemes to our training set to evaluate and compare the ability of both methods - the full optimization that uses the FlexPepDock modeling protocol and the a simple minimzation of the interface and peptide employed by FlexPepDock. We've tried several approaches:
+	
+	1) Minimization with *score12*, rest is similar to Simulation #1 applied to the whole training set
+	2) Minimization with the same modification to the scoring function as Simulation #1 (hackelec, Lazaridis-Karplus) applied to the whole training set
+	3) Minimization starting from threaded peptides, identical to simulation #2 applied to the whole training set
+	
+	Surprisingly , the 1st approach - the one that didn't require any changes to the scoring function was the one that best correlated with experimental data and showed the best ability so far to distinguish binders from non binders with a KS p-value of 5.95×10\ :sup:`-10` and a cutoff of 0.34 using the peptide scoring scheme - three orders of magnitude improvement to full optimization simulations. The 2nd approach also performed well with a KS p-value of 4.6×10\ :sup:`-8` and a cutoff of 0.34, using the peptide scoring scheme. The 3rd approach failed to improve any of the p-values obtained in the full simulation runs. Figure :ref:`roc` shows an ROC plot comparing the performance of possible predictors derived from both types of best performing simulations - minimization only and full optimization.
 
 Test set analysis
 ..................
@@ -1035,40 +1049,40 @@ Training set simulations and their performance
      - Pearson correlation
      - KS Test
    * - 1
-     - * R: -0.22
+     - * R: -0.25
        * p-value: 0.002
-     - * Cutoff: 0.35
-       * p-value: 0.008
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 4.4 \times 10^{-6} $$`
    * - 2
-     - * R: -0.168
-       * p-value: 0.020
-     - * Cutoff: 0.35
-       * p-value: 0.02
+     - * R: -0.187
+       * p-value: 0.012
+     - * Cutoff: 0
+       * p-value: 0.005
    * - 3
-     - * R: 0.003
-       * p-value: 0.96
-     - * Cutoff: 0.35
-       * p-value: 0.001
+     - * R: 0.005
+       * p-value: 0.84
+     - * Cutoff: 0.363
+       * p-value: 0.02
    * - 4
-     - * R: -0.21
-       * p-value: 0.004
-     - * Cutoff: 0.28
-       * p-value: 0.0004
+     - * R: -0.24
+       * p-value: 0.0007
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 4.48 \times 10^{-7} $$`
    * - 5
-     - * R: -0.08
-       * p-value: 0.27
-     - * Cutoff: 0.22
-       * p-value: 0.13
+     - * R: -0.04
+       * p-value: 0.55
+     - * Cutoff: 0.09
+       * p-value: 0.14
    * - 6
-     - * R: -0.22
-       * p-value: 0.002
-     - * Cutoff: 0.35
-       * p-value: 0.0005
+     - * R: -0.28
+       * p-value: 0.0001
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 2.64 \times 10^{-6} $$`
    * - 7
      - * R: -0.27
-       * p-value: 0.0002
-     - * Cutoff: 0.35
-       * p-value: 0.007
+       * p-value: 0.00017
+     - * Cutoff: 0.31
+       * p-value: :raw-math:`$$ 1.53 \times 10^{-6} $$`
 
 .. list-table:: Pearson's correlation coefficient and KS-test values for training set simulations after a clustering step (Peptide score)
    :widths: 5 20 20
@@ -1078,40 +1092,40 @@ Training set simulations and their performance
      - Pearson correlation
      - KS Test
    * - 1
-     - * R: -0.15
-       * p-value: 0.04
-     - * Cutoff: 0.44
-       * p-value: 0.0001
+     - * R: -0.22
+       * p-value: 0.003
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 2.64 \times 10^{-6} $$`
    * - 2
-     - * R: -0.13
-       * p-value: 0.06
-     - * Cutoff: 0.53
-       * p-value: 0.0003
+     - * R: -0.17
+       * p-value: 0.02
+     - * Cutoff: 0
+       * p-value: :raw-math:`$$ 4.03 \times 10^{-6} $$`
    * - 3
      - * R: -0.1
-       * p-value: 0.14
-     - * Cutoff: 0.03
-       * p-value: 0.02
+       * p-value: 0.167
+     - * Cutoff: 0.11
+       * p-value: 0.05
    * - 4
-     - * R: -0.14
-       * p-value: 0.04
-     - * Cutoff: 0.36
-       * p-value: 0.0001
+     - * R: -0.214
+       * p-value: 0.003
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 5.89 \times 10^{-7} $$`
    * - 5
-     - * R: -0.21
-       * p-value: 0.004
-     - * Cutoff: 0.63
-       * p-value: 0.002
+     - * R: -0.126
+       * p-value: 0.09
+     - * Cutoff: 0.18
+       * p-value: :raw-math:`$$ 1.82 \times 10^{-5} $$`
    * - 6
-     - * R: -0.15
-       * p-value: 0.03
-     - * Cutoff: 0.53
-       * p-value: 0.0001
+     - * R: -0.24
+       * p-value: 0.001
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 2.64 \times 10^{-6} $$`
    * - 7
-     - * R: -0.15
-       * p-value: 0.03
-     - * Cutoff: 0.47
-       * p-value: 0.0001
+     - * R: -0.23
+       * p-value: 0.001/
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 4.4 \times 10^{-6} $$`
 
 .. list-table:: Pearson's correlation coefficient and KS-test values for training set simulations after a clustering step (Reweighted score)
    :widths: 5 20 20
@@ -1121,40 +1135,40 @@ Training set simulations and their performance
      - Pearson correlation
      - KS Test
    * - 1
-     - * R: -0.09
-       * p-value: 0.2
-     - * Cutoff: 0.31
-       * p-value: 0.0005
+     - * R: -0.2
+       * p-value: 0.007
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 4.4 \times 10^{-6} $$`
    * - 2
-     - * R: -0.03
-       * p-value: 0.68
-     - * Cutoff: 0.09
-       * p-value: 0.04
+     - * R: 0.09
+       * p-value: 0.18
+     - * Cutoff: 0
+       * p-value: 0.01
    * - 3
-     - * R: 0.004
-       * p-value: 0.95
-     - * Cutoff: 0.52
-       * p-value: 0.15
+     - * R: 0.005
+       * p-value: 0.938
+     - * Cutoff: 0.44
+       * p-value: 0.14
    * - 4
-     - * R: -0.08
-       * p-value: 0.04
-     - * Cutoff: 0.31
+     - * R: -0.215
        * p-value: 0.003
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 5.9 \times 10^{-7} $$`
    * - 5
-     - * R: -0.02
-       * p-value: 0.7
+     - * R: -0.08
+       * p-value: 0.24
      - * Cutoff: 0.31
-       * p-value: 0.017
+       * p-value: 0.006
    * - 6
-     - * R: -0.07
-       * p-value: 0.28
-     - * Cutoff: 0.31
-       * p-value: 0.0015
+     - * R: -0.234
+       * p-value: 0.001
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 4.81 \times 10^{-6} $$`
    * - 7
-     - * R: -0.09
-       * p-value: 0.19
-     - * Cutoff: 0.31
-       * p-value: 0.0005
+     - * R: -0.217
+       * p-value: 0.003
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$$ 7.27 \times 10^{-6} $$`
 
 Score vs. Activity plots
 .........................
