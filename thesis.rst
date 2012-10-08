@@ -21,17 +21,45 @@ Introduction
 	1) Acetylation - what it is (a reversible ptm), why is it important?
 	2) Histone Deacetylases (and HAT) - description of the HDAC family, its function
 	3) HDAC8 - why is it *interesting* (the specificity switch , monomer, the syndrome that was published on nature, its role in different cancers, etc)
+	
+The Rosetta Framework
+----------------------
+	
+	Rosetta is a well known framework that serves as a multi-purpose toolbox in a variety of scientific studies that involve the three dimensional modeling of a macro-molecule; From design of new enzymes [citation] and symmetric proteins to predicting the structure of an RNA molecule [citation]. In its early days, Rosetta started merely as a protocol for predicting the three-dimensional structure of a protein from sequence alone, *ab-initio* modeling, a heuristic to a difficult problem which is long known to be NP-complete [9]_ . Critical to all molecular modeling problems - from design to *ab-initio* structure prediction are a reasonably accurate free-energy function and a sampling method capable of locating the minima of this function for the biomolecular system under study. 
+	
+	**Rosetta's scoring function** attempts to capture several hallmark features that exists in all folded structures of macro-molecules, particularly in proteins. One of these features is the nearly void-free packing of non-polar groups burying them away from water, as well as the formation of intramolecular hydrogen bonds among all buried polar atoms [10]_ . This feature is a direct consequence of the hydrophobic effect discovered by Kauzmann and was shown to be the dominant driving force in the folding of proteins [11]_ . Another feature reflects the Van-der Waals interactions between buried atoms - particularly the strong size dependence between the free energy cost of forming a cavity in the solvant to accomodate the macro molecule, and third, the free energy cost of striping water molecules from polar residues, that has to be compensated by the formation of intramolecular network of hydrogen bonds. 
+	
+	These features are captured in Rosetta to some extent, atom-atom interactions are computed using a Lennard-Jones potential to describe packing, a solvation model in which interactions with water molecules aren't modeled explicitly, (an implicit solvent model), to describe the hydrophobic effect and the electrostatic desolvation cost associated with burial of polar atoms, and an explicit hydrogen-bonding potential to describe hydrogen bonding. The energy function employed by Rosetta, although was proved to be robust in a plethora of studies is only a rough approximation; For start, long range electrostatic interactions that were shown to be incredibly difficult to compute because of the *induced polarization effect* , are not handled in the classic implementation of the energy function of Rosetta (Lately, a rough approximation was proven useful in a number of cases, particularly in the modeling of Protein-DNA interactions [5]_ ). Rosetta's scoring function also does not compute the entropic change that is associated with the protein attaining an ordered structure, the underlying assumption behind this omission is that entropies of different well-packed proteins are similiar.
+	
+	With all that said, we must note that an accurate scoring function that captures all the physical properties that are associated with protein folding and interactions is not a necessesity for the success of most variants of structural modelnig problems such as structure prediction and protein docking, rather, the success stemms from the large free-energy gap between the native structure and all the other possible conformations. 
+	
+	**Rosetta employs several sampling strategies** that battle the ragged energy landscape that is generally associated with macro-molecular modeling. One such powerful approach that was initially developed in *ab-initio* structure prediction is smoothing the energy landscape by modeling a low-resolution version of the interaction with a corresponding low-resolution energy function; each residue is assigned with a *centroid sphere* that encompasses its chemical properties - such hydrophobicity , polarity , etc, leading to a smoother energy landscape in which local minima are easily identified. Another important tool that aids in the location of local minima is the incorporation of a library of fragments of amino acids with defined backbones to the simulations in its early stages. The library is constructed based on sequence similarity to the query seqeunce, usually a short peptide, and on the secondary structure predicted for the peptide by PSIPRED [12]_. Fragment libraries were used extensively in our study of flexible peptide protein interactions [13]_.
+	
+	
+FlexPepDock - a framework for modeling peptide - protein interactions
+---------------------------------------------------------------------
 
+xcv	
 
 Methods
 ========
 
-	*London et al* have previously developed a general pipeline for the prediction of binding specificity of flexible peptides to protein receptors. In this pipeline, termed FlexPepBind, we model the structure of a collection of peptides with variable sequences to a target receptor using a high resolution peptide docking protocol - FlexPepDock[citation] and use the energy estimation given by this protocol to each of the peptide - receptor complexes to determine their relative binding affinities and subsequently train a classifier that will be able to distinguish binders from non-binders. This protocol has proven itself in 2 distinct biological systems - the interaction between Bcl2-like proteins and BH3 domains [7]_ which is a key feature in the regulation of apoptosis and  the farnesyltransferase (FTase) enzyme [citation] that catalyzes the attachment of farnesyl group to a protein via a thioether bond to a cysteine at or near the carboxy terminus of the protein [1,2 citation from nir's article]. *London et al* modeled the interaction between a collection of helical BH3 domains and some proteins from the Bcl-2 family and was successful in recapitulating a significant part of their specificity profile, as well as unraveling novel interactions.
+FlexPepBind
+------------
+
+	*London et al* have previously developed a general pipeline for the prediction of binding specificity of flexible peptides to protein receptors. In this pipeline, termed FlexPepBind, we model the structure of a collection of peptides with variable sequences to a target receptor using a high resolution peptide docking protocol - FlexPepDock[citation] and use the energy estimation given by this protocol to each of the peptide - receptor complexes to determine their relative binding affinities and subsequently train a classifier that will be able to distinguish binders from non-binders. 
+	
+	This protocol has proven itself in 2 distinct biological systems - the interaction between Bcl2-like proteins and BH3 domains [7]_ which is a key feature in the regulation of apoptosis and  the farnesyltransferase (FTase) enzyme [citation] that catalyzes the attachment of farnesyl group to a protein via a thioether bond to a cysteine at or near the carboxy terminus of the protein [1,2 citation from nir's article]. *London et al* modeled the interaction between a collection of helical BH3 domains and some proteins from the Bcl-2 family and was successful in recapitulating a significant part of their specificity profile, as well as unraveling novel interactions.
 	
 	Unlike Bcl2-BH3, FTase is a catalytic protein that interacts primarily with *substrates*. Since FlexPepBind only models the interface between a peptide and a receptor, *London et al* assumed that binding equals catalysis and showed that this assumption is valid for the vast majority of cases. 
 	
 	This study is yet another adaptation of this protocol to the intriguing enzyme HDAC8 to determine its binding specificity and potentially find novel substrates. In our study we also assume that binding equals catalysis, demonstrating that this assumption is valid across a wide range of peptides. The pipeline can be summarized as follows; First, we calibrate and test our protocol for the binding of peptides that were validated experimentally by *Fierke et al*. Then, we derive a classifier and show that it indeed possesses an ability to differentiate between experimentally validated low and high affinity peptides substrates. Last, we try to find novel substrates from a large database of lysine-acetylated proteins.
+
+
+Flexible peptide - protein interactions with FlexPepDock
+---------------------------------------------------------
 	
+
 Preparation of starting structure
 ---------------------------------
 
@@ -57,7 +85,7 @@ Calibration of the protocol
 Sampling
 ..........
 	
-	The term *Sampling* in the context of FlexPepDock takes 2 different meanings. Since the entire Rosetta framework is based on non-deterministic simulation pathways, the resulting output is different from one simulation to the next and in order to capture the conformation of a complex, several simulation runs should be made in the hope that at least one will find the global minimal energy conformation. The other meaning of *sampling* in the context of FlexPepDock is the perturbation size of small/shear moves of the peptide backbone. A large perturbation size increases the sampling space , causing the peptide to explore more conformations.
+	The term *Sampling* in the context of FlexPepDock takes 2 different meanings. Since the entire Rosetta framework is based on non-deterministic simulation pathways, the resulting output is different from one simulation to the next and in order to capture the conformation of a complex, several simulation runs should be made so that several will eventually find the global minimal energy conformation. The other meaning of *sampling* in the context of FlexPepDock is the perturbation size of small/shear moves of the peptide backbone. A large perturbation size increases the sampling space , causing the peptide to explore more conformations.
 	
 	Calibrating the amount of sampling in our FlexPepBind protocol in the context of number of simulations, requires us to find the trade-off between computation time (each simulation run is computationally intensive) and number of near-native output structures (in optimal cases, the more we sample, the larger our signal/noise ratio). In the sampling space context, we aim at finding the trade-off between sampling different peptide conformations and the size of the sample space. If the peptide native structure is relatively different than the starting structure of the simulation (in term of phi/psi angles) then larger perturbations are a necessity in order to find it. Increasing the perturbation size however, can pose a probelm as it also increases the space of possible conformations, potentially decreasing the signal/noise ratio.
 	
@@ -156,7 +184,7 @@ Diffrentiation between binders and non binders
 
 	We used several statistical tests to evaluate the performance of our protocol and its set of parameters. The short calibration runs were evaluated by Pearson's correlation coefficient.
 
-	While Pearson's correlation functions well on the small data set used for calibration, In larger data sets such as the training set, Pearson's correlation was shown to function poorly and doesn't provide reliable evaluation of the potential predictor's performance. In the small calibration set the of activity peptides scores could be somewhat correlated linearly among themselves, and so does the high activity peptides. But fot the larger training set that contains peptides with all ranges of activity, this isn't the case, as the energy estimations given to each of the peptides by our protocol aren't necessarily in a *linear* correlation with the level of activity. For the purpose of evaluating our ability to differentiate between binders and non binders in the whole training set we used the Kolmogorov Smirnov goodness-of-fit test. This test quantifies a distance between the empirical distributions of two samples - in our case - binders and non-binders. The resulting p-value is calculated under the null hypothesis that the samples are drawn from the same distribution.  
+	While Pearson's correlation functions well on the small data set used for calibration, In larger data sets such as the training set, Pearson's correlation was shown to function poorly and doesn't provide reliable evaluation of the potential predictor's performance. In the small calibration set the of zero-activity peptides and their corresponding scores could be somewhat correlated linearly among themselves, and so does the high activity peptides. But fot the larger training set that contains peptides with all ranges of activity, this isn't necessarily the case, as the energy estimations given to each of the peptides by our protocol aren't necessarily in a *linear* correlation with the level of activity. For the purpose of evaluating our ability to differentiate between binders and non binders in the whole training set we used the Kolmogorov Smirnov goodness-of-fit test. This test quantifies a distance between the empirical distributions of two samples - in our case - binders and non-binders. The resulting p-value is calculated under the null hypothesis that the samples are drawn from the same distribution.
 
 Results
 ========
@@ -343,7 +371,7 @@ Threading the peptide
 	
 	In the Methods section we've discussed the reasons that led us to use primarily extended conformations as the starting structure for the peptide. We verified this hypothesis in a simulation that incorporated the threading of peptides onto the existing starting structure from *2v5w* with a parameter-set that's identical to simulation 9 that achieved the best performance in terms of Pearson's correlation coefficient:
 	
-	* Pearson's Correlation coefficient:
+	* Pearson's Correlation coefficient for the following scoring schemes:
 		* Interface score: -0.784
 		* Peptide score: -0.64
 		* Reweighted score: -0.003
@@ -366,7 +394,7 @@ Training a classifier
 	After an initial phase of calibration , we were set to examine the parameters learned from the brief simulations on the whole training set, this step allowed us to refine our initial, coarse set of parameters. Below is a table that summarizes the simulations we've performed on the whole training set.
 
 	For each of these simulations and for each scoring scheme we calculated the Pearson's correlation coefficient to evaluate its fitness to experimental data. 
-	Let us remember that our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary classifier, we needed to adapt our dataset accordingly - to a binary representation. To accomplish that, we selected an experimental level of activity to serve as a cutoff so that each sequence with activity that is lower than the cutoff is labeled as a non-binder and vice versa. We derived that cutoff by applying 2 samples KS test on all possible activity levels ([0,1], in resolution of 0.01), the activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that could best differentiate between the 2 distributions of *scores* - that of the binders and the score distribution of non binders.  (see figure :ref:`cutoff`)
+	Let us remember that our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continous value in [0,1]. In order to train a binary classifier, we needed to adapt our dataset accordingly, to a binary representation. To accomplish that, we selected an experimental level of activity to serve as a cutoff so that each sequence with activity that is lower than the cutoff is labeled as a non-binder and vice versa. We derived that cutoff by applying 2 samples KS test on all possible activity levels ([0,1], in resolution of 0.01), the activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that could best differentiate between the 2 distributions of *scores* - that of the binders and the score distribution of non binders.  (see figure :ref:`cutoff`)
 	
 .. figure:: plots/cutoff.png
 	:scale: 50 %
@@ -393,31 +421,34 @@ Training a classifier
 	3		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
 						* 200 simulations per peptide.			* hack_elec = 0.5
 
+												  
 	4		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+			atom									
+
+	5		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+			atom			* low resoultion preopt.							
+
+	6		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
 						* 200 simulations per peptide.			* hack_elec = 0.5
 												* sd of constraints
 												  is 0.15
 
-	5		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+	7		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
 						* 200 simulations per peptide.			* hack_elec = 0.5
 												* sd of constraints
 												  is 0.25
-												  
-	6		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
-			atom									
-
-	7		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			anchor was CH		* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5
-			atom								
 	======		================	===============================	===========	===================
 
 ..
 
 	
-	We applied a clustering step [citation] to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each sequence. Looking at the KS test p-values , it is easy to see that this step improved our ability to distinguish between binders and non binders significantly. Simulations 6 and 7 achieved the best KS p-values on the training set, 1.51×10\ :sup:`-5` and 2.79×10\ :sup:`-5` respectively, using the peptide scoring scheme. However the cutoff that's responsible for these low p-values is 0.44 which is relatively high and isn't sensitive enough (there are only 11 out of 181 peptides with higher activity levels). Simulation #4 showed a potentially good ability to differentiate between binders and non-binders with cutoff of 0.35 and KS p-value of 4.63×10\ :sup:`-5`. After employing a clustering step, we witnessed an significant improvement in the p-values obtained by the KS test. Simulation #4, the one with the lower standard deviation for the constraints demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` which is a two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 , in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme it showed a p-value of 4.03×10\ :sup:`-6` using a cutoff of 0 activity level. This parameter set indeed demonstrate both specificity and a very high sensitivity in differentiating between binders and non-binders.
+	Simulations 6 and 7 achieved the best KS p-values on the training set, 1.51×10\ :sup:`-5` and 2.79×10\ :sup:`-5` respectively, using the peptide scoring scheme. However the cutoff that's responsible for these low p-values is 0.44 which is relatively high and isn't sensitive enough (there are only 11 out of 181 peptides with higher activity levels). Simulation #4 showed a potentially good ability to differentiate between binders and non-binders with cutoff of 0.35 and KS p-value of 4.63×10\ :sup:`-5`. 
 	
-	Interestingly, we saw the level of activity of 0.34 reccur as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example , simulation #1 that has the parameter set that was one of the best performing in the first initial calibration phase with the interface scoring scheme achieved a p-value of 4.4×10\ :sup:`-6` - a three orders of magnitudes improvement comparing to its performance without clustering.
+	We applied a clustering step [citation] to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each peptide. In cotrast to previous findings in earlier studies [7]_ , [8]_, we found that clusering improves the differentiation between binders and non binders in several orders of magnitude. For example, Simulation #4, the one with the lower standard deviation for the constraints demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 , in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme it showed a p-value of 4.03×10\ :sup:`-6` using a cutoff of 0 activity level. This parameter set indeed demonstrate both specificity and a very high sensitivity in differentiating between binders and non-binders.
+	
+	Interestingly, we saw the level of activity of 0.34 reccur as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example , simulation #1 that has the parameter set that was one of the best performing in the first initial calibration phase with the interface scoring scheme achieved a p-value of 4.4×10\ :sup:`-6` - three orders of magnitudes improvement comparing to its performance without clustering.
 
 	The `Training set simulations and their performance`_ concentrates a summary of all simulations with and without a clustering step, including the statistical evaluation of their performance. 
 
@@ -438,7 +469,7 @@ Comparison to a minimization only based classifier
 Test set analysis
 ..................
 
-	With our insights from training a classifier on the training set, we applied it on the other part of the sequences - the test set. The predictor scheme used the set of parameters and constraints identical to that of simulation #1 in the training set runs, as its resulting predictor has the best ability to distinguish between binders and non binders (ROC plot AUC of 0.873).
+	With our insights from training a classifier on the training set, we applied it on the other part of the sequences - the test set. The simulation scheme used the set of parameters and constraints identical to that of simulation #1 in the training set runs, as its resulting predictor has the best ability to distinguish between binders and non binders (ROC plot AUC of 0.873).
 	The below ROC plot summarizes the performance of our classifier on the test set, comparing to its performance on the training set and to a minimization only scheme.
 
 
@@ -1292,6 +1323,9 @@ Score vs. Activity plots
      	:scale: 21%
 
 
+References
+===========
+
 .. [1] Vannini A, Volpari C, Gallinari P, et al. Substrate binding to histone deacetylases as shown by the crystal structure of the HDAC8-substrate complex. EMBO Rep. 2007;8(9):879-84.
 .. [2] Dowling DP, Gantt SL, Gattis SG, Fierke CA, Christianson DW. Structural studies of human histone deacetylase 8 and its site-specific variants complexed with substrate and inhibitors. Biochemistry. 2008;47(51):13554-63.
 .. [3] Somoza JR, Skene RJ, Katz BA, et al. Structural snapshots of human HDAC8 provide insights into the class I histone deacetylases. Structure. 2004;12(7):1325-34.
@@ -1300,6 +1334,11 @@ Score vs. Activity plots
 .. [6] Kortemme T, Morozov AV, Baker D. An orientation-dependent hydrogen bonding potential improves prediction of specificity and structure for proteins and protein-protein complexes. J. Mol. Biol. 2003;326:1239-1259.
 .. [7] London N, Gullá S, Keating AE, Schueler-furman O. In silico and in vitro elucidation of BH3 binding specificity toward Bcl-2. Biochemistry. 2012;51(29):5841-50.
 .. [8] London N, Lamphear CL, Hougland JL, Fierke CA, Schueler-furman O. Identification of a novel class of farnesylation targets by structure-based modeling of binding specificity. PLoS Comput Biol. 2011;7(10):e1002170.
-
+.. [9] Berger B, Leighton T. Protein folding in the hydrophobic-hydrophilic (HP) model is NP-complete. J Comput Biol. 1998;5(1):27-40.
+.. [10] Baldwin RL. Energetics of protein folding. J Mol Biol. 2007;371(2):283-301.
+.. [11] Kauzmann W. Some factors in the interpretation of protein denaturation. Adv Protein Chem. 1959;14:1-63.
+.. [12] Gront D, Kulp DW, Vernon RM, Strauss CE, Baker D. Generalized fragment picking in Rosetta: design, protocols and applications. PLoS ONE. 2011;6(8):e23294.
+.. [13] Raveh B, London N, Zimmerman L, Schueler-furman O. Rosetta FlexPepDock ab-initio: simultaneous folding, docking and refinement of peptides onto their receptors. PLoS ONE. 2011;6(4):e18934.
+.. [14] Schueler-furman O, Wang C, Bradley P, Misura K, Baker D. Progress in modeling of protein structures and interactions. Science. 2005;310(5748):638-42.
 .. footer::
 	Page ###Page### of ###Total###
