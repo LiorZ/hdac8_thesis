@@ -34,20 +34,11 @@ The Rosetta Framework
 	With all that said, we must note that an accurate scoring function that captures all the physical properties that are associated with protein folding and interactions is not a necessesity for the success of most variants of structural modelnig problems such as structure prediction and protein docking, rather, the success stemms from the large free-energy gap between the native structure and all the other possible conformations. 
 	
 	**Rosetta employs several sampling strategies** that battle the ragged energy landscape that is generally associated with macro-molecular modeling. One such powerful approach that was initially developed in *ab-initio* structure prediction is smoothing the energy landscape by modeling a low-resolution version of the interaction with a corresponding low-resolution energy function; each residue is assigned with a *centroid sphere* that encompasses its chemical properties - such hydrophobicity , polarity , etc, leading to a smoother energy landscape in which local minima are easily identified. Another important tool that aids in the location of local minima is the incorporation of a library of fragments of amino acids with defined backbones to the simulations in its early stages. The library is constructed based on sequence similarity to the query seqeunce, usually a short peptide, and on the secondary structure predicted for the peptide by PSIPRED [12]_. Fragment libraries were used extensively in our study of flexible peptide protein interactions [13]_.
-	
-	
-FlexPepDock - a framework for modeling peptide - protein interactions
----------------------------------------------------------------------
 
-xcv	
+Specificity prediction of peptide protein interactions
+-------------------------------------------------------
 
-Methods
-========
-
-FlexPepBind
-------------
-
-	*London et al* have previously developed a general pipeline for the prediction of binding specificity of flexible peptides to protein receptors. In this pipeline, termed FlexPepBind, we model the structure of a collection of peptides with variable sequences to a target receptor using a high resolution peptide docking protocol - FlexPepDock[citation] and use the energy estimation given by this protocol to each of the peptide - receptor complexes to determine their relative binding affinities and subsequently train a classifier that will be able to distinguish binders from non-binders. 
+	*London et al* have previously developed a general pipeline for the prediction of binding specificity of flexible peptides to protein receptors. In this pipeline, termed FlexPepBind, he modeled the structure of a collection of peptides with variable sequences to a target receptor using a high resolution peptide docking protocol - FlexPepDock [15]_ and use the energy estimation given by this protocol to each of the peptide - receptor complexes to determine their relative binding affinities and subsequently train a classifier that will be able to distinguish binders from non-binders. 
 	
 	This protocol has proven itself in 2 distinct biological systems - the interaction between Bcl2-like proteins and BH3 domains [7]_ which is a key feature in the regulation of apoptosis and  the farnesyltransferase (FTase) enzyme [citation] that catalyzes the attachment of farnesyl group to a protein via a thioether bond to a cysteine at or near the carboxy terminus of the protein [1,2 citation from nir's article]. *London et al* modeled the interaction between a collection of helical BH3 domains and some proteins from the Bcl-2 family and was successful in recapitulating a significant part of their specificity profile, as well as unraveling novel interactions.
 	
@@ -55,11 +46,40 @@ FlexPepBind
 	
 	This study is yet another adaptation of this protocol to the intriguing enzyme HDAC8 to determine its binding specificity and potentially find novel substrates. In our study we also assume that binding equals catalysis, demonstrating that this assumption is valid across a wide range of peptides. The pipeline can be summarized as follows; First, we calibrate and test our protocol for the binding of peptides that were validated experimentally by *Fierke et al*. Then, we derive a classifier and show that it indeed possesses an ability to differentiate between experimentally validated low and high affinity peptides substrates. Last, we try to find novel substrates from a large database of lysine-acetylated proteins.
 
+Methods
+========
+
+Overview
+---------
+	
+	We adapted FlexPepBind to predict the substrate specificity of Histone Deacetylase 8. First, we prepared a coarse starting complex of the enzyme and an array of peptides that were experimentally tested for catalytic activity, then we calibrated our protocol on a small subset of that experimentally curated dataset and obtained an initial coarse set of parameters - such as perturbation size of backbone movement and weight of certain types of features in the scoring function, this coarse set of parameters was refined by applying the pipeline on the whole training set. The performance of each set of parameters was evaluated by Pearson's correlation and on the case of the whole training set - by Kolmogorov - Smirnov goodness of fit test.
+
 
 Flexible peptide - protein interactions with FlexPepDock
 ---------------------------------------------------------
 	
+	We use the previously described FlexPepBind protocol in our substrate specificity prediction of Histone Deacetylase 8. One of the most important building blocks of this protocol is a high resolution flexible peptide - protein docking protocol, FlexPepDock [15]_ . This protocol was shown to robustly refine coarse models of peptide–protein complexes into high resolution models and was later extended to model *ab-initio* peptide - protein complexes in which only the binding site and the sequence of the peptide is known. The general problem of modeling peptide - receptor interactions can roughly be divided to these subsections; 
+	
+	1) Model the receptor structure
+	2) Predict potential binding sites on the receptor structure
+	3) Model the peptide backbone on the binding site
+	4) Refine the complex to higher resolution
+	
+	In most cases including the one we're describing in this study, the last step is sufficient - several variants of receptor structures or even closely related homologs can be obtained from the PDB database, accompanied with proteins or peptides that are already located at the binding site and provide an approximate starting structure for the refinement process [16]_ [17]_.
+	
+	The first step of each FlexPepDock simulation is the prepacking of the input structure to provide better packing and remove internal clashes. Side chain conformations are optimized by determining the best rotamer combination for both the protein and the peptide separately [15]_ . The second step involves 10 outer cycles of optimization. In the first cycle, the weight of the repulsive van der Waals term is reduced to 2% of its normal magnitude, and the attractive van der Waals term is increased by 225%. This allows significant perturbations within the binding pocket, while preventing the peptide and protein to separate during energy minimization. During refinement, the repulsive and attractive terms are gradually ramped back towards their original values (so that in the last cycle the energy function corresponds to the standard Rosetta score). Within each outer cycle, The rigid body orientation between the protein and the peptide is optimized, and then the peptide backbone is optimized for the new orientation. 
+	
+	In each such outer cycle there are 8 inner cycles in which monte carlo search with energy minimization is performed, a rigid body perturbation that is sampled from a gaussian distribution is performed and followed by sidechain repacking and minimization (The default implementation of the minimization algorithm is DFP [18]_ ) of interface residues. The metropolis criterion is applied right after the energy minimization step.
+	
+	Additional 8 cycles involve the optimization of the peptide backbone by applying the same, monte-carlo search with energy minimization. The backbone perturbations alternate between 2 types of moves - small and shear moves [19]_ with perturbation size of 6 degrees by default.
+	
+	The following figure , taken from ref [15]_ outlines the FlexPepDock protocol
 
+.. figure:: images/fpdock.png
+	:scale: 35%
+
+	:label:`fpdock` an outline of the FlexPepDock protocol . 
+	
 Preparation of starting structure
 ---------------------------------
 
@@ -403,6 +423,8 @@ Training a classifier
 
 ..
 
+TODO: Replace that figure with one that doesn't have a red underline in the word deacetylation.
+
 
 	This table summarizes the simulations we performed on the whole training set, each of the columns describe a different aspect of the parameter set used.
 	
@@ -480,8 +502,8 @@ Test set analysis
 	
 		The minimization step uses the *peptide scoring scheme*, while in the full optimization the inteface scoring scheme performed better on the training set and thus - served as the basis for the predictor on the test set.
 
-Searching for novel substrates
-...............................
+Searching for novel, non-histone substrates
+--------------------------------------------
 
 	We used the minimization only version of our predictor - the one that performed best on the experimental dataset - to search for potential novel substrates of HDAC8.
 	We've obtained a copy of the Phosphosite database from PhosphoSitePlus (PSP) - an online systems biology resource providing comprehensive information and tools for the study of protein post-translational modifications and queried it for lysine acetylated proteins. We've trimmed the sequences so they will be of the same size as the sequences that are present in the experimental dataset - **YYK(ac)YYY**. 
@@ -495,9 +517,51 @@ Searching for novel substrates
 		:label:`phosphodist` Distribution of scores in both acetylated and random sequences
 	
 		The rightmost bar concentrates all the peptides that have a minimization score above 10. (a high score that suggests that these peptides were not modeled successfully)
+
+HDAC8 and CdLS syndrome
+........................
+	
+	A recent study [23]_ nominated the loss of function of HDAC8 as one of the causes to the Cornelia de Lange syndrome (CdLS) that occurs due to a malfunction in the cohesin acetylation cycle. In humans the cohesin is a multisubunit complex that is made up of SMC1A, SMC3, RAD21 and a STAG protein. These form a ring structure that is proposed to encircle sister chromatids to mediate sister chromatids cohesion [20]_ and also has key roles in gene regulation [21]_ . Using a monoclonal antibody specific for acetylated SMC3 the researchers found that the total levels of SMC3 is constant throughtout the cell cycle while SMC3-ac levels rapidly decline during mitosis, a finding that suggested a coordinated deacetylation. The researchers therefore used RNAi for each of the known histone deacetylases and sirtuins and identified HDAC8 as the primary SMC3 deacetylase. Indeed, SMC3 has 6 known acetylation sites [22]_ , 3 of them obtained low scores indicating them as HDAC8 deacetylation sites by our protocol: 
+	
+.. table:: SMC3 known acetylation sites with FlexPepBind scores
+	
+	=================	============	============
+	Position
+	of Deacetylation	Sequence	FPBind score
+	-----------------	------------	------------
+	106			AKK(ac)DQY 	672.779
+	1190			GVK(ac)FRN 	125.366
+	336			LEK(ac)IEE 	25.855
+	215			YQK(ac)WDK 	-2.082
+	105			GAK(ac)KDQ 	-4.027
+	140			IVK(ac)QGK 	-6.222
+	=================	============	============
+
+..
+
+	
+	**Are there any more deactylation sites?** We were interested to see whether our protocol can capture additional deacetylation sites that aren't known yet. For that, we trimmed the SMC3 sequence to short peptides , 6 residues, wherever there was a lysine ( in format identical to the YYK(ac)YYY format, see Figure :ref:`smc3seq`).
+	
+.. figure:: images/peptide_collection_arrows.png
+	:scale: 55%
+
+	:label:`smc3seq` From each possible acetylation site (each lysine in SMC3 sequence) we created a peptide as input to our protocol to find putative deacetylation sites
+
+..
+
+	Results from the minimization version of our protocol that achieved superior results in earlier tests indicate that there are 13 additional possible deacetylation sites, assuming these sites undergo acetylation in the first place. see table in *HDAC8 and CdLS syndrome* in the supplementary material.
+	
+	Mutant SMC1A proteins account for ~ 5% of the cases of CdLS and is shown to have several mutations in a number of patients and number of sites [24]_. We tested whether any of these mutations is a known acetylation site and whether this acetylation site is recognized by our protocol as a HDAC8 deacetylation site.
+	
+.. figure:: images/SMC1A_mutations.png
+	:scale: 40%
+
+	:label:`smc1amut` Known acetylation sites and observed mutations in SMC1A, see summary on the table below
+	
+	
 	
 Summary
-........
+--------
 
 	We have previously used structure-based prediction of binding specificity to successfully identify both known and novel protein farnesyltransferase (FTase) substrate peptides and BH3 peptides to Bcl-2-like proteins. The HDAC8 system presents additional challenges to systems we studied previously - the extremely flexible loops in the interface has the ability to move and accomodate different substrates for each conformation, the lack of solved crystals that incorporated a genuine substrate and the acetylated lysine - a post translational modification that was poorly addressed in previous computational studies.
 	In this study, We've applied the FlexPepBind modeling scheme to a series of peptide sequences in order to train a predictor that will have the ability to distinguish between peptides that serve as substrates of HDAC8 and peptides that are doesn't. Since FlexPepDock only models the interface between the two , and not the catalytic process, we've assumed that peptides that bind the receptor are necessarily deacetylated and going through the whole catalytic process. 
@@ -1322,6 +1386,33 @@ Score vs. Activity plots
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration43_I_sc_activity_score.png
      	:scale: 21%
 
+HDAC8 and CdLS syndrome
+------------------------
+
+.. table:: Additional putative deacetylation sites for SMC3 suggested by our protocol.
+
+	========================	===========	=============	
+	Position of K(ac)		Sequence	FPBind score		
+	------------------------	-----------	-------------
+		157			RLK(ac)LLR	-1.665
+		215			YQK(ac)WDK	-2.082
+		304			RTK(ac)LEL	-3.588
+		1046			FQK(ac)LVP	-3.957
+		105			GAK(ac)KDQ	-4.027
+		621			FDK(ac)AFK	-4.050
+		400			ELK(ac)SLD	-4.140
+		1012			GYK(ac)SIM	-4.619
+		388			TSK(ac)EER	-4.747
+		493			EKK(ac)QQL	-4.976
+		984			VNK(ac)KAL	-5.243
+		745			KEK(ac)RQQ	-6.122
+		138			IVK(ac)QGK	-6.222
+		695			EAK(ac)LNE	-6.646
+		1105			TGK(ac)QGE	-6.986
+		1052			GGK(ac)ATL	-7.044
+	========================	===========	=============
+
+..
 
 References
 ===========
@@ -1340,5 +1431,15 @@ References
 .. [12] Gront D, Kulp DW, Vernon RM, Strauss CE, Baker D. Generalized fragment picking in Rosetta: design, protocols and applications. PLoS ONE. 2011;6(8):e23294.
 .. [13] Raveh B, London N, Zimmerman L, Schueler-furman O. Rosetta FlexPepDock ab-initio: simultaneous folding, docking and refinement of peptides onto their receptors. PLoS ONE. 2011;6(4):e18934.
 .. [14] Schueler-furman O, Wang C, Bradley P, Misura K, Baker D. Progress in modeling of protein structures and interactions. Science. 2005;310(5748):638-42.
+.. [15] Raveh B, London N, Schueler-furman O. Sub-angstrom modeling of complexes between flexible peptides and globular proteins. Proteins. 2010;78(9):2029-40.
+.. [16] Cesareni G, Panni S, Nardelli G, Castagnoli L. Can we infer peptide recognition specificity mediated by SH3 domains?. FEBS Lett. 2002;513(1):38-44.
+.. [17] Niv MY, Weinstein H. A flexible docking procedure for the exploration of peptide binding selectivity to known structures and homology models of PDZ domains. J Am Chem Soc 2005;127:14072– 14079.
+.. [18] Davidon WC. Variable metric method for minimization. SIAM Journal on Optim 1991;1:1–17.
+.. [19] Rohl CA, Strauss CE, Misura KM, Baker D. Protein structure pre- diction using Rosetta. Methods Enzymol 2004;383:66–93.
+.. [20] Nasmyth K, Haering CH. Cohesin: its roles and mechanisms. Annu Rev Genet. 2009;43:525-58.
+.. [21] Dorsett D. Cohesin: genomic insights into controlling gene transcription and development. Curr Opin Genet Dev. 2011;21(2):199-206.
+.. [22] Choudhary C, Kumar C, Gnad F, et al. Lysine acetylation targets protein complexes and co-regulates major cellular functions. Science. 2009;325(5942):834-40.
+.. [23] Deardorff MA, Bando M, Nakato R, et al. HDAC8 mutations in Cornelia de Lange syndrome affect the cohesin acetylation cycle. Nature. 2012;489(7415):313-7.
+.. [24] Deardorff MA, Kaur M, Yaeger D, et al. Mutations in cohesin complex members SMC3 and SMC1A cause a mild variant of cornelia de Lange syndrome with predominant mental retardation. Am J Hum Genet. 2007;80(3):485-94.
 .. footer::
 	Page ###Page### of ###Total###
