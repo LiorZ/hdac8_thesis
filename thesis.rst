@@ -551,13 +551,57 @@ HDAC8 and CdLS syndrome
 
 	Results from the minimization version of our protocol that achieved superior results in earlier tests indicate that there are 13 additional possible deacetylation sites, assuming these sites undergo acetylation in the first place. see table in *HDAC8 and CdLS syndrome* in the supplementary material.
 	
-	Mutant SMC1A proteins account for ~ 5% of the cases of CdLS and is shown to have several mutations in a number of patients and number of sites [24]_. We tested whether any of these mutations is a known acetylation site and whether this acetylation site is recognized by our protocol as a HDAC8 deacetylation site.
+	Mutant SMC1A proteins account for ~ 5% of the cases of CdLS and is shown to have several mutations in a number of patients and number of sites [24]_. We tested whether any of these mutations are known acetylation sites and whether these acetylation sites are recognized by our protocol as HDAC8 deacetylation positions.
 	
 .. figure:: images/SMC1A_mutations.png
 	:scale: 40%
 
 	:label:`smc1amut` Known acetylation sites and observed mutations in SMC1A, see summary on the table below
 	
+	**A** - SMC1A sequence annotated with known acetylation sites and mutations, as well as peptides trimmed from the protein that predicted to bind when tested as potential acetylated peptides. (peptides > 6 residues indicate overlapping) **B** - Reproduced from [24]_ , A schema of SMC1A structure annotated with mutations that were discovered in different patients
+	
+
+.. table:: Lysine acetylation positions
+
+	+--------+
+	|Position|
+	+--------+
+	|282	 |
+	+--------+
+	|437	 |
+	+--------+
+	|536	 |
+	+--------+	
+	|648	 |
+	+--------+	
+	|713	 |
+	+--------+
+	
+..
+	
+	
+.. table:: Mutations that were observed in different patients in the SMC1A protein
+
+	=========	==================
+	Position	Mutation Type
+	---------	------------------
+	58-62		deletion: V58-R62
+	133		F133V
+	196		R196H
+	493		E493A
+	496		R496C, R496H
+	711		R711W
+	790		R790Q
+	832		D831_Q832delinsE
+	1122		R1122L
+	=========	==================
+	
+..
+
+	
+	Worth noting is the mutation **R711W** that is located right close to a known acetylation site in the coiled coil region and was predicted by our classifier as a binder. A mutated version of the peptide - **WLKYSQ** was predicted as a non-binder. The authors of the study in ref [24]_ used the Coils program [25]_ , that predicts the probability of protein to form a coiled coil and concluded that the R711W mutation has a low likelihood of disrupting the coiled coil. However, the authors speculate that the alterations caused by this mutation may affect the angulation of the coiled-coil resulting in impaired intra or intermolecular approximation of the SMC head domains, or disrupt binding of accessory proteins to the cohesin ring. Our findings suggests yet another possibility - the R711W mutation might disrupt the acetylation or deacetylation of SMC1A at position 713, and that might contribute to the protein inability to bind accessory proteins or attain a non-functioning structure.
+	
+	Position K437 is also a known acetylation site according to ref [22]_ and the peptide **IEKLEE**  that overlaps this position is predicted by our protocol to undergo deacetylation by HDAC8. 
 	
 	
 Summary
@@ -566,7 +610,7 @@ Summary
 	We have previously used structure-based prediction of binding specificity to successfully identify both known and novel protein farnesyltransferase (FTase) substrate peptides and BH3 peptides to Bcl-2-like proteins. The HDAC8 system presents additional challenges to systems we studied previously - the extremely flexible loops in the interface has the ability to move and accomodate different substrates for each conformation, the lack of solved crystals that incorporated a genuine substrate and the acetylated lysine - a post translational modification that was poorly addressed in previous computational studies.
 	In this study, We've applied the FlexPepBind modeling scheme to a series of peptide sequences in order to train a predictor that will have the ability to distinguish between peptides that serve as substrates of HDAC8 and peptides that are doesn't. Since FlexPepDock only models the interface between the two , and not the catalytic process, we've assumed that peptides that bind the receptor are necessarily deacetylated and going through the whole catalytic process. 
 
-	We learned a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. The minimization only predictor performed better in the task of separating between binders and non binders in the experimental dataset we used. Its ability, in addition to the fact that this scheme is much less computationally intensive, lead us to utilize it to find new potential substrates to HDAC8 in a large database of acetylated proteins.
+	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. The minimization only predictor performed better in the task of separating between binders and non binders in the experimental dataset we used. Its ability, in addition to the fact that this scheme is much less computationally intensive, lead us to utilize it to find new potential substrates to HDAC8 in a large database of acetylated proteins.
 
 Supplementary Material
 =======================
@@ -1441,5 +1485,7 @@ References
 .. [22] Choudhary C, Kumar C, Gnad F, et al. Lysine acetylation targets protein complexes and co-regulates major cellular functions. Science. 2009;325(5942):834-40.
 .. [23] Deardorff MA, Bando M, Nakato R, et al. HDAC8 mutations in Cornelia de Lange syndrome affect the cohesin acetylation cycle. Nature. 2012;489(7415):313-7.
 .. [24] Deardorff MA, Kaur M, Yaeger D, et al. Mutations in cohesin complex members SMC3 and SMC1A cause a mild variant of cornelia de Lange syndrome with predominant mental retardation. Am J Hum Genet. 2007;80(3):485-94.
+.. [25] Lupas A, Van dyke M, Stock J. Predicting coiled coils from protein sequences. Science. 1991;252(5009):1162-4.
+
 .. footer::
 	Page ###Page### of ###Total###
