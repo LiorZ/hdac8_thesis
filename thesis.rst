@@ -18,9 +18,53 @@ Lior's Thesis
 Introduction
 =============
 
-	1) Acetylation - what it is (a reversible ptm), why is it important?
-	2) Histone Deacetylases (and HAT) - description of the HDAC family, its function
-	3) HDAC8 - why is it *interesting* (the specificity switch , monomer, the syndrome that was published on nature, its role in different cancers, etc)
+Histone Deacetylase 8
+----------------------
+	
+	Metal dependent Histone Deacetylases (HDACs) catalyze the hydrolysis of of acetyl-L-lysine to acetate and L-lysine, a process that is commonly called *deacetylation*. This reaction is a basis to a magnificent number of regulatory processes and is shown to be a prominent factor in a number of diseases [citation]. Histone deacetylases, as their name suggests a class of enzymes that are responsible for the deacetylation of histone proteins, a process that typically alters the chromatin structure and leads to transcriptional repression; the hydrolysis of acetyl-lysine to lysine and acetate causes the histone tail to become positively charged, as the acetate cease to mask the positive charge of lysine. This positively charged lysine contributes to the electrostatic interactions formed with the negatively charged DNA backbone, causing the DNA to be much less accessible to transcription factors and transcription initiators.
+	
+	HDAC1 was the first HDAC to be identified back in 1996 [27]_ and since then, 18 others were confirmed by various groups [citations]. These enzymes can be divided to 4 subclasses, I-IV based on their evolutionary descent. HDAC8 is the only enzyme of the HDAC family that can be found as a single polypeptide [34]_ , the rest are found as high molecular weight multiprotein complexes and most purified recombinant HDACs are enzymatically inactive [35]_ . Therefore, from a structural biology perspective, HDAC8 is the best model among mammalian HDACs.
+
+.. figure:: images/hdac_phylo.png
+	:scale: 35%
+
+	:label:`hdacphylo` A phylogenetic tree of currently known Histone deacetylases
+	
+	HDAC1,2,3 and 8 belong to class I, HDAC4,5,7 and 9 compose class IIa, HDAC6,10 belong to class IIb, an evolutionary distinct class that is made out of a family of enzymes called sirtuins compose class III, and HDAC11 is the only member of class IV.
+	 
+	 The central structural feature in all HDACs is the alpha-beta fold that is composed of 8 stranded parallel beta-sheets flanked by 11 alpha-helices, similar to the bacterial HDAC-like protein HDLP [33]_. Catalysis by HDACs and HDAC8 in particular requires a single transition metal ion. In HDAC8 this metal ion is located between the L4 and L7 loops, where conserved residues coordinate a single Zn\ :sup:`2+` ion that is a key participant in the catalytic mechanism. (see Figure :ref:`hdacfold`) [28]_ . The basis of this catalytic mechanism, which is shared by all HDACs and other HDAC related enzymes such as some Arginases [29]_ , is a simple nucleophilic that is promoted by the active site transition metal and H143 that functions as a general base. The metal-bound water molecule attack the metal coordinated C=O group of the acetylated lysine substrate (see Figure :ref:`catalyticmech`)
+
+.. figure:: images/catalytic_mechanism.png
+	:scale: 40%
+
+	:label:`catalyticmech` The catalytic mechanism of deacetylation.
+
+..
+
+	As drawn, the nucleophilic lone electron pair on the metal-bound water molecule becomes available only upon proton abstraction. *Christianson et al* suggests that the electron pair of the breaking O-H bond could add to the :raw-math:`$\pi^*$` orbital of the substrate carbonyl. [28]_ The oxyanion of the tetrahedral intermediate and its flanking transition states are stabilized by metal coordination as well as hydrogen bond interactions with Y306, H143, and H142. H143 serves as a general acid catalyst to facilitate the collapse of the tetrahedral intermediate to form acetate and L-lysine after an intervening proton transfer (possibly mediated by H143)
+
+..
+
+	*Vannini et al* solved a variant of catalytically inactive HDAC8-substrate complex in which T306 was mutated to F, with a diacetylated peptide substrate that was derived from p53, containing a fluorogenic coumarin group at its carboxy terminus [1]_ . The solved structure reveals an unexpected feature; at the rim of the active site the carboxylate of D101 establishes two directional hydrogen bonds with two adjacent nitrogen atoms of the substrate backbone (see Figure :ref:`keyint`), constraining the latter in an unusual cis-conformation. This important structural feature is essential to catalysis - mutation of D101 to alanine results in a complete loss of enzyme activity on both histone and on the peptidic substrate *Vannini et al* used for their study. The authors suggests that the tight polar interactions that involves D101 keep substrate at place during the deacetylation reaction. This particular residue shows remarkable conservation among class I and II HDACs despite the low overall sequence homology in this loop region. The alkyl chain of the acetylated lysine is stabilized in that deep pocket by a hydrophobic interaction with F153 and F208 and one hydrogen bond to Gly151.
+	
+.. figure:: images/hdac_fold.png
+	:scale: 50%
+
+	:label:`hdacfold` HDAC8 fold and metal binding
+	
+	**A:** HDAC8 exhibits a typical alpha/beta fold with 8 stranded parallel beta-sheets. **B:** Close up on the metal binding area (which is also a part of the active site) of HDAC8. **C:** a model of HDAC8 with K and Zn metal cofactor at their designated sites. taken from [28]_ 
+
+..
+
+	Although HDAC8 (and other HDAC-related deacetylases) are typically studied *in vitro* as Zn\ :sup:`2+` metal bound enzymes , the metal ion preference in vitro may differ. HDAC8 was shown to exhibit increased activity when substituted with Fe\ :sup:`2+` ions, suggesting that it could function with that metal also *in vivo* [30]_ and possibly have a cofactor based regulation. Crystal structures of HDAC8 coordinated with both Fe\ :sup:`2+` and Zn\ :sup:`2+` reveal similar metal coordination geometries [31]_. Additional monovalent cations such as K\ :sup:`+` and Na\ :sup:`+` have also been identified in most crystal structures of HDAC8 in periferal sites which aren't adjacent to the active site,  K\ :sup:`+` was found to be the preferred metal *in vivo*. [32]_ 
+
+..
+
+	HDAC8 is a key participant in a growing number of biological processes. As its name suggests, HDAC8 is one of the regulatory components that enable the tight epigenetic control over the chromatin and was shown to regulate p53 levels [37]_ , participate in skull morphogenesis [38]_ and function as key factor for smooth muscle contractility [39]_ . HDAC8 was specifically found overexpressed, above all other HDACs in neuroblastome [42]_  and molecules that inhibit that enzyme were shown to induce apoptosis in Lymphoma cell lines [43]_ - findings that could imply that HDAC8 is involved in tumorigensis in various tissues.
+	
+	However, in recent years evidence is starting to accumulate, indicating that this only the tip of the iceberg. *Wilson et al* showed for the first time that HDAC8 together with Sirt-1 and p300 form an acetylation switch that modulates the transcriptional activity of Estrogen-Related receptor :raw-math:`$\alpha$` (ERR :raw-math:`$\alpha$`), but what's more intriguing is that HDAC8 was found to deacetylate ERR :raw-math:`$\alpha$` itself which is not a histone protein at all. Although It is known for quite some time that various HDACs has the ability to deacetylate non-histone substrates, particularly HDAC1 [40]_  [41]_ - this was the first time that HDAC8 was captured in such a mechanism. Recent study shows that HDAC8 also deacetylate SMC3 - a subunit of the cohesin complex that mediates sister chromatid cohesion. Failure to deacetylate this particular protein might cause CdLS (Cornelia de Lange syndrome) - a genetic disease whose patients suffer from retardation and overall deformity.
+	
+	This study elaborates a high-throughput method for the discovery of novel non-histone substrates of HDAC8 by applying various structural modeling algorithms to the HDAC8-substrate complex. The structural approach we take in out study enables us not only to predict novel substrates but also to pinpoint the exact location of the interaction. We show that HDAC8 has a potential to deacetylate many other non-histone proteins and in particular, we show that CdLS may be caused in various occasions by failure to deacetylate SMC1 - another component of the cohesin complex that wasn't a known target for HDAC8. 
 	
 The Rosetta Framework
 ----------------------
@@ -95,6 +139,9 @@ Preparation of starting structure
 	:label:`keyint` The key interactions from which the constraints were derived, taken from a solved crystal complex (PDB: 2v5w).
 
 	The interaction between D101 in the receptor and the N atom in the acetylared Lysine is critically important, a mutation D101A resulted in a complete loss of enzyme activity on the peptidic substrate and also on purified histones. [1]_ Additional constraints were derived from the interaction between the acetyl group and the two His, Asp in the active site - mostly in the purpose of fixating the acetylated Lysine in the active site.
+	
+.. TODO: add labels to residues, location, identities, etc.
+
 	
 Calibration of the protocol
 ------------------------------
@@ -446,7 +493,7 @@ TODO: Replace that figure with one that doesn't have a red underline in the word
 												  
 	4		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
 			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
-			atom									
+												
 
 	5		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
 			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
@@ -468,7 +515,7 @@ TODO: Replace that figure with one that doesn't have a red underline in the word
 	
 	Simulations 6 and 7 achieved the best KS p-values on the training set, 1.51×10\ :sup:`-5` and 2.79×10\ :sup:`-5` respectively, using the peptide scoring scheme. However the cutoff that's responsible for these low p-values is 0.44 which is relatively high and isn't sensitive enough (there are only 11 out of 181 peptides with higher activity levels). Simulation #4 showed a potentially good ability to differentiate between binders and non-binders with cutoff of 0.35 and KS p-value of 4.63×10\ :sup:`-5`. 
 	
-	We applied a clustering step [citation] to the structures from each simulation and averaged the top 3 ranking decoys in the largest cluster to get a score for each peptide. In cotrast to previous findings in earlier studies [7]_ , [8]_, we found that clusering improves the differentiation between binders and non binders in several orders of magnitude. For example, Simulation #4, the one with the lower standard deviation for the constraints demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 , in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme it showed a p-value of 4.03×10\ :sup:`-6` using a cutoff of 0 activity level. This parameter set indeed demonstrate both specificity and a very high sensitivity in differentiating between binders and non-binders.
+	We clustered [26]_ the decoy structure from each simulation based on their RMSD and averaged the top 3 ranking decoys in the largest cluster to get a score for each peptide. In cotrast to previous findings in earlier studies [7]_ , [8]_, we found that clustering improves the differentiation between binders and non binders in several orders of magnitude. For example, Simulation #4, the one with CH atom of the lysine sidechain as an anchor, demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 , in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme it showed a p-value of 4.03×10\ :sup:`-6` using a cutoff of 0 activity level. This parameter set indeed demonstrate both specificity and a very high sensitivity in differentiating between binders and non-binders.
 	
 	Interestingly, we saw the level of activity of 0.34 reccur as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example , simulation #1 that has the parameter set that was one of the best performing in the first initial calibration phase with the interface scoring scheme achieved a p-value of 4.4×10\ :sup:`-6` - three orders of magnitudes improvement comparing to its performance without clustering.
 
@@ -1486,6 +1533,24 @@ References
 .. [23] Deardorff MA, Bando M, Nakato R, et al. HDAC8 mutations in Cornelia de Lange syndrome affect the cohesin acetylation cycle. Nature. 2012;489(7415):313-7.
 .. [24] Deardorff MA, Kaur M, Yaeger D, et al. Mutations in cohesin complex members SMC3 and SMC1A cause a mild variant of cornelia de Lange syndrome with predominant mental retardation. Am J Hum Genet. 2007;80(3):485-94.
 .. [25] Lupas A, Van dyke M, Stock J. Predicting coiled coils from protein sequences. Science. 1991;252(5009):1162-4.
+.. [26] Li SC, Ng YK. Calibur: a tool for clustering large numbers of protein decoys. BMC Bioinformatics. 2010;11(1):25.
+.. [27] Taunton J, Hassig CA, Schreiber SL. A mammalian histone deacetylase related to the yeast transcriptional regulator Rpd3p. Science. 1996;272(5260):408-11.
+.. [28] Lombardi PM, Cole KE, Dowling DP, Christianson DW. Structure, mechanism, and inhibition of histone deacetylases and related metalloenzymes. Curr Opin Struct Biol. 2011;21(6):735-43.
+.. [29] Dowling DP, Di costanzo L, Gennadios HA, Christianson DW. Evolution of the arginase fold and functional diversity. Cell Mol Life Sci. 2008;65(13):2039-55.
+.. [30] Gantt SL, Gattis SG, Fierke CA. Catalytic activity and inhibition of human histone deacetylase 8 is dependent on the identity of the active site metal ion. Biochemistry. 2006;45(19):6170-8.
+.. [31] Dowling DP, Gattis SG, Fierke CA, Christianson DW. Structures of metal-substituted human histone deacetylase 8 provide mechanistic inferences on biological function . Biochemistry. 2010;49(24):5048-56.
+.. [32] Gantt SL, Joseph CG, Fierke CA. Activation and inhibition of histone deacetylase 8 by monovalent cations. J Biol Chem. 2010;285(9):6036-43.
+.. [33] Finnin MS, Donigian JR, Cohen A, et al. Structures of a histone deacetylase homologue bound to the TSA and SAHA inhibitors. Nature. 1999;401(6749):188-93.
+.. [34] Yang XJ, Seto E. Collaborative spirit of histone deacetylases in regulating chromatin structure and gene expression. Curr Opin Genet Dev. 2003;13(2):143-53.
+.. [35] Luo Y, Jian W, Stavreva D, et al. Trans-regulation of histone deacetylase activities through acetylation. J Biol Chem. 2009;284(50):34901-10.
+.. [36] Wilson BJ, Tremblay AM, Deblois G, Sylvain-drolet G, Giguère V. An acetylation switch modulates the transcriptional activity of estrogen-related receptor alpha. Mol Endocrinol. 2010;24(7):1349-58.
+.. [37] Yan W, Liu S, Xu E, et al. Histone deacetylase inhibitors suppress mutant p53 transcription via histone deacetylase 8. Oncogene. 2012;
+.. [38] Haberland M, Mokalled MH, Montgomery RL, Olson EN. Epigenetic control of skull morphogenesis by histone deacetylase 8. Genes Dev. 2009;23(14):1625-30.
+.. [39] Waltregny D, Glénisson W, Tran SL, et al. Histone deacetylase HDAC8 associates with smooth muscle alpha-actin and is essential for smooth muscle cell contractility. FASEB J. 2005;19(8):966-8.
+.. [40] Juan LJ, Shia WJ, Chen MH, et al. Histone deacetylases specifically down-regulate p53-dependent gene activation. J Biol Chem. 2000;275(27):20436-43.
+.. [41] Luo J, Su F, Chen D, Shiloh A, Gu W. Deacetylation of p53 modulates its effect on cell growth and apoptosis. Nature. 2000;408(6810):377-81.
+.. [42] Oehme I, Deubzer HE, Wegener D, et al. Histone deacetylase 8 in neuroblastoma tumorigenesis. Clin Cancer Res. 2009;15(1):91-9.
+.. [43] Balasubramanian S, Ramos J, Luo W, Sirisawad M, Verner E, Buggy JJ. A novel histone deacetylase 8 (HDAC8)-specific inhibitor PCI-34051 induces apoptosis in T-cell lymphomas. Leukemia. 2008;22(5):1026-34.
 
 .. footer::
 	Page ###Page### of ###Total###
