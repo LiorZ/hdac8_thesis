@@ -63,9 +63,10 @@ Histone Deacetylase 8
 
 	Vannini *et al.* solved a variant of a catalytically inactive HDAC8-substrate complex in which Y306 was mutated to F, with a diacetylated peptide substrate that was derived from p53, containing a fluorogenic coumarin group at its carboxy terminus [1]_ . The solved structure reveals an unexpected feature: At the rim of the active site, the carboxylate of D101 establishes two directional hydrogen bonds with two adjacent nitrogen atoms of the substrate backbone (see Figure :ref:`labeledactivesite`), constraining the latter in an unusual cis-conformation. 
 
-.. ORA: make sure the hbonds you mention indeed appear in figure 4 - I could not see them. %
+.. (DONE) ORA: make sure the hbonds you mention indeed appear in figure 4 - I could not see them. 
+.. LIOR: Replaced the figure ...
 	
-.. figure:: images/active_site_labeled.png
+.. figure:: images/active_site.png
 	:scale: 25%
 
 	:label:`labeledactivesite` Close-up of the active site , with all the relevant residues - the cis conformation of the peptide backbone is clearly visible
@@ -74,14 +75,14 @@ Histone Deacetylase 8
 	
 	This important structural feature is essential to catalysis - mutation of D101 to alanine results in a complete loss of enzyme activity on both histone and on the peptidic substrate *Vannini et al* used for their study. The authors suggests that the tight polar interactions that involves D101 keep the substrate at place during the deacetylation reaction. This particular residue shows remarkable conservation among class I and II HDACs despite the low overall sequence homology in this loop region. The alkyl chain of the acetylated lysine is  stabilized in the deep binding pocket by a hydrophobic interaction with F152 and F208 and one hydrogen bond to G151.
 
-.. ORA: this hydrophobic interaction looks a little like a stacking interaction to me ...
-.. LIOR: Stacking interaction is a sub-type of hydrophobic interaction isn't it?
+.. (DONE) ORA: this hydrophobic interaction looks a little like a stacking interaction to me ...
+.. LIOR: The two phenylalanines interact with the hydrophobic region of lysine .. are you sure its a stacking interaction?..
 
 ..
 
 	Although HDAC8 (and other HDAC-related deacetylases) are typically studied *in vitro* as Zn\ :sup:`2+` metal bound enzymes , the metal ion preference *in vitro* may differ. HDAC8 was shown to exhibit increased activity and even changed substrate specificity when substituted with Fe\ :sup:`2+` ions, suggesting that it could function with that metal also *in vivo* [30]_ and possibly have a cofactor based regulation. Crystal structures of HDAC8 coordinated with both Fe\ :sup:`2+` and Zn\ :sup:`2+` reveal similar metal coordination geometries [31]_. Additional monovalent cations such as K\ :sup:`+`  (was found to be the preferred metal *in vivo*) and Na\ :sup:`+` have also been identified in most crystal structures of HDAC8 in various peripheral sites and Gantt *et al* suggested that this interaction stabilizes the active conformation of the enzyme. [32]_ 
 
-.. ORA: what does the binding to peripheral sites indicate - what is the meaning of this finding?  - DONE
+.. (DONE) ORA: what does the binding to peripheral sites indicate - what is the meaning of this finding?
 
 ..
 	
@@ -139,9 +140,9 @@ Methods
 Overview
 ---------
 	
-	We adapted FlexPepBind to predict the substrate specificity of Histone Deacetylase 8. First, we prepared a coarse starting complex of the enzyme and an array of peptides that were experimentally tested for catalytic activity. Then, we calibrated our protocol on a small subset of that experimentally verified dataset and obtained an initial coarse set of parameters - such as perturbation size of backbone movement and weight of different terms in the scoring function. This coarse set of parameters was refined by applying the pipeline on the whole training set. The performance of each set of parameters was evaluated by Spearman's correlation, and in the case of the whole training set - by the Kolmogorov-Smirnov goodness of fit test. 
+	We adapted FlexPepBind to predict the substrate specificity of Histone Deacetylase 8. First, we prepared a coarse starting complex of the enzyme and an array of peptides that were experimentally tested for catalytic activity. Then, we calibrated our protocol on a small subset of that experimentally verified dataset and obtained an initial coarse set of parameters - such as perturbation size of backbone movement and weight of different terms in the scoring function. This coarse set of parameters was refined by applying the pipeline on the whole training set. The performance of each set of parameters was evaluated by Kolmogorov-Smirnov statistical significance test, and in the case of the whole training set - by Spearman non-parametric correlation and ROC plots.
 
-.. ORA: this is wrong: for the whole set should be assessed by spearman correlation, while the top and lowx in the first part consist two classes, and the difference between them should be assessed by KS %
+.. (DONE) ORA: this is wrong: for the whole set should be assessed by spearman correlation, while the top and lowx in the first part consist two classes, and the difference between them should be assessed by KS 
 
 Flexible peptide - protein interactions with FlexPepDock
 ---------------------------------------------------------
@@ -346,7 +347,7 @@ Calibration of the protocol
 .. table:: A short version of the dataset used for coarse calibration of our protocol.
 	
 	+---------------+----------------------+------------------+
-	|Sequence	|	.. deacetylation|	annotation|
+	|Sequence	|      % deacetylation |annotation	  |
 	+===============+======================+==================+
 	|GYK(ac)FGC	|93		       |		  |
 	+---------------+----------------------+		  |
@@ -656,7 +657,7 @@ Scoring of peptides
 
 	The `Training set simulations and their performance`_ section in the supplementary materual concentrates a summary of all simulations with and without a clustering step, including the statistical evaluation of their performance. 
 
-.. ORA: add a summary here
+.. (DONE) ORA: add a summary here
 .. LIOR: I think this should be in the sup material ... added a refernce to there.
 
 	To visualize the comparison of our ability to distinguish binders from non binders with and without clustering, we plotted *score vs. activity* plots for all simulations. They are available in the `Supplementary Material`_ - `Training set analysis`_
