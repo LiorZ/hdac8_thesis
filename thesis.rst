@@ -844,15 +844,16 @@ Discussion
 ..
 
 	The HDAC8 system presents additional challenges to systems studied previously - the extremely flexible loops in the interface have the ability to move and accommodate different substrates for each conformation, the lack of solved crystals that incorporated a genuine substrate and the acetylated lysine - a post translational modification that was poorly addressed in previous computational studies.
-	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. The minimization only predictor performed better in the task of separating between binders and non binders in the experimental dataset we used. Thus, this scheme could easily be applied to find new potential substrates of HDAC8 in a large database of acetylated proteins. The interesting case that stands out is the relationship between CdLS and HDAC8 and deacetylation. 
+	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. Although the full optimization scheme performed better in the task of distinguishing binders from non binders than the short minimization pipeline, it was too computationally intensive for high-throughput mode as it included (in addition to the FPDock full optimization runs) an additional clustering step. For that reason, we used the minimization only scheme which was a little less accurate but much faster.
 
 .. (DONE) ORA: what do you mean by "in general"?
 .. LIOR: Bad phrasing, fixed
 ..
 
-	We have used our protocol to predict deacetylation sites on SMC3 - a protein that was confirmed to undergo deacetylation by HDAC8 - a failure to deacetylate this protein causes CdLS. In addition, For SMC1A - another protein that was shown to be involved in CdLS, we mapped all known mutations that lead to the disease, all known acetylation sites, and all predicted strong substrate sequences for HDAC8. Interestingly, we identified one site where all agree, suggesting a possible site of interaction with HDAC8, and thus a functional explanation for the involvement of SMC3 in CdLS.
+	We have used the minimization only protocol to predict deacetylation sites on SMC3 - a protein that was confirmed to undergo deacetylation by HDAC8 - a failure to deacetylate this protein causes CdLS. In addition, For SMC1A - another protein that was shown to be involved in CdLS, we mapped all known mutations that lead to the disease, all known acetylation sites, and all predicted strong substrate sequences for HDAC8. Interestingly, we identified one site where all agree, suggesting a possible site of interaction with HDAC8, and thus a functional explanation for the involvement of SMC3 in CdLS.
 	
 	Important emphasis should be put on the fact that the current implementation of our protocol can't distinguish whether the derived peptide is located in an exposed region of the protein. In the case of the SMC proteins, our protocol predicted multiple binders that are originated from regions in the protein that are probably inaccessible to the solvent. A possible improvement to our pipeline could include a secondary structure prediction program that will be able to filter out these kinds of false positives and focus the search only on regions which are able to go through acetylation and deacetylation.
+	
 	
 .. TODO: continue discussion - hack_elec affects primarily on the interface score, that's why it yielded such good results.
 	
@@ -967,64 +968,45 @@ Peptide Score
 .. table:: Results for short calibration runs, by peptide score.
 
 	=====	==========================================
-	No.	Spearman correlation coefficient
+	No.	Kolmogorov Smirnov p-values
 	-----	------------------------------------------
-	1	* R: -0.4
-		* p-Value: 0.24
+	1	0.2
 		
-	2	* R: -0.29
-		* p-Value: 0.41
+	2	0.2
 
-	3	* R: -0.265
-		* p-Value: 0.46
+	3	0.69
 
-	4	* R: -0.33
-		* p-Value: 0.35
+	4	0.2
 
-	5	* R: -0.47
-		* p-Value: 0.17
+	5	0.2
 		
-	6	* R: -0.39
-		* p-Value: 0.26
+	6	0.2
 		
-	7	* R: -0.42
-		* p-Value: 0.22
+	7	0.2
 		
-	8	* R: -0.23
-		* p-Value: 0.5
+	8	0.2
 		
-	9	* R: -0.33
-		* p-Value: 0.35
+	9	0.2
 
-	10	* R: -0.16
-		* p-Value: 0.65
+	10	0.2
 
-	11	* R: -0.55
-		* p-Value: 0.099
+	11	0.2
 		
-	12	* R: -0.24
-		* p-Value: 0.5
+	12	0.2
 		
-	13	* R: 0.85
-		* p-Value: 0.001
+	13	0.2
 
-	14	* R: 0.37
-		* p-Value: 0.29
+	14	0.003
 		
-	15	* R: 0.17
-		* p-Value: 0.63
+	15	0.2
 		
-	16	* R: -0.44
-		* p-Value: 0.2
+	16	0.69
 		
-	17	* R: -0.6
-		* p-Value: 0.06
+	17	0.2
 		
-	18	* R: -0.34
-		* p-value: 0.33
+	18	0.2
 
-	19	* R: -0.34
-		* p-value: 0.33
+	19	0.2
 
 	=====	==========================================
 
@@ -1037,62 +1019,43 @@ Interface Score
 	=====	==========================================
 	No.	Spearman correlation coefficient
 	-----	------------------------------------------
-	1	* R: -0.69
-		* p-Value: 0.02
+	1	0.2
 		
-	2	* R: -0.63
-		* p-Value: 0.05
+	2	0.03
 
-	3	* R: -0.49
-		* p-Value: 0.14
+	3	0.69
 
-	4	* R: -0.68
-		* p-Value: 0.03
+	4	0.03
 
-	5	* R: -0.74
-		* p-Value: 0.01
+	5	0.03
 		
-	6	* R: -0.65
-		* p-Value: 0.04
+	6	0.2
 		
-	7	* R: -0.75
-		* p-Value: 0.01
+	7	0.03
 		
-	8	* R: -0.67
-		* p-Value: 0.03
+	8	0.03
 		
-	9	* R: -0.68
-		* p-Value: 0.03
+	9	0.03
 
-	10	* R: -0.51
-		* p-Value: 0.13
+	10	0.2
 
-	11	* R: -0.83
-		* p-Value: 0.002
+	11	0.03
 		
-	12	* R: -0.69
-		* p-Value: 0.02
+	12	0.003
 		
-	13	* R: -0.29
-		* p-Value: 0.41
+	13	0.03
 
-	14	* R: -0.57
-		* p-Value: 0.08
+	14	0.2
 		
-	15	* R: -0.16
-		* p-Value: 0.65
+	15	0.2
 		
-	16	* R: -0.44
-		* p-Value: 0.2
+	16	0.697
 		
-	17	* R: -0.62
-		* p-Value: 0.05
+	17	0.2
 		
-	18	* R: -0.56
-		* p-Value: 0.09
+	18	0.2
 
-	19	* R: -0.74
-		* p-value: 0.01
+	19	0.2
 	=====	==========================================
 
 
@@ -1104,62 +1067,43 @@ Reweighted Score
 	=====	==========================================
 	No.	Spearman correlation coefficient
 	-----	------------------------------------------
-	1	* R: -0.28
-		* p-Value: 0.43
+	1	0.2
 		
-	2	* R: -0.22
-		* p-Value: 0.53
+	2	0.69
 
-	3	* R: 0.53
-		* p-Value: 0.11
+	3	0.03
 
-	4	* R: -0.11
-		* p-Value: 0.76
+	4	0.69
 
-	5	* R: -0.2
-		* p-Value: 0.58
+	5	0.2
 		
-	6	* R: -0.4
-		* p-Value: 0.24
+	6	0.2
 		
-	7	* R: -0.13
-		* p-Value: 0.7
+	7	0.2
 		
-	8	* R: -0.07
-		* p-Value: 0.84
+	8	0.69
 		
-	9	* R: -0.13
-		* p-Value: 0.7
+	9	0.69
 
-	10	* R: -0.19
-		* p-Value: 0.6
+	10	0.69
 
-	11	* R: -0.09
-		* p-Value: 0.79
+	11	0.69
 		
-	12	* R: -0.35
-		* p-Value: 0.31
+	12	0.69
 		
-	13	* R: -0.07
-		* p-Value: 0.84
+	13	0.2
 
-	14	* R: -0.7
-		* p-Value: 0.02
+	14	0.69
 		
-	15	* R: 0.006
-		* p-Value: 0.985
+	15	0.03
 		
-	16	* R: 0.04
-		* p-Value: 0.9
+	16	0.697
 		
-	17	* R: -0.1
-		* p-Value: 0.17
+	17	0.69
 		
-	18	* R: -0.12
-		* p-value: 0.09
+	18	0.009
 
-	19	* R: -0.35
-		* p-value: 0.31
+	19	0.005
 	=====	==========================================
 
 Score vs. Activity plots
