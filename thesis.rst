@@ -172,7 +172,7 @@ Flexible peptide - protein interactions with FlexPepDock
 
 	The first step of each FlexPepDock simulation is the prepacking of the input structure to provide better packing and remove internal clashes. Side chain conformations are optimized by determining the best rotamer combination for both the protein and the peptide separately [15]_ . This starting structure is then used as input to the FlexPepDock optimization protocol. The optimization is performed in 10 cycles. In the first cycle, the weight of the repulsive van der Waals term is reduced to 2.. of its normal magnitude, and the attractive van der Waals term is increased by 225%. This allows significant perturbations within the binding pocket, while preventing the peptide and protein to separate during energy minimization. During refinement, the repulsive and attractive terms are gradually ramped back towards their original values (so that in the last cycle the energy function corresponds to the standard Rosetta score). Within each cycle, first the rigid body orientation between the protein and the peptide, then the peptide backbone is optimized in two sets of inner cycles. In 8 such inner cycles, low-energy conformations are searched using a Monte Carlo search with energy minimization [53]_ . In the first 8 cycles, a rigid body perturbation that is sampled from a gaussian distribution is applied and followed by sidechain repacking of interface residues and minimization (The default implementation of the minimization algorithm is DFP [18]_ ). The metropolis criterion is then applied right after the energy minimization step to accept or reject the new conformation.
 
-.. ORA: Maybe add the figure of MCM that we show in the lectures as Figure 5B? %
+.. (DONE) ORA: Maybe add the figure of MCM that we show in the lectures as Figure 5B? %
 .. LIOR: To which figure are you refering? the one I saw is the figure on lecture 3 slide 101 and it is an illustration of something trivial... %
 ..
 
@@ -322,16 +322,6 @@ Constraints
 .. (DONE) ORA: maybe add it here - this is important for the understanding of the following, I think.
 .. LIOR: I think it will interupt the flow .. also, there were several types of constraints files, each with different constraints mean, sd , etc... %
 
-Differentiation between binders and non binders
-------------------------------------------------
-
-	We used several statistical tests to evaluate the performance of our protocol and its set of parameters. The short calibration runs were evaluated by Spearmans's correlation coefficient.
-
-	While Spearmans's correlation functions better than the KS test, on the larger training set we were interested in capturing the algorithm's ability to distinguish between two possible classes of
-
-.. ORA: something seems to be missing here.
-
-
 Results
 ========
 
@@ -414,7 +404,7 @@ Initial parameters
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
 	|No.		|Perturbation size |  No. decoys | Peptide score | Interface score | Reweighted score |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|8		|6 (default value) |  200	 | 0.2		 | 0.03		   | 0.2	      |
+	|8		|6 (default value) |  200	 | 0.2		 | 0.03		   | 0.2	      | 
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
 	|9		|15		   |  200	 | 0.2		 | 0.03		   | 0.69	      |	
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
@@ -439,7 +429,7 @@ Initial parameters
 .. (DONE) ORA: change the measure to KS: correlation is not the right meaure here.
 .. ORA: renumber run numbers so the order makes sense (rather than the original run numbers).
 .. (DONE) ORA: I think it should be 8-9-10-5-1-4-2-3
-..
+..8->1 , 9->2 , 16->3 , 5-> 4, 1->5, 4->6, 2-> 7, 3-> 8
 
 	Our findings above suggests that a modest amount of sampling (in the context of number of simulation runs) is sufficient to generate a reliable predictor. Our findings correlate with an earlier study conducted by *London et al* [8]_ , that found that 200 simulation rounds are indeed sufficient for this purpose, and that a larger number of simulation rounds doesn't necessarily yield significant improvements in the predictor's performance. However, in terms of the perturbation size, we found that the default amount of sampling in FlexPepDock (simulation number 8) that was sufficient for all previous studies, wasn't optimal in cases where simulations started from an extended peptide conformation. Furthermore, this short set of calibration runs suggests that the interface scoring scheme functions better than the rest in the task of differentiating between binders and non binders in the case of HDAC8 substrates.
 	
@@ -448,7 +438,7 @@ Template selection
 
 	We applied a short FlexPepDock run on each of the possible templates complexed with the top and bottom 5 binders and used Kolmogorov - Smirnov goodness-of-fit test to determine how well we could distinguish between the two classes. 
 
-.. (DONE) ORA: Here you used a perturbation of 15degrees. maybe it would be good to add to each table the default values in the legend.
+.. (DONE) ORA: Here you used a perturbation of 15 degrees. maybe it would be good to add to each table the default values in the legend.
 .. LIOR: mentioned that all simulations here used the initial values described above, except for the anchor.
 
 .. table:: Selecting the right template.
@@ -624,30 +614,28 @@ Training a classifier
 	======		================	===============================	===========	===================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
 	======		================	===============================	===========	===================
-	1		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+	1		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+						* 200 simulations per peptide.			
 
-	2		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 simulations per peptide.	(threaded)	* hack_elec = 0.5	
+	2		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+						* 200 simulations per peptide.	(threaded)		
 
-	3		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-						* 200 simulations per peptide.			* hack_elec = 0.5
+	3		366			* perturbation size = 15	3f07		hack_elec = 0.5
+						* 200 simulations per peptide.			
 
-												  
-	4		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
-												
+	4		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+			anchor was CH		* 200 simulations per peptide.			
 
-	5		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			anchor was CH		* 200 simulations per peptide.			* hack_elec = 0.5
+	5		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+			anchor was CH		* 200 simulations per peptide.			
 			atom			* low resoultion preopt.							
 
-	6		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+	6		366			* perturbation size = 15	2v5w		
 						* 200 simulations per peptide.			* hack_elec = 0.5
 												* sd of constraints
 												  is 0.15
 
-	7		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+	7		366			* perturbation size = 15	2v5w		
 						* 200 simulations per peptide.			* hack_elec = 0.5
 												* sd of constraints
 												  is 0.25
@@ -670,10 +658,11 @@ Scoring of peptides
 .. (DONE) ORA: below you can add a heading: "scoring of peptides"
 ..
 
-	In order to score the binding ability of each peptide, we clustered [26]_ the decoy structures from each simulation based on their RMSD, and averaged the top 3 ranking decoys in the largest cluster according to the different scoring schemes. In contrast to previous findings in earlier studies [7]_ , [8]_, we found that clustering improves the differentiation between binders and non binders by several orders of magnitude. For example, Simulation #4 (in which the CH atom of the lysine sidechain was used as anchor) demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` and a cutoff of 0.34 which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 (in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme): it showed a p-value of 4.03×10\ :sup:`-6` using activity level of 0 as a cutoff. This parameter set indeed demonstrates both specificity and a very high sensitivity in differentiating between binders and non-binders.
+	In order to score the binding ability of each peptide, we clustered [26]_ the decoy structures from each simulation based on their RMSD, and averaged the top 3 ranking decoys in the largest cluster according to the different scoring schemes. (see section `Training set simulations and their performance`_ in the supplementary material) In contrast to previous findings in earlier studies [7]_ , [8]_, we found that clustering improves the differentiation between binders and non binders by several orders of magnitude. For example, Simulation #4 (in which the CH atom of the lysine sidechain was used as anchor) demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` and a cutoff of 0.34 which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 (in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme): it showed a p-value of 4.03×10\ :sup:`-6` using activity level of 0 as a cutoff. This parameter set indeed demonstrates both specificity and a very high sensitivity in differentiating between binders and non-binders.
 
-.. ORA: Instead of "for example" You need a table with results here (or in the supmat), and then you can summarize your conclusions.
-	
+.. (DONE) ORA: Instead of "for example" You need a table with results here (or in the supmat), and then you can summarize your conclusions.
+.. LIOR: Added a reference to the relevant section in the supplementary material
+
 .. (DONE) ORA: cutoff of 0 activity level? rephrase better
 ..
 
@@ -711,7 +700,7 @@ Comparison to a minimization only based classifier
 Test set analysis
 ..................
 
-	With our insights from training a classifier on the training set, we applied it on the other part of the sequences - the test set. The simulation scheme used the set of parameters and constraints identical to that of simulation #1 in the training set runs, as its resulting predictor has the best ability to distinguish between binders and non binders (ROC plot AUC of 0.873).
+	With our insights from training a classifier on the training set, we applied it on the other part of the sequences - the test set. The simulation scheme used the set of parameters and constraints identical to that of simulation #1 in the training set runs, as its resulting predictor has the best ability to distinguish between binders and non binders (ROC plot AUC of 0.95).
 	The below ROC plot summarizes the performance of our classifier on the test set, comparing to its performance on the training set and to a minimization only scheme.
 
 
@@ -789,7 +778,8 @@ HDAC8 and CdLS syndrome
 	
 	**A** - SMC1A sequence annotated with known acetylation sites and mutations, as well as peptides trimmed from the protein that predicted to bind when tested as potential acetylated peptides. (peptides > 6 residues indicate overlapping) **B** - Reproduced from [24]_ , A schema of SMC1A structure annotated with mutations that were discovered in different patients
 
-.. ORA: create venn diagram instead of table: circle for FPD, act, and mut	
+.. (DONE) ORA: create venn diagram instead of table: circle for FPD, act, and mut	
+.. LIOR: I added a venn diagram in addition to the tables ... 
 
 .. table:: Lysine acetylation positions in SMC1A
 
@@ -828,7 +818,16 @@ HDAC8 and CdLS syndrome
 	
 ..
 
+.. figure:: images/venn_diagram.png
+	:scale: 60%
+
+	:label:`venndiagram` Venn diagram illustrating the relationships between the different positions.
 	
+	The positions in the SMC1A protein could be either acetylated, mutated in CdLS patient(s) or be a part of a low-scoring peptide according to FlexPepDock. This Venn diagram shows that these sets intersect each other and most notably, have one position in common.
+
+..
+
+
 	Worth noting is the mutation **R711W** that is located right close to a known acetylation site in the coiled coil region and was predicted by our classifier as a binder. A mutated version of the peptide - **WLKYSQ** was predicted as a  strong non-binder. The authors of the study in ref [24]_ used the Coils program [25]_ , that predicts the probability of protein to form a coiled coil and concluded that the R711W mutation has a low likelihood of disrupting the coiled coil. The authors speculate that the alterations caused by this mutation may affect the angulation of the coiled-coil resulting in impaired intra or intermolecular approximation of the SMC head domains, or disrupt binding of accessory proteins to the cohesin ring. Our findings however suggest yet another possibility - the R711W mutation might disrupt the (acetylation or) deacetylation of SMC1A at position 713, and that might contribute to the protein inability to bind accessory proteins or failure to attain a non-functioning structure.
 	In addition, position K437 is also a known acetylation site according to ref [22]_ and the peptide **IEKLEE**  that overlaps this position is predicted by our protocol to undergo deacetylation by HDAC8. However, no mutations have yet been reported for this position. 
 	
@@ -871,92 +870,91 @@ Summary of calibration runs
 
 .. TODO: change to KS (?)
 
-.. ORA: add indeed p values
+.. (DONE) ORA: add indeed p values
+.. LIOR: They are added in later sections.. 
 .. ORA: I would include a landscape presentation with all details, or/and an excel sheet.
-.. ORA: you don't need to repeat LK and Hack elec - mention the default values at the bottom of the table, or include this as a column.
 
+.. (DONE) ORA: you don't need to repeat LK and Hack elec - mention the default values at the bottom of the table, or include this as a column.
 .. table:: Description and summary of calibration simulations.
 
 	======		================	===============================	===========	===================
-	No.		Anchor (residue)	Sampling			Template	Scoring function
+	No.		Anchor (residue)	Sampling			Template	Scoring function [*]_
 	------		----------------	-------------------------------	-----------	-------------------
-	1		366			* perturbation size = 30	2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
+	1		366			* perturbation size = 30	2v5w		default
+						* 200 decoys per peptide.			
 	
-	2		366			* perturbation size = 60	2v5w		* Lazaridis-Karplus
-						* 500 decoys per peptide.			* hack_elec = 0.5
+	2		366			* perturbation size = 60	2v5w		default
+						* 500 decoys per peptide.			
 						
-	3		366			* perturbation size = 90	2v5w		* Lazaridis-Karplus
-						* 900 decoys per peptide.			* hack_elec = 0.5
+	3		366			* perturbation size = 90	2v5w		default
+						* 900 decoys per peptide.			
 
-	4		366			* perturbation size = 30	2v5w		* Lazaridis-Karplus
-						* 500 decoys per peptide.			* hack_elec = 0.5
+	4		366			* perturbation size = 30	2v5w		default
+						* 500 decoys per peptide.			
 	
-	5		366			* perturbation size = 20	2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
+	5		366			* perturbation size = 20	2v5w		
+						* 200 decoys per peptide.			default
 
 
-	6		367 (default: 		* perturbation size = 20	2v5w		* Lazaridis-Karplus
-			center of mass)		* 200 decoys per peptide.			* hack_elec = 0.5
+	6		367 (default: 		* perturbation size = 20	2v5w		
+			center of mass)		* 200 decoys per peptide.			default
 			
 	7		366			* perturbation size = 15	2v5w		* Rosetta's default
 						* 200 decoys per peptide.			  score function
 												  (score12)
 	8		366			* perturbation size = 6 
-						  (default)			2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
+						  (default)			2v5w		
+						* 200 decoys per peptide.			default
 
-	9		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
+	9		366			* perturbation size = 15	2v5w		
+						* 200 decoys per peptide.			default
 
-	10		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
+	10		366			* perturbation size = 15	2v5w		
 						* 200 decoys per peptide.			* hack_elec = 0.25
 	
-	11		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.	(threaded)	* hack_elec = 0.5
+	11		366			* perturbation size = 15	2v5w		
+						* 200 decoys per peptide.	(threaded)	default
 										[*]_	
 														
-	12		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			(anchor was CH		* 200 decoys per peptide.			* hack_elec = 0.5
+	12		366			* perturbation size = 15	2v5w		
+			(anchor was CH		* 200 decoys per peptide.			default
 			atom, instead of
 			CA)	
 	
-	13		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
+	13		366			* perturbation size = 15	3f07		
+						* 200 decoys per peptide.			default
 	
-	14		366			* perturbation size = 15	3f07		* Lazaridis-Karplus
-			(anchor was CH		* 200 decoys per peptide.			* hack_elec = 0.5
+	14		366			* perturbation size = 15	3f07		
+			(anchor was CH		* 200 decoys per peptide.			default
 			atom instead of
 			CA)								
 	
-	15		366			* perturbation size = 15	1t67		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
+	15		366			* perturbation size = 15	1t67		
+						* 200 decoys per peptide.			default
 
-	16		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
+	16		366			* perturbation size = 15	2v5w		
+						* 200 decoys per peptide.			default
 						* low resolution step 
 						  (centroid mode)						
 	
-	17		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-			receptor anchor		* 200 decoys per peptide.			* hack_elec = 0.5
+	17		366			* perturbation size = 15	2v5w		
+			receptor anchor		* 200 decoys per peptide.			default
 			was 289 
 			(manually)
 			[*]_
 	
-	18		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
-												* sd of constraints
-												  is 0.15
+	18		366			* perturbation size = 15	2v5w		sd of constraints
+						* 200 decoys per peptide.        		is 0.15
+									
 												  
-	19		366			* perturbation size = 15	2v5w		* Lazaridis-Karplus
-						* 200 decoys per peptide.			* hack_elec = 0.5
-												* sd of constraints
-												  is 0.25		
+	19		366			* perturbation size = 15	2v5w		sd of constraints
+						* 200 decoys per peptide.			is 0.25
 	======		================	===============================	===========	===================
 
-.. ORA: 20 could be threaded cases.. (9)
-..
+.. (DONE) ORA: 20 could be threaded cases.. (9)
+.. LIOR: I replaced the previous threaded with the one that contained the cis bb angle , the previous threaded structure didn't include that and does not reflect the true structure of the peptide.
 
+.. [*] The *default* scoring function is described in the *methods* section. In a simulation where a modified version of this scoring function was used, we included a description of what was modified.
 .. [*] The sequence was threaded on the peptidic substrate backbone in the 2v5w crystal. Since this peptidic substrate was only 4 amino acid long (the train/test sequences were 6 residues long), the 2 extra amino acids backbone conformation attained an extended conformation.
 
 .. [*] Setting the receptor anchor to be the 289 residue , creating an axis that aligns with the Lysine residue side-chain. This axis is directed inside the pocket , and allowed the peptide to rotate while the Lysine residue stays fixed (see Figure :ref:`mc`)
@@ -1244,6 +1242,9 @@ Training set analysis
 Training set simulations and their performance
 ...............................................
 
+Without clustering
+```````````````````
+
 .. list-table:: Spearman's correlation coefficient for training set simulations (Interface score)
    :widths: 5 20 20
    :header-rows: 1
@@ -1375,6 +1376,8 @@ Training set simulations and their performance
        
 --------------------------------------
 
+With clustering
+````````````````
 
 
  .. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Interface score)
@@ -1382,127 +1385,127 @@ Training set simulations and their performance
    :header-rows: 1
 
    * - No.
-     - Pearson correlation
+     - Spearman correlation
      - KS Test
    * - 1
-     - * R: -0.25
-       * p-value: 0.002
+     - * R: -0.1
+       * p-value: 0.15
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.4 \times 10^{-6} $`
    * - 2
-     - * R: -0.187
-       * p-value: 0.012
-     - * Cutoff: 0
-       * p-value: 0.005
+     - * R: -0.19
+       * p-value: 0.008
+     - * Cutoff: 0.35
+       * p-value: :raw-math:`$ 1.4 \times 10^{-9} $`
    * - 3
-     - * R: 0.005
-       * p-value: 0.84
-     - * Cutoff: 0.363
+     - * R: -0.07
+       * p-value: 0.31
+     - * Cutoff: 0.63
        * p-value: 0.02
    * - 4
-     - * R: -0.24
-       * p-value: 0.0007
+     - * R: -0.04
+       * p-value: 0.51
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.48 \times 10^{-7} $`
    * - 5
      - * R: -0.04
-       * p-value: 0.55
+       * p-value: 0.56
      - * Cutoff: 0.09
        * p-value: 0.14
    * - 6
-     - * R: -0.28
-       * p-value: 0.0001
+     - * R: -0.09
+       * p-value: 0.19
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 2.64 \times 10^{-6} $`
    * - 7
-     - * R: -0.27
-       * p-value: 0.00017
+     - * R: -0.09
+       * p-value: 0.2
      - * Cutoff: 0.31
        * p-value: :raw-math:`$ 1.53 \times 10^{-6} $`
 
-.. list-table:: Pearson's correlation coefficient and KS-test values for training set simulations after a clustering step (Peptide score)
+.. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Peptide score)
    :widths: 5 20 20
    :header-rows: 1
 
    * - No.
-     - Pearson correlation
+     - Spearman correlation
      - KS Test
    * - 1
-     - * R: -0.22
-       * p-value: 0.003
+     - * R: -0.15
+       * p-value: 0.04
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 2.64 \times 10^{-6} $`
    * - 2
-     - * R: -0.17
-       * p-value: 0.02
-     - * Cutoff: 0
-       * p-value: :raw-math:`$ 4.03 \times 10^{-6} $`
+     - * R: 0.05
+       * p-value: 0.44
+     - * Cutoff: 0.34
+       * p-value: 0.002
    * - 3
-     - * R: -0.1
-       * p-value: 0.167
+     - * R: -0.14
+       * p-value: 0.046
      - * Cutoff: 0.11
        * p-value: 0.05
    * - 4
-     - * R: -0.214
-       * p-value: 0.003
+     - * R: -0.134
+       * p-value: 0.07
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 5.89 \times 10^{-7} $`
    * - 5
-     - * R: -0.126
-       * p-value: 0.09
+     - * R: -0.213
+       * p-value: 0.003
      - * Cutoff: 0.18
        * p-value: :raw-math:`$ 1.82 \times 10^{-5} $`
    * - 6
-     - * R: -0.24
-       * p-value: 0.001
+     - * R: -0.164
+       * p-value: 0.026
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 2.64 \times 10^{-6} $`
    * - 7
-     - * R: -0.23
-       * p-value: 0.001/
+     - * R: -0.157
+       * p-value: 0.03
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.4 \times 10^{-6} $`
 
-.. list-table:: Pearson's correlation coefficient and KS-test values for training set simulations after a clustering step (Reweighted score)
+.. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Reweighted score)
    :widths: 5 20 20
    :header-rows: 1
 
    * - No.
-     - Pearson correlation
+     - Spearman's correlation
      - KS Test
    * - 1
-     - * R: -0.2
-       * p-value: 0.007
+     - * R: -0.09
+       * p-value: 0.2
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.4 \times 10^{-6} $`
    * - 2
-     - * R: 0.09
-       * p-value: 0.18
-     - * Cutoff: 0
+     - * R: -0.1
+       * p-value: 0.16
+     - * Cutoff: 0.05
        * p-value: 0.01
    * - 3
-     - * R: 0.005
-       * p-value: 0.938
+     - * R: 0.05
+       * p-value: 0.47
      - * Cutoff: 0.44
        * p-value: 0.14
    * - 4
-     - * R: -0.215
-       * p-value: 0.003
+     - * R: -0.1
+       * p-value: 0.16
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 5.9 \times 10^{-7} $`
    * - 5
-     - * R: -0.08
+     - * R: -0.05
        * p-value: 0.24
      - * Cutoff: 0.31
        * p-value: 0.006
    * - 6
-     - * R: -0.234
+     - * R: -0.13
        * p-value: 0.001
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.81 \times 10^{-6} $`
    * - 7
-     - * R: -0.217
-       * p-value: 0.003
+     - * R: -0.09
+       * p-value: 0.21
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 7.27 \times 10^{-6} $`
 
