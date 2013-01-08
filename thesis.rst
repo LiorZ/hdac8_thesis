@@ -405,38 +405,38 @@ Initial parameters
 
 	These features were of course, validated and perturbed in later phases.
 	
-	We also figured that the default anchor chosen in the FlexPepDock protocol will not be optimal in our case, so we started with a predefined anchor that we found to be suitable, and verified its optimality later on when other sets of parameters were calibrated. Furthermore, since it is unlikely that the amount of sampling will be different from one template to another, we selected 2v5w , due to the properties we mentioned earlier (primarily since it was solved with an actual peptide and not a small molecule)
+	We also figured that the default anchor chosen in the FlexPepDock protocol will not be optimal in our case since it is farther from the active site, so we determined the anchor to be the acetylated lysine, and verified its optimality later on when other sets of parameters were calibrated. Furthermore, since it is unlikely that the amount of sampling will be different from one template to another, we selected 2v5w , due to the properties we mentioned earlier (primarily since it was solved with an actual peptide and not a small molecule)
 
 .. table:: Calibration of the amount of sampling.
 
 	+---------------+--------------------------------+----------------------------------------------------+
-	|		|	 **Sampling**        	 |       **Scoring scheme** (correlation coefficient) |
+	|		|	 **Sampling**        	 |       **Scoring scheme** (KS p-value) 	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
 	|No.		|Perturbation size |  No. decoys | Peptide score | Interface score | Reweighted score |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|8		|6 (default value) |  200	 | -0.23	 | -0.67	   | -0.121	      |
+	|8		|6 (default value) |  200	 | 0.2		 | 0.03		   | 0.2	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|9		|15		   |  200	 | -0.33	 | -0.68	   | -0.24	      |	
+	|9		|15		   |  200	 | 0.2		 | 0.03		   | 0.69	      |	
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
 	|16		|15		   |		 |		 |		   |		      |
 	|		|low resolution    |  		 |		 | 		   |		      |	
 	|		|pre-optimization  |		 |		 |		   |		      |
-	|		|(centroid mode)   |  200	 | -0.44	 | -0.44    	   | -0.24	      |
+	|		|(centroid mode)   |  200	 | 0.2		 | 0.2    	   | 0.697	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|5		|20		   |  200	 | -0.47	 | -0.74	   | -0.24	      |
+	|5		|20		   |  200	 | 0.2		 | 0.03		   | 0.2	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|1		|30		   |  200	 | -0.4		 | -0.69	   | -0.32	      |
+	|1		|30		   |  200	 | 0.2		 | 0.2		   | 0.2	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|4		|30		   |  500	 | -0.33	 | -0.68	   | -0.21	      |
+	|4		|30		   |  500	 | 0.2		 | 0.03		   | 0.69	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|2		|60		   |  500	 | -0.29	 | -0.63	   | -0.26	      |
+	|2		|60		   |  500	 | 0.2		 | 0.03		   | 0.69	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|3		|90		   |  900	 | -0.265	 | -0.49	   | 0.48	      |
+	|3		|90		   |  900	 | 0.69		 | 0.69		   | 0.03	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
 
 ..
 
-.. ORA: change the measure to KS: correlation is not the right meaure here.
+.. (DONE) ORA: change the measure to KS: correlation is not the right meaure here.
 .. ORA: renumber run numbers so the order makes sense (rather than the original run numbers).
 .. (DONE) ORA: I think it should be 8-9-10-5-1-4-2-3
 ..
@@ -446,7 +446,7 @@ Initial parameters
 Template selection
 ...................
 
-	We applied a short FlexPepDock run on each of the possible templates complexed with the top and bottom 5 binders and used Pearson's correlation to determine how well we could distinguish between the two classes. 
+	We applied a short FlexPepDock run on each of the possible templates complexed with the top and bottom 5 binders and used Kolmogorov - Smirnov goodness-of-fit test to determine how well we could distinguish between the two classes. 
 
 .. (DONE) ORA: Here you used a perturbation of 15degrees. maybe it would be good to add to each table the default values in the legend.
 .. LIOR: mentioned that all simulations here used the initial values described above, except for the anchor.
@@ -458,11 +458,11 @@ Template selection
 	+---------------+------------------+---------------+-----------------+------------------+
 	|No.		|Template	   | Peptide score | Interface score | Reweighted score |
 	+---------------+------------------+---------------+-----------------+------------------+
-	|9		|2v5w		   | -0.41	   | -0.77	     | -0.24   		|
+	|9		|2v5w		   | 0.2	   | 0.03	     | 0.69 		|
 	+---------------+------------------+---------------+-----------------+------------------+
-	|13		|3f07		   | 0.44	   | -0.51	     | -0.51   		|
+	|13		|3f07		   | 0.003	   | 0.2	     | 0.69   		|
 	+---------------+------------------+---------------+-----------------+------------------+
-	|15		|1t67		   | -0.11	   | -0.11	     | -0.6   		|
+	|15		|1t67		   | 0.69	   | 0.69	     | 0.69   		|
 	+---------------+------------------+---------------+-----------------+------------------+	
 	| These simulations used the initial values described above, except for the templates	|
 	+---------------------------------------------------------------------------------------+
@@ -481,11 +481,11 @@ Scoring function
 	+---------------+------------------------------+---------------+-----------------+------------------+
 	|No.		|Scoring function  	       | Peptide score | Interface score | Reweighted score |
 	+---------------+------------------------------+---------------+-----------------+------------------+
-	|9		|weight of hackelec = 0.5      | -0.41         | -0.77	         | -0.24   	    |
+	|9		|weight of hackelec = 0.5      | 0.2           | 0.03	         | 0.69   	    |
 	+---------------+------------------------------+---------------+-----------------+------------------+	
-	|10		|weight of hackelec = 0.25     | -0.45         | -0.56	         | -0.31   	    |
+	|10		|weight of hackelec = 0.25     | 0.2	       | 0.2	         | 0.69   	    |
 	+---------------+------------------------------+---------------+-----------------+------------------+
-	|7		|*score12*		       | -0.48         | -0.7	         | -0.28   	    |
+	|7		|*score12*		       | 0.2	       | 0.03	         | 0.2   	    |
 	+---------------+------------------------------+---------------+-----------------+------------------+
 	| These simulations used the initial values described above, except for the scoring function params |
 	| described above.										    |
@@ -507,17 +507,17 @@ Rigid body movements
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
 	|No.		|Anchor (residue) 	  	         | Peptide score | Interface score | Reweighted score |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|9		| 366 (CA atom)		                 | -0.41         | -0.77	   | -0.24            |
+	|9		| 366 (CA atom)		                 | 0.2           | 0.03	           | 0.69             |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
 	|6		| 367 (default -			 |		 |		   |		      | 
-	|		| center of mass of the peptide)         | -0.49         | -0.65	   | -0.51            |
+	|		| center of mass of the peptide)         | 0.2           | 0.2   	   | 0.2              |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
 	|12		| 366 (anchor atom was the carbonyl of   |		 |		   |		      |
 	|		| the acetyl in the acetylated lysine, 	 |		 |		   |		      |
-	|		| instead of CA)			 | -0.45         | -0.77	   | -0.41            |
+	|		| instead of CA)			 | 0.2           | 0.003	   | 0.69             |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
 	|17		| 366 , receptor anchor was 		 |		 |		   |		      |
-	|		| the CA atom of G303			 | -0.48	 | -0.74	   | -0.38            |
+	|		| the CA atom of G303			 | 0.2  	 | 0.2   	   | 0.009            |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+	
 	| These simulations used the same values of simulation #9, except for the anchors     		      	      |
 	| 								       			                      |
@@ -539,11 +539,11 @@ Constraints
 	+---------------+--------------------------------+---------------+-----------------+------------------+
 	|No.		|Constraints (standard deviation)| Peptide score | Interface score | Reweighted score |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
-	|9		| 0.2 Å 	                 | -0.41         | -0.77	   | -0.24            |
+	|9		| 0.2 Å 	                 | 0.2           | 0.03	           | 0.69             |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
-	|18		| 0.15 Å 	                 | -0.45         | -0.54	   | -0.38            |
+	|18		| 0.15 Å 	                 | 0.2           | 0.2   	   | 0.005            |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
-	|19		| 0.25 Å 	                 | -0.47         | -0.51	   | -0.28            |
+	|19		| 0.25 Å 	                 | 0.2           | 0.03   	   | 0.2	      |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
 	| These simulations used the same values as simulation #9, except for the standard deviation of the   |
 	| constraints.						 		 		   	      |
@@ -574,11 +574,11 @@ Threading the peptide
 	+---------------+----------------------------------+-----------------+------------------+------------------+
 	|No.		|Starting structure                | Peptide score   | Interface score  | Reweighted score |
 	+---------------+----------------------------------+-----------------+------------------+------------------+
-	|9		| Extended conformation            | -0.41           | -0.77	        | -0.24            |
+	|9		| Extended conformation            |   0.2           | 0.03	        | 0.69             |
 	+---------------+----------------------------------+-----------------+------------------+------------------+
-	|11		| Threaded peptide                 | -0.54           | -0.83	        | -0.09            |
+	|11		| Threaded peptide                 | 0.2             | 0.003	        | 0.69             |
 	+---------------+----------------------------------+-----------------+------------------+------------------+
-	| These simulations used the same values as simulation #9, except for the starting structure.		   | 		|													   |
+	| These simulations used the same values as simulation #9, except for the starting structure.		   |
 	+----------------------------------------------------------------------------------------------------------+
 
 .. (DONE) ORA: the below should be another table as before, with a numbered run - I guess this is run #11, right?	
@@ -589,8 +589,7 @@ Threading the peptide
 Summary of calibration runs
 ............................
 	
-	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With this calibration approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulation #11 and simulations #9 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Pearson's correlation coefficient. We also noticed that the interface scoring scheme achieved superior performance to the rest of the schemes for every parameter set we've tested. Moreover, the reweighted score scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in our case.
-	
+	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With this calibration approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulation #11 and simulations #9 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Kolmogorov Smirnov p-values. We also noticed that the interface scoring scheme achieved superior performance to the rest of the schemes for every parameter set we've tested. Moreover, the reweighted score scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in our case.
 	In the next phase , in which we run our peptide modeling protocol on the whole training set, we mainly use the set of parameters that exhibited superior performance in the short calibration phase.
 
 Whole data set analysis
@@ -601,7 +600,7 @@ Training a classifier
 
 	After an initial phase of calibration on 10 peptides, we were set to examine and refine the parameters learned on the whole training set, this step allowed us to refine our initial, coarse set of parameters. Table 5 summarizes the simulations on the whole training set.
 
-	Recall that our dataset contains sequences of lysine acetylated peptides that are ranked by their level activity as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continuous value in [0,1]. In order to train a binary classifier, we needed to define a threshold to create a binary representation. To accomplish that, we selected an experimental level of activity to serve as a cutoff so that each sequence with activity that is lower than the cutoff is labeled as a non-binder and *vice versa*. We derived that cutoff by applying 2 samples Kolmogorov-Smirnov (KS) test on all possible activity levels ([0,1], in resolution of 0.01). The activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that could best differentiate between the 2 distributions of *scores* - that of the substrates and the score distribution of non substrates.  (see Figure :ref:`cutoff`)
+	Recall that our dataset contains sequences of lysine acetylated peptides that are ranked by their activity level as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continuous value in [0,1]. In order to train a binary classifier, we needed to define a threshold to create a binary representation. To accomplish that, we selected an experimental level of activity to serve as a cutoff so that each sequence with activity that is lower than the cutoff is labeled as a non-binder and *vice versa*. We derived that cutoff by applying 2 samples Kolmogorov-Smirnov (KS) test on all possible activity levels ([0,1], in resolution of 0.01). The activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that could best differentiate between the 2 distributions of *scores* - that of the substrates and the score distribution of non substrates.  (see Figure :ref:`cutoff`)
 	
 .. figure:: plots/cutoff.png
 	:scale: 50 %
@@ -955,7 +954,7 @@ Summary of calibration runs
 												  is 0.25		
 	======		================	===============================	===========	===================
 
-.. ORA: 20 could be threaded cases….. (9)
+.. ORA: 20 could be threaded cases.. (9)
 ..
 
 .. [*] The sequence was threaded on the peptidic substrate backbone in the 2v5w crystal. Since this peptidic substrate was only 4 amino acid long (the train/test sequences were 6 residues long), the 2 extra amino acids backbone conformation attained an extended conformation.
@@ -965,7 +964,7 @@ Summary of calibration runs
 Peptide Score
 ``````````````
 
-.. table:: Results for short calibration runs, by peptide score.
+.. table:: Kolmogorov Smirnov p-values for short calibration runs, by peptide score.
 
 	=====	==========================================
 	No.	Kolmogorov Smirnov p-values
@@ -994,13 +993,13 @@ Peptide Score
 		
 	12	0.2
 		
-	13	0.2
+	13	0.003
 
-	14	0.003
+	14	0.2
 		
-	15	0.2
+	15	0.69
 		
-	16	0.69
+	16	0.2
 		
 	17	0.2
 		
@@ -1014,10 +1013,10 @@ Peptide Score
 Interface Score
 `````````````````
 
-.. table:: Results for short calibration runs, by interface score.
+.. table:: Kolmogorov Smirnov p-values for short calibration runs, by interface score.
 
 	=====	==========================================
-	No.	Spearman correlation coefficient
+	No.	Kolmogorov Smirnov p-values
 	-----	------------------------------------------
 	1	0.2
 		
@@ -1039,33 +1038,33 @@ Interface Score
 
 	10	0.2
 
-	11	0.03
+	11	0.003
 		
-	12	0.003
+	12	0.03
 		
-	13	0.03
+	13	0.2
 
 	14	0.2
 		
-	15	0.2
+	15	0.69
 		
-	16	0.697
+	16	0.2
 		
 	17	0.2
 		
 	18	0.2
 
-	19	0.2
+	19	0.03
 	=====	==========================================
 
 
 Reweighted Score
 `````````````````
 
-.. table:: Results for short calibration runs, by reweighted score.
+.. table:: Kolmogorov Smirnov p-values for short calibration runs, by reweighted score.
 
 	=====	==========================================
-	No.	Spearman correlation coefficient
+	No.	Kolmogorov Smirnov p-values
 	-----	------------------------------------------
 	1	0.2
 		
@@ -1089,21 +1088,21 @@ Reweighted Score
 
 	11	0.69
 		
-	12	0.69
+	12	0.2
 		
-	13	0.2
+	13	0.69
 
-	14	0.69
+	14	0.03
 		
-	15	0.03
+	15	0.69
 		
-	16	0.697
+	16	0.69
 		
-	17	0.69
+	17	0.009
 		
-	18	0.009
+	18	0.005
 
-	19	0.005
+	19	0.2
 	=====	==========================================
 
 Score vs. Activity plots
@@ -1245,93 +1244,93 @@ Training set analysis
 Training set simulations and their performance
 ...............................................
 
-.. list-table:: Pearson's correlation coefficient for training set simulations (Interface score)
+.. list-table:: Spearman's correlation coefficient for training set simulations (Interface score)
    :widths: 5 20 20
    :header-rows: 1
 
    * - No.
-     - Pearson correlation
+     - Spearman's correlation coefficient
      - KS Test
    * - 1
-     - * R: -0.22
-       * p-value: 0.002
+     - * R: -0.2
+       * p-value: 0.006
      - * Cutoff: 0.35
        * p-value: 0.008
    * - 2
-     - * R: -0.168
-       * p-value: 0.020
+     - * R: -0.2
+       * p-value: 0.006
      - * Cutoff: 0.35
-       * p-value: 0.02
+       * p-value: :raw-math:`$ 2.78 \times 10^{-8} $`
    * - 3
-     - * R: 0.003
-       * p-value: 0.96
+     - * R: -0.13
+       * p-value: 0.076
      - * Cutoff: 0.35
        * p-value: 0.001
    * - 4
-     - * R: -0.21
-       * p-value: 0.004
+     - * R: -0.25
+       * p-value: 0.0005
      - * Cutoff: 0.28
        * p-value: 0.0004
    * - 5
-     - * R: -0.08
-       * p-value: 0.27
+     - * R: -0.04
+       * p-value: 0.58
      - * Cutoff: 0.22
        * p-value: 0.13
    * - 6
-     - * R: -0.22
-       * p-value: 0.002
+     - * R: -0.24
+       * p-value: 0.0002
      - * Cutoff: 0.35
        * p-value: 0.0005
    * - 7
-     - * R: -0.27
-       * p-value: 0.0002
+     - * R: -0.2
+       * p-value: 0.005
      - * Cutoff: 0.35
        * p-value: 0.007
 
-.. list-table:: Pearson's correlation coefficient for training set simulations (Peptide score)
+.. list-table:: Spearman's correlation coefficient for training set simulations (Peptide score)
    :widths: 5 20 20
    :header-rows: 1
 
    * - No.
-     - Pearson correlation
+     - Spearman's correlation coefficient
      - KS Test
    * - 1
-     - * R: -0.15
-       * p-value: 0.04
+     - * R: -0.24
+       * p-value: 0.01
      - * Cutoff: 0.44
        * p-value: 0.0001
    * - 2
-     - * R: -0.13
-       * p-value: 0.06
-     - * Cutoff: 0.53
-       * p-value: 0.0003
+     - * R: 0.01
+       * p-value: 0.8
+     - * Cutoff: 0.67
+       * p-value: 0.07
    * - 3
-     - * R: -0.1
-       * p-value: 0.14
+     - * R: -0.17
+       * p-value: 0.02
      - * Cutoff: 0.03
        * p-value: 0.02
    * - 4
-     - * R: -0.14
-       * p-value: 0.04
+     - * R: -0.22
+       * p-value: 0.002
      - * Cutoff: 0.35
        * p-value: :raw-math:`$ 4.63 \times 10^{-5} $`
    * - 5
-     - * R: -0.21
-       * p-value: 0.004
+     - * R: -0.123
+       * p-value: 0.1
      - * Cutoff: 0.63
        * p-value: 0.002
    * - 6
-     - * R: -0.15
-       * p-value: 0.03
+     - * R: -0.21
+       * p-value: 0.003
      - * Cutoff: 0.44
        * p-value: :raw-math:`$ 1.51 \times 10^{-5} $`
    * - 7
-     - * R: -0.15
-       * p-value: 0.03
+     - * R: -0.25
+       * p-value: 0.0007
      - * Cutoff: 0.44
        * p-value: :raw-math:`$ 2.79 \times 10^{-5} $`
 
-.. list-table:: Pearson's correlation coefficient for training set simulations (Reweighted score)
+.. list-table:: Spearman's correlation coefficient for training set simulations (Reweighted score)
    :widths: 5 20 20
    :header-rows: 1
 
@@ -1344,33 +1343,33 @@ Training set simulations and their performance
      - * Cutoff: 0.31
        * p-value: 0.0005
    * - 2
-     - * R: -0.03
-       * p-value: 0.68
-     - * Cutoff: 0.09
+     - * R: -0.09
+       * p-value: 0.18
+     - * Cutoff: 0.05
        * p-value: 0.04
    * - 3
-     - * R: 0.004
-       * p-value: 0.95
+     - * R: 0.04
+       * p-value: 0.5
      - * Cutoff: 0.52
        * p-value: 0.15
    * - 4
-     - * R: -0.08
-       * p-value: 0.04
+     - * R: -0.09
+       * p-value: 0.22
      - * Cutoff: 0.31
        * p-value: 0.003
    * - 5
      - * R: -0.02
-       * p-value: 0.7
+       * p-value: 0.76
      - * Cutoff: 0.31
        * p-value: 0.017
    * - 6
-     - * R: -0.07
-       * p-value: 0.28
+     - * R: -0.1
+       * p-value: 0.175
      - * Cutoff: 0.31
        * p-value: 0.0015
    * - 7
-     - * R: -0.09
-       * p-value: 0.19
+     - * R: -0.12
+       * p-value: 0.09
      - * Cutoff: 0.31
        * p-value: 0.0005
        
@@ -1378,7 +1377,7 @@ Training set simulations and their performance
 
 
 
- .. list-table:: Pearson's correlation coefficient and KS-test values for training set simulations after a clustering step (Interface score)
+ .. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Interface score)
    :widths: 5 20 20
    :header-rows: 1
 
