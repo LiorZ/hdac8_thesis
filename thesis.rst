@@ -226,7 +226,6 @@ Sampling
 	
 	Although the substrate peptide was located in the dimerization region of the two protein, its backbone was a good starting point that generated the most accurate predictor.
 	
-.. TODO: See Ora's comments about this figure.
 
 Template selection
 ...................
@@ -316,7 +315,7 @@ Constraints
 	
 	Since we didn't want to allow much flexibility in the particular interactions we defined as *conserved*, we used the harmonic function as our constraint, testing several standard deviations in our calibrations.
 	
-	**TODO**: add a reference to supp for the constraint file
+.. TODO: add a reference to supp for the constraint file
 	
 	
 .. (DONE) ORA: maybe add it here - this is important for the understanding of the following, I think.
@@ -404,55 +403,57 @@ Initial parameters
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
 	|No.		|Perturbation size |  No. decoys | Peptide score | Interface score | Reweighted score |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|8		|6 (default value) |  200	 | 0.2		 | 0.03		   | 0.2	      | 
+	|1		|6 (default value) |  200	 | 0.2		 | 0.03		   | 0.2	      | 
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|9		|15		   |  200	 | 0.2		 | 0.03		   | 0.69	      |	
+	|2		|15		   |  200	 | 0.2		 | 0.03		   | 0.69	      |	
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|16		|15		   |		 |		 |		   |		      |
+	|3		|15		   |		 |		 |		   |		      |
 	|		|low resolution    |  		 |		 | 		   |		      |	
 	|		|pre-optimization  |		 |		 |		   |		      |
 	|		|(centroid mode)   |  200	 | 0.2		 | 0.2    	   | 0.697	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|5		|20		   |  200	 | 0.2		 | 0.03		   | 0.2	      |
+	|4		|20		   |  200	 | 0.2		 | 0.03		   | 0.2	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|1		|30		   |  200	 | 0.2		 | 0.2		   | 0.2	      |
+	|5		|30		   |  200	 | 0.2		 | 0.2		   | 0.2	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|4		|30		   |  500	 | 0.2		 | 0.03		   | 0.69	      |
+	|6		|30		   |  500	 | 0.2		 | 0.03		   | 0.69	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|2		|60		   |  500	 | 0.2		 | 0.03		   | 0.69	      |
+	|7		|60		   |  500	 | 0.2		 | 0.03		   | 0.69	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
-	|3		|90		   |  900	 | 0.69		 | 0.69		   | 0.03	      |
+	|8		|90		   |  900	 | 0.69		 | 0.69		   | 0.03	      |
 	+---------------+------------------+-------------+---------------+-----------------+------------------+
 
 ..
 
 .. (DONE) ORA: change the measure to KS: correlation is not the right meaure here.
-.. ORA: renumber run numbers so the order makes sense (rather than the original run numbers).
+.. (DONE) ORA: renumber run numbers so the order makes sense (rather than the original run numbers).
 .. (DONE) ORA: I think it should be 8-9-10-5-1-4-2-3
-..8->1 , 9->2 , 16->3 , 5-> 4, 1->5, 4->6, 2-> 7, 3-> 8
 
-	Our findings above suggests that a modest amount of sampling (in the context of number of simulation runs) is sufficient to generate a reliable predictor. Our findings correlate with an earlier study conducted by *London et al* [8]_ , that found that 200 simulation rounds are indeed sufficient for this purpose, and that a larger number of simulation rounds doesn't necessarily yield significant improvements in the predictor's performance. However, in terms of the perturbation size, we found that the default amount of sampling in FlexPepDock (simulation number 8) that was sufficient for all previous studies, wasn't optimal in cases where simulations started from an extended peptide conformation. Furthermore, this short set of calibration runs suggests that the interface scoring scheme functions better than the rest in the task of differentiating between binders and non binders in the case of HDAC8 substrates.
+
+	Our findings above suggests that a modest amount of sampling (in the context of number of simulation runs) is sufficient to generate a reliable predictor. Our findings correlate with an earlier study conducted by *London et al* [8]_ , that found that 200 simulation rounds are indeed sufficient for this purpose, and that a larger number of simulation rounds doesn't necessarily yield significant improvements in the predictor's performance. This short set of calibration runs suggests that the interface scoring scheme functions better than the rest in the task of differentiating between binders and non binders in the case of HDAC8 substrates.
 	
 Template selection
 ...................
 
-	We applied a short FlexPepDock run on each of the possible templates complexed with the top and bottom 5 binders and used Kolmogorov - Smirnov goodness-of-fit test to determine how well we could distinguish between the two classes. 
+	We applied a short FlexPepDock run on each of the possible templates complexed with the top and bottom 5 binders , similarly to the previous section. 
 
 .. (DONE) ORA: Here you used a perturbation of 15 degrees. maybe it would be good to add to each table the default values in the legend.
 .. LIOR: mentioned that all simulations here used the initial values described above, except for the anchor.
 
+.. 8->1 , 9->2 , 16->3 , 5-> 4, 1->5, 4->6, 2-> 7, 3-> 8, 13->9, 15->10, 10->11, 7->12, 6->13, 12->14, 17->15, 18->16, 19->17, 11->18
+
 .. table:: Selecting the right template.
 
 	+----------------------------------+----------------------------------------------------+
-	|			 	   |       **Scoring scheme** (correlation coefficient) |
+	|			 	   |       **Scoring scheme** (KS p-value) 		|
 	+---------------+------------------+---------------+-----------------+------------------+
 	|No.		|Template	   | Peptide score | Interface score | Reweighted score |
 	+---------------+------------------+---------------+-----------------+------------------+
-	|9		|2v5w		   | 0.2	   | 0.03	     | 0.69 		|
+	|2		|2v5w		   | 0.2	   | 0.03	     | 0.69 		|
 	+---------------+------------------+---------------+-----------------+------------------+
-	|13		|3f07		   | 0.003	   | 0.2	     | 0.69   		|
+	|9		|3f07		   | 0.997	   | 0.2	     | 0.69   		|
 	+---------------+------------------+---------------+-----------------+------------------+
-	|15		|1t67		   | 0.69	   | 0.69	     | 0.69   		|
+	|10		|1t67		   | 0.69	   | 0.69	     | 0.69   		|
 	+---------------+------------------+---------------+-----------------+------------------+	
 	| These simulations used the initial values described above, except for the templates	|
 	+---------------------------------------------------------------------------------------+
@@ -467,15 +468,15 @@ Scoring function
 	In our calibration of the scoring function we were interested to see whether our initial parameters - primarily the use of the short electrostatic term (hack_elec) should be refined or modified. For that, we tried to use Rosetta's default scoring function *score12* (that didn't contain any of the modifications described earlier) and another simulation in which we decreased only the weight of the electrostatic term (hackelec) in the scoring function.
 	
 	+----------------------------------------------+----------------------------------------------------+
-	|		                	       |       **Scoring scheme** (correlation coefficient) |
+	|		                	       | **Scoring scheme** (KS p-value)		    |
 	+---------------+------------------------------+---------------+-----------------+------------------+
 	|No.		|Scoring function  	       | Peptide score | Interface score | Reweighted score |
 	+---------------+------------------------------+---------------+-----------------+------------------+
-	|9		|weight of hackelec = 0.5      | 0.2           | 0.03	         | 0.69   	    |
+	|2		|weight of hackelec = 0.5      | 0.2           | 0.03	         | 0.69   	    |
 	+---------------+------------------------------+---------------+-----------------+------------------+	
-	|10		|weight of hackelec = 0.25     | 0.2	       | 0.2	         | 0.69   	    |
+	|11		|weight of hackelec = 0.25     | 0.2	       | 0.2	         | 0.69   	    |
 	+---------------+------------------------------+---------------+-----------------+------------------+
-	|7		|*score12*		       | 0.2	       | 0.03	         | 0.2   	    |
+	|12		|*score12*		       | 0.2	       | 0.03	         | 0.2   	    |
 	+---------------+------------------------------+---------------+-----------------+------------------+
 	| These simulations used the initial values described above, except for the scoring function params |
 	| described above.										    |
@@ -485,7 +486,7 @@ Scoring function
 .. LIOR: this was a mistake , it uses the same amount of sampling. fixed.
 ..
 
-	Looking at the results, clearly, our initial assumption looks valid - the correlation coefficient is optimal in simulation 9 where the weight of hackelec is 0.5. 
+	Looking at the results, simulations that involved the generic Rosetta scoring function and the modified scoring function achieved similar ability to distinguish between binders and non binders, in contrast to what we previously anticipated. 
 	
 Rigid body movements
 .....................
@@ -493,62 +494,60 @@ Rigid body movements
 	We tested several approaches to perform rigid body movements. By default, the axis that determines the transformations of the peptide relative to the receptor equals to the vector that connects the closest peptide CA atom to the center of mass the peptide , to the closest receptor atom. We manually select different atoms to create different axes for the rigid body transformations.
 	
 	+--------------------------------------------------------+----------------------------------------------------+
-	|		                		         |       **Scoring scheme** (correlation coefficient) |
+	|		                		         |      **Scoring scheme** (KS p-value)		      |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
 	|No.		|Anchor (residue) 	  	         | Peptide score | Interface score | Reweighted score |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|9		| 366 (CA atom)		                 | 0.2           | 0.03	           | 0.69             |
+	|2		| 366 (CA atom)		                 | 0.2           | 0.03	           | 0.69             |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|6		| 367 (default -			 |		 |		   |		      | 
+	|13		| 367 (default -			 |		 |		   |		      | 
 	|		| center of mass of the peptide)         | 0.2           | 0.2   	   | 0.2              |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|12		| 366 (anchor atom was the carbonyl of   |		 |		   |		      |
+	|14		| 366 (anchor atom was the carbonyl of   |		 |		   |		      |
 	|		| the acetyl in the acetylated lysine, 	 |		 |		   |		      |
 	|		| instead of CA)			 | 0.2           | 0.003	   | 0.69             |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|17		| 366 , receptor anchor was 		 |		 |		   |		      |
+	|15		| 366 , receptor anchor was 		 |		 |		   |		      |
 	|		| the CA atom of G303			 | 0.2  	 | 0.2   	   | 0.009            |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+	
-	| These simulations used the same values of simulation #9, except for the anchors     		      	      |
+	| These simulations used the same values of simulation #2, except for the anchors     		      	      |
 	| 								       			                      |
 	+-------------------------------------------------------------------------------------------------------------+	
 
 ..
 
-	Looking at the results we see that either of the atoms in residue 366 can be selected as anchors, yielding similar ability to distinguish between binders and non binders.
+	Looking at the results we see that selecting an achor that favors an axis that aligns with the vector formed by the acetylated lysine sidechain , that goes into the pocket (see Figure :ref:`constraints`)
 	
-	TODO: Insert a figure of all the axes.
+.. 
+
+.. figure:: images/anchor_arrows.png
+	:scale: 30 %
+	
+	:label:`constraints` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other approx. around the vector that is formed by the linear conformation of the peptide. **K3** is the acetylated lysine which is located in the 3rd position from the N-terminal, **X4** is the 4th amino acids that is variable for each peptide, as described earlier.
+
 	
 Constraints
 ............
 
-	Simulations with no constraints at all generated model structures in which the peptide didn't bind the active site at all (results not shown). We therefore tested different types of constraints, and different values for the standard deviations of the constraints. (see Figure `keyint`) 	
+	Simulations with no constraints at all generated model structures in which the peptide didn't bind the active site at all (results not shown). We therefore tested different types of constraints, and different values for the standard deviations of the constraints. (see Figure :ref:`keyint`) 	
 
 	+------------------------------------------------+----------------------------------------------------+
-	|		                		 |       **Scoring scheme** (correlation coefficient) |
+	|		                		 |      **Scoring scheme** (KS p-value)		      |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
 	|No.		|Constraints (standard deviation)| Peptide score | Interface score | Reweighted score |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
-	|9		| 0.2 Å 	                 | 0.2           | 0.03	           | 0.69             |
+	|2		| 0.2 Å 	                 | 0.2           | 0.03	           | 0.69             |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
-	|18		| 0.15 Å 	                 | 0.2           | 0.2   	   | 0.005            |
+	|16		| 0.15 Å 	                 | 0.2           | 0.2   	   | 0.005            |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
-	|19		| 0.25 Å 	                 | 0.2           | 0.03   	   | 0.2	      |
+	|17		| 0.25 Å 	                 | 0.2           | 0.03   	   | 0.2	      |
 	+---------------+--------------------------------+---------------+-----------------+------------------+
-	| These simulations used the same values as simulation #9, except for the standard deviation of the   |
+	| These simulations used the same values as simulation #2, except for the standard deviation of the   |
 	| constraints.						 		 		   	      |
 	+-----------------------------------------------------------------------------------------------------+
 
 ..
 
-.. figure:: images/anchor_arrows.png
-	:scale: 30 %
-	
-	:label:`constraints` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other approx. around the vector that is formed by the linear conformation of the peptide.
-
-..
-
-	Surprisingly, a slight modification to the standard deviation of the constraints yields drastic change in our ability to distinguish binders from non binders.
 	
 Threading the peptide
 ......................
@@ -560,15 +559,15 @@ Threading the peptide
 	Most of initial simulations were carried out with extended peptides as starting structures. We initially suspected that the peptide secondary structure is biased since it was located right in the dimerization region in the crystal structure. However, we found out that using the original structure and orientation of the original structure of the peptide yielded better correlation with experimental data.
 	
 	+--------------------------------------------------+-------------------------------------------------------+
-	|		                		   |       **Scoring scheme** (correlation coefficient)    |
+	|		                		   |       **Scoring scheme** (KS p-value)		   |
 	+---------------+----------------------------------+-----------------+------------------+------------------+
 	|No.		|Starting structure                | Peptide score   | Interface score  | Reweighted score |
 	+---------------+----------------------------------+-----------------+------------------+------------------+
-	|9		| Extended conformation            |   0.2           | 0.03	        | 0.69             |
+	|2		| Extended conformation            |   0.2           | 0.03	        | 0.69             |
 	+---------------+----------------------------------+-----------------+------------------+------------------+
-	|11		| Threaded peptide                 | 0.2             | 0.003	        | 0.69             |
+	|18		| Threaded peptide                 | 0.2             | 0.003	        | 0.69             |
 	+---------------+----------------------------------+-----------------+------------------+------------------+
-	| These simulations used the same values as simulation #9, except for the starting structure.		   |
+	| These simulations used the same values as simulation #2, except for the starting structure.		   |
 	+----------------------------------------------------------------------------------------------------------+
 
 .. (DONE) ORA: the below should be another table as before, with a numbered run - I guess this is run #11, right?	
@@ -579,7 +578,7 @@ Threading the peptide
 Summary of calibration runs
 ............................
 	
-	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With this calibration approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulation #11 and simulations #9 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Kolmogorov Smirnov p-values. We also noticed that the interface scoring scheme achieved superior performance to the rest of the schemes for every parameter set we've tested. Moreover, the reweighted score scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in our case.
+	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With this calibration approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulation #18 and simulations #2 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Kolmogorov Smirnov p-values. We also noticed that the interface scoring scheme achieved superior performance to the rest of the schemes in most cases. Moreover, the reweighted score scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in the vast majority of simulations.
 	In the next phase , in which we run our peptide modeling protocol on the whole training set, we mainly use the set of parameters that exhibited superior performance in the short calibration phase.
 
 Whole data set analysis
@@ -606,39 +605,41 @@ Training a classifier
 	This table summarizes the simulations we performed on the whole training set, each of the columns describe a different aspect of the parameter set used.
 	
 	
-.. ORA: in the table below you should make the connection between the numbering here and the numbering in the previous section. I suggest to call the runs Xa (e.g. the first would be 9a and the second 11a). Also, the tables should have the same format as before, and include also results (the correct measure of course…)	
+.. (DONE) ORA: in the table below you should make the connection between the numbering here and the numbering in the previous section. I suggest to call the runs Xa (e.g. the first would be 9a and the second 11a). Also, the tables should have the same format as before, and include also results (the correct measure of course…)	
 ..
 	
-.. table:: Summary of training set simulations
+.. table:: Summary of training set simulations. The Numbering is based on calibration runs.
+
 
 	======		================	===============================	===========	===================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
 	======		================	===============================	===========	===================
-	1		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+	2(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
 						* 200 simulations per peptide.			
 
-	2		366			* perturbation size = 15	2v5w		hack_elec = 0.5
-						* 200 simulations per peptide.	(threaded)		
-
-	3		366			* perturbation size = 15	3f07		hack_elec = 0.5
-						* 200 simulations per peptide.			
-
-	4		366			* perturbation size = 15	2v5w		hack_elec = 0.5
-			anchor was CH		* 200 simulations per peptide.			
-
-	5		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+	3(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
 			anchor was CH		* 200 simulations per peptide.			
 			atom			* low resoultion preopt.							
 
-	6		366			* perturbation size = 15	2v5w		
+	9(a)		366			* perturbation size = 15	3f07		hack_elec = 0.5
+						* 200 simulations per peptide.			
+
+	14(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+			anchor was CH		* 200 simulations per peptide.			
+
+
+	16(a)		366			* perturbation size = 15	2v5w		
 						* 200 simulations per peptide.			* hack_elec = 0.5
 												* sd of constraints
 												  is 0.15
 
-	7		366			* perturbation size = 15	2v5w		
+	17(a)		366			* perturbation size = 15	2v5w		
 						* 200 simulations per peptide.			* hack_elec = 0.5
 												* sd of constraints
 												  is 0.25
+	18(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
+						* 200 simulations per peptide.	(threaded)		
+
 	======		================	===============================	===========	===================
 
 ..
@@ -649,7 +650,8 @@ Training a classifier
 Scoring of peptides
 ````````````````````
 
-	Simulations 6 and 7 achieved the best KS p-values on the training set, 1.51×10\ :sup:`-5` and 2.79×10\ :sup:`-5` respectively, using the peptide scoring scheme. However the cutoff that's responsible for these low p-values is 0.44 which is relatively high and isn't sensitive enough (there are only 11 out of 181 peptides with higher activity levels). Simulation #4 showed a potentially good ability to differentiate between binders and non-binders with cutoff of 0.35 and KS p-value of 4.63×10\ :sup:`-5`. 
+	We used 2 statistical tests - Kolmogorov Smirnov and Spearman's non parametric correlation, to evaluate the ability of parameter set of a simulation to differentiate between binders and non-binders. 
+	Simulation 18(a) that threaded each sequence on the original peptide found in 2v5w has a p-value of :raw-math:`$ 2.78 \times 10^{-8} $` with a cutoff of 0.35, using the interface scoring scheme - much more significant than the other scoring schemes. However, in terms of correlation, Simulations 14(a) and 16(a) achieved the best correlation with experimental activity on the training set, 0.0005, 0.0002 respectively, using the interface scoring scheme.
 	
 .. (DONE) ORA: above you move to peptide score while before you used IF score. You should relate to this and explain.
 .. (DONE) ORA: also, why is the cutoff now 0.44 and not 0.34???
@@ -658,26 +660,21 @@ Scoring of peptides
 .. (DONE) ORA: below you can add a heading: "scoring of peptides"
 ..
 
-	In order to score the binding ability of each peptide, we clustered [26]_ the decoy structures from each simulation based on their RMSD, and averaged the top 3 ranking decoys in the largest cluster according to the different scoring schemes. (see section `Training set simulations and their performance`_ in the supplementary material) In contrast to previous findings in earlier studies [7]_ , [8]_, we found that clustering improves the differentiation between binders and non binders by several orders of magnitude. For example, Simulation #4 (in which the CH atom of the lysine sidechain was used as anchor) demonstrated the best performance with the interface scoring scheme and a KS p-value of 4.89×10\ :sup:`-7` and a cutoff of 0.34 which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #2 (in this simulation we threaded the peptide onto the existing backbone conformation, using the peptide scoring scheme): it showed a p-value of 4.03×10\ :sup:`-6` using activity level of 0 as a cutoff. This parameter set indeed demonstrates both specificity and a very high sensitivity in differentiating between binders and non-binders.
+	We clustered [26]_ the decoy structures from each simulation based on their RMSD, and averaged the top 3 ranking decoys in the largest cluster according to the different scoring schemes. (see section `Training set simulations and their performance`_ in the supplementary material) In contrast to previous findings in earlier studies [7]_ , [8]_, we found that clustering improves the differentiation between binders and non binders by several orders of magnitude. For example, Simulation #18(a) (in which we threaded the peptide onto the existing backbone conformation, using the interface scoring scheme) demonstrated the best performance with the interface scoring scheme and a KS p-value of 1.4×10\ :sup:`-9` and a cutoff of 0.35 which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #14(a) (in which the CH atom of the lysine sidechain was used as anchor), it showed a p-value of 4.48×10\ :sup:`-7` using activity level of 0.34 as a cutoff.
 
 .. (DONE) ORA: Instead of "for example" You need a table with results here (or in the supmat), and then you can summarize your conclusions.
 .. LIOR: Added a reference to the relevant section in the supplementary material
 
 .. (DONE) ORA: cutoff of 0 activity level? rephrase better
-..
 
-	Interestingly, we saw the level of activity of 0.34 reccurr as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example, simulation #1 that has the parameter set that was one of the best performing in the first initial calibration phase with the interface scoring scheme achieved a p-value of 4.4×10\ :sup:`-6` - three orders of magnitudes improvement comparing to its performance without clustering.
+	Interestingly, we saw that the level of activity of around ~ 0.34  reccurr as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example, simulation #16(a) that has the parameter set that was one of the best performing in the first initial calibration phase with the interface scoring scheme achieved a p-value of 2.64×10\ :sup:`-6` - three orders of magnitudes improvement comparing to its performance without clustering.
 
 	The `Training set simulations and their performance`_ section in the supplementary materual concentrates a summary of all simulations with and without a clustering step, including the statistical evaluation of their performance. 
 
-.. (DONE) ORA: add a summary here
-.. LIOR: I think this should be in the sup material ... added a refernce to there.
-..
 
-	To visualize the comparison of our ability to distinguish binders from non binders with and without clustering, we plotted *score vs. activity* plots for all simulations. They are available in the `Supplementary Material`_ - `Training set analysis`_
-	From the results above we were able to derive a modeling scheme that could serve us in our future predictions for additional substrates - the scheme we used in simulation #4 together with a clustering step achieved best AUC together with the 0.34 cutoff we obtained. (see Figure :ref:`roc`)
+	To visualize the comparison of our ability to distinguish binders from non binders with and without clustering, we plotted *score vs. activity* plots for all simulations and for all scoring schemes. They are available in the `Supplementary Material`_ - `Training set analysis`_
+	From the results above we were able to derive a modeling scheme that could serve us in our future predictions for additional substrates - the scheme we used in simulation #18(a) together with a clustering step achieved best AUC together with the 0.34 cutoff we obtained. (see Figure :ref:`roc`). This modeling scheme used the existing peptide found in the crystal structure of *2v5w* as a starting structure for the simulation. 
 	
-.. Detail the parameters of #4 and describe why this is the best in short.
 
 Comparison to a minimization only based classifier
 ...................................................
@@ -686,29 +683,45 @@ Comparison to a minimization only based classifier
 
 .. (DONE) ORA: in the below, you need to give the details of the parameters in the run 
 .. LIOR: I don't want to burden the reader with too much technical details in the menuscript. If the reader is interested in the actual parameters, he can look them up in the table (I wrote that the parameters are similar to Simulation #X.. isn't it sufficient?
+
 ..
-
 	
-	1) Minimization with *score12*, rest of the parameters are similar to Simulation #1 applied to the whole training set
-	2) Minimization with the same modification to the scoring function as Simulation #1 (hackelec, etc) applied to the whole training set
-	3) Minimization starting from threaded peptides, identical to simulation #2 applied to the whole training set
+	1) Minimization with *score12*, rest of the parameters are similar to Simulation #2(a) applied to the whole training set
+	2) Minimization with exactly the same parameters as Simulation #2(a) (hackelec, etc) applied to the whole training set
+	3) Minimization starting from threaded peptides, identical to simulation #18(a) applied to the whole training set
 	
-	Surprisingly , the 1st approach - the one that didn't require any changes to the scoring function was the one that best correlated with experimental data and showed the best ability so far to distinguish binders from non binders with a KS p-value of 5.95×10\ :sup:`-10` and a cutoff of 0.34 using the peptide scoring scheme - three orders of magnitude improvement to full optimization simulations. The 2nd approach also performed well with a KS p-value of 4.6×10\ :sup:`-8` and a cutoff of 0.34, using the peptide scoring scheme. The 3rd approach failed to improve any of the p-values obtained in the full simulation runs. Figure :ref:`roc` shows an ROC plot comparing the performance of possible predictors derived from both types of best performing simulations - minimization only and full optimization.
+	Surprisingly , the 1st approach - the one that didn't require any changes to the scoring function was the one that best correlated with experimental data and showed the best ability so far to distinguish binders from non binders with a KS p-value of 5.95×10\ :sup:`-10` and a cutoff of 0.34 using the peptide scoring scheme. The 2nd approach also performed well with a KS p-value of 4.6×10\ :sup:`-8` and a cutoff of 0.34, using the peptide scoring scheme.Suprisingly, The 3rd approach that showed remarkable ability to distinguish between binders and non-binders, failed to improve any of the p-values obtained in the full simulation runs. Figure :ref:`roc` shows an ROC plot comparing the performance of possible predictors derived from both types of best performing simulations - minimization only and full optimization.
+	
+	For comparison purposes, the following table summarizes the performance of these 3 approaches on the 10 sequences used for calibration:
+	
 
-.. ORA: how well do these do on the 10 peptides only that you used for calibration? add a table.
+	+--------------------------------------------------+-------------------------------------------------------+
+	|		                		   |       **Scoring scheme** (KS p-value)		   |
+	+---------------+----------------------------------+-----------------+------------------+------------------+
+	|No.		|Properties	                   | Peptide score   | Interface score  | Reweighted score |
+	+---------------+----------------------------------+-----------------+------------------+------------------+
+	|1		| Same parameters as sim. #2,      |   0.2           | 0.69	        | 0.69             |
+	|		| score12 as scoring function 	   |		     |			|		   |
+	+---------------+----------------------------------+-----------------+------------------+------------------+
+	|2		| Exactly like sim #2              | 0.2             | 0.69	        | 0.69             |
+	+---------------+----------------------------------+-----------------+------------------+------------------+
+	|3		| Exactly like sim #18             | 0.69            | 0.99	        | 0.69             |
+	+---------------+----------------------------------+-----------------+------------------+------------------+				
+
+.. (DONE) ORA: how well do these do on the 10 peptides only that you used for calibration? add a table.	
+	
 
 Test set analysis
 ..................
 
-	With our insights from training a classifier on the training set, we applied it on the other part of the sequences - the test set. The simulation scheme used the set of parameters and constraints identical to that of simulation #1 in the training set runs, as its resulting predictor has the best ability to distinguish between binders and non binders (ROC plot AUC of 0.95).
+	With our insights from training a classifier on the training set, we applied it on the other part of the sequences - the test set. The simulation scheme used the set of parameters and constraints identical to that of simulation #18(a) in the training set runs, as its resulting predictor has the best ability to distinguish between binders and non binders (ROC plot AUC of 0.95).
 	The below ROC plot summarizes the performance of our classifier on the test set, comparing to its performance on the training set and to a minimization only scheme.
 
 
-	.. figure:: plots/ROCPlots/roc.png
+.. figure:: plots/ROCPlots/roc.png
 		:scale: 50 %
 
 		:label:`roc` Comparison of the minimization and full optimization schemes that included clustering on both training and test sets.
-
 ..
 
 	The minimization step uses the *peptide scoring scheme*, while in the full optimization the inteface scoring scheme performed better on the training set and thus - served as the basis for the predictor on the test set.
@@ -716,7 +729,7 @@ Test set analysis
 Searching for novel, non-histone substrates
 --------------------------------------------
 
-	We used the minimization only version of our predictor - the one that performed best on the experimental dataset - to search for potential novel substrates of HDAC8.
+	We used the minimization only version of our predictor to search for potential novel substrates of HDAC8. This version of the predictor achieved both superior performance and is the least computationally intensive. 
 	We downloaded the Phosphosite database from PhosphoSitePlus (PSP) - an online systems biology resource providing comprehensive information and tools for the study of protein post-translational modifications and queried it for lysine acetylated proteins. We trimmed the sequences to the same size of the sequences in our experimental dataset - **YYK(ac)YYY**. 
 
 	To demonstrate the ability of our classifier to recognize potential substrates among the large database of acetylated sequences, we plotted the distribution of scores of all the acetylated sequences from the database against a background distribution of random peptides that were sampled from the distribution of amino acids in the acetylated sequences in phosphosite(figure :ref:`phosphodist`), under the null hypothesis that both sequences originate from the same distribution. Acetylated peptides obtained lower scores than random peptides (Kolmogorov-Smirnov test p-value =5.07×10\ :sup:`-5`).
@@ -827,7 +840,6 @@ HDAC8 and CdLS syndrome
 
 ..
 
-
 	Worth noting is the mutation **R711W** that is located right close to a known acetylation site in the coiled coil region and was predicted by our classifier as a binder. A mutated version of the peptide - **WLKYSQ** was predicted as a  strong non-binder. The authors of the study in ref [24]_ used the Coils program [25]_ , that predicts the probability of protein to form a coiled coil and concluded that the R711W mutation has a low likelihood of disrupting the coiled coil. The authors speculate that the alterations caused by this mutation may affect the angulation of the coiled-coil resulting in impaired intra or intermolecular approximation of the SMC head domains, or disrupt binding of accessory proteins to the cohesin ring. Our findings however suggest yet another possibility - the R711W mutation might disrupt the (acetylation or) deacetylation of SMC1A at position 713, and that might contribute to the protein inability to bind accessory proteins or failure to attain a non-functioning structure.
 	In addition, position K437 is also a known acetylation site according to ref [22]_ and the peptide **IEKLEE**  that overlaps this position is predicted by our protocol to undergo deacetylation by HDAC8. However, no mutations have yet been reported for this position. 
 	
@@ -835,14 +847,14 @@ Discussion
 ===========
 
 	*London et al* have previously developed a method for structure-based prediction of binding specificity to successfully identify both known and novel protein farnesyltransferase (FTase) substrate peptides and BH3 peptides to Bcl-2-like proteins [7]_
-	In this study, we applied the FlexPepBind pipeline to train a predictor that will distinguish between peptide that bind HDAC8 and peptides that do not. Since FlexPepDock only models the interface between the two, and not the catalytic process, we assume that peptides that bind to HDAC8 are subsequently deacetylated. Our studies conclude that the peptide's ability to bind to the receptor is somewhat correlated with the ability of that same sequence to bind when positioned in an exposed region of a protein. These conclusion was shown to be valid on several occasions [62]_.
+	In this study, we applied the FlexPepBind pipeline to train a predictor that will distinguish between peptide that bind HDAC8 and peptides that do not. Since FlexPepDock only models the interface between the two, and not the catalytic process, we assume that peptides that bind to HDAC8 are subsequently deacetylated. Our studies conclude that the peptide's ability to bind to the receptor is somewhat correlated with the ability of that same sequence to bind when positioned in an exposed region of a protein. This conclusion was shown to be valid on several occasions [62]_.
 
 .. (DONE) ORA: do we assume this, or do we conclude this, since our results indicate that the peptide binds in an extended conformation?
 .. LIOR: You are right, fixed.
 ..
 
 	The HDAC8 system presents additional challenges to systems studied previously - the extremely flexible loops in the interface have the ability to move and accommodate different substrates for each conformation, the lack of solved crystals that incorporated a genuine substrate and the acetylated lysine - a post translational modification that was poorly addressed in previous computational studies.
-	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. Although the full optimization scheme performed better in the task of distinguishing binders from non binders than the short minimization pipeline, it was too computationally intensive for high-throughput mode as it included (in addition to the FPDock full optimization runs) an additional clustering step. For that reason, we used the minimization only scheme which was a little less accurate but much faster.
+	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. Although the full optimization scheme achieved better AUC than the short minimization pipeline, it was too computationally intensive for high-throughput mode as it included (in addition to the FPDock full optimization runs) an additional clustering step. For that reason, we used the minimization only scheme which was a little less accurate but much faster.
 
 .. (DONE) ORA: what do you mean by "in general"?
 .. LIOR: Bad phrasing, fixed
@@ -852,8 +864,9 @@ Discussion
 	
 	Important emphasis should be put on the fact that the current implementation of our protocol can't distinguish whether the derived peptide is located in an exposed region of the protein. In the case of the SMC proteins, our protocol predicted multiple binders that are originated from regions in the protein that are probably inaccessible to the solvent. A possible improvement to our pipeline could include a secondary structure prediction program that will be able to filter out these kinds of false positives and focus the search only on regions which are able to go through acetylation and deacetylation.
 	
+	The interface scoring scheme was shown to be superior to all other schemes in almost all simulations. We hypthesize this fact is related to the up-weighting of the hack_elec score term in most simulations. This score term is calculated only on short range interactions - thus, it is mainly expressed in the calculation of the interface and the peptide scores that take into account *only* short range interactions.
 	
-.. TODO: continue discussion - hack_elec affects primarily on the interface score, that's why it yielded such good results.
+	We conclude that this project elaborates a method for the elucidation of the substrate profile of HDAC8 with Zn cofactor. This pipeline can be easily applied as is to HDAC8 with an iron cofactor and subsequently to both alltogether - yielding a predictor that is able to tell if a peptide is a substrate of HDAC8 with a particular cofactor. 
 	
 	
 Supplementary Material
@@ -868,88 +881,82 @@ Calibration simulations and their performance
 Summary of calibration runs
 ````````````````````````````
 
-.. TODO: change to KS (?)
-
 .. (DONE) ORA: add indeed p values
 .. LIOR: They are added in later sections.. 
 .. ORA: I would include a landscape presentation with all details, or/and an excel sheet.
+.. 8->1 , 9->2 , 16->3 , 5-> 4, 1->5, 4->6, 2-> 7, 3-> 8, 13->9, 15->10, 10->11, 7->12, 6->13, 12->14, 17->15, 18->16, 19->17, 11->18
 
 .. (DONE) ORA: you don't need to repeat LK and Hack elec - mention the default values at the bottom of the table, or include this as a column.
 .. table:: Description and summary of calibration simulations.
 
-	======		================	===============================	===========	===================
+	======		================	===============================	===========	======================
 	No.		Anchor (residue)	Sampling			Template	Scoring function [*]_
-	------		----------------	-------------------------------	-----------	-------------------
-	1		366			* perturbation size = 30	2v5w		default
-						* 200 decoys per peptide.			
-	
-	2		366			* perturbation size = 60	2v5w		default
-						* 500 decoys per peptide.			
-						
-	3		366			* perturbation size = 90	2v5w		default
-						* 900 decoys per peptide.			
-
-	4		366			* perturbation size = 30	2v5w		default
-						* 500 decoys per peptide.			
-	
-	5		366			* perturbation size = 20	2v5w		
-						* 200 decoys per peptide.			default
-
-
-	6		367 (default: 		* perturbation size = 20	2v5w		
-			center of mass)		* 200 decoys per peptide.			default
-			
-	7		366			* perturbation size = 15	2v5w		* Rosetta's default
-						* 200 decoys per peptide.			  score function
-												  (score12)
-	8		366			* perturbation size = 6 
+	------		----------------	-------------------------------	-----------	----------------------
+	1		366			* perturbation size = 6 
 						  (default)			2v5w		
 						* 200 decoys per peptide.			default
-
-	9		366			* perturbation size = 15	2v5w		
+	2		366			* perturbation size = 15	2v5w		
 						* 200 decoys per peptide.			default
 
-	10		366			* perturbation size = 15	2v5w		
-						* 200 decoys per peptide.			* hack_elec = 0.25
+	3		366			* perturbation size = 15	2v5w		
+						* 200 decoys per peptide.			default
+						* low resolution step 
+						  (centroid mode)					
+						  	
+	4		366			* perturbation size = 20	2v5w		
+						* 200 decoys per peptide.			default
+
+	5		366			* perturbation size = 30	2v5w		default
+						* 200 decoys per peptide.			
 	
+	6		366			* perturbation size = 30	2v5w		default
+						* 500 decoys per peptide.			
+
+	7		366			* perturbation size = 60	2v5w		default
+						* 500 decoys per peptide.			
+						
+	8		366			* perturbation size = 90	2v5w		default
+						* 900 decoys per peptide.			
+
+	9		366			* perturbation size = 15	3f07		
+						* 200 decoys per peptide.			default
+
+	10		366			* perturbation size = 15	1t67		
+						* 200 decoys per peptide.			default
+
 	11		366			* perturbation size = 15	2v5w		
-						* 200 decoys per peptide.	(threaded)	default
-										[*]_	
-														
-	12		366			* perturbation size = 15	2v5w		
+						* 200 decoys per peptide.			* hack_elec = 0.25
+
+	12		366			* perturbation size = 15	2v5w		* Rosetta's default
+						* 200 decoys per peptide.			  score function
+												  (score12)
+
+	13		367 (default: 		* perturbation size = 20	2v5w		
+			center of mass)		* 200 decoys per peptide.			default
+			
+	14		366			* perturbation size = 15	2v5w		
 			(anchor was CH		* 200 decoys per peptide.			default
 			atom, instead of
 			CA)	
-	
-	13		366			* perturbation size = 15	3f07		
-						* 200 decoys per peptide.			default
-	
-	14		366			* perturbation size = 15	3f07		
-			(anchor was CH		* 200 decoys per peptide.			default
-			atom instead of
-			CA)								
-	
-	15		366			* perturbation size = 15	1t67		
-						* 200 decoys per peptide.			default
 
-	16		366			* perturbation size = 15	2v5w		
-						* 200 decoys per peptide.			default
-						* low resolution step 
-						  (centroid mode)						
-	
-	17		366			* perturbation size = 15	2v5w		
+
+	15		366			* perturbation size = 15	2v5w		
 			receptor anchor		* 200 decoys per peptide.			default
 			was 289 
 			(manually)
 			[*]_
-	
-	18		366			* perturbation size = 15	2v5w		sd of constraints
+
+	16		366			* perturbation size = 15	2v5w		sd of constraints
 						* 200 decoys per peptide.        		is 0.15
-									
-												  
-	19		366			* perturbation size = 15	2v5w		sd of constraints
+
+	17		366			* perturbation size = 15	2v5w		sd of constraints
 						* 200 decoys per peptide.			is 0.25
-	======		================	===============================	===========	===================
+
+
+	18		366			* perturbation size = 15	2v5w		
+						* 200 decoys per peptide.	(threaded)	default
+										[*]_	
+	======		================	===============================	===========	======================
 
 .. (DONE) ORA: 20 could be threaded cases.. (9)
 .. LIOR: I replaced the previous threaded with the one that contained the cis bb angle , the previous threaded structure didn't include that and does not reflect the true structure of the peptide.
@@ -968,45 +975,42 @@ Peptide Score
 	No.	Kolmogorov Smirnov p-values
 	-----	------------------------------------------
 	1	0.2
-		
+
 	2	0.2
 
-	3	0.69
-
+	3	0.2
+	
 	4	0.2
-
+	
 	5	0.2
-		
+	
 	6	0.2
 		
 	7	0.2
-		
-	8	0.2
-		
-	9	0.2
 
-	10	0.2
+	8	0.69
+	
+	9	0.997
 
+	10	0.69
+	
 	11	0.2
-		
+	
 	12	0.2
-		
-	13	0.003
 
+	13	0.2
+	
 	14	0.2
-		
-	15	0.69
-		
+	
+	15	0.2
+	
 	16	0.2
-		
+	
 	17	0.2
 		
 	18	0.2
-
-	19	0.2
-
+		
 	=====	==========================================
-
 
 Interface Score
 `````````````````
@@ -1016,97 +1020,99 @@ Interface Score
 	=====	==========================================
 	No.	Kolmogorov Smirnov p-values
 	-----	------------------------------------------
-	1	0.2
-		
+	1	0.03
+
 	2	0.03
-
-	3	0.69
-
+	
+	3	0.2
+	
 	4	0.03
 
-	5	0.03
+	5	0.2
 		
-	6	0.2
-		
+	6	0.03
+	
 	7	0.03
-		
-	8	0.03
-		
-	9	0.03
 
-	10	0.2
+	8	0.69
 
-	11	0.003
-		
+	9	0.2
+
+	10	0.69
+
+	11	0.2
+
 	12	0.03
-		
+	
 	13	0.2
-
-	14	0.2
-		
-	15	0.69
+	
+	14	0.03
+	
+	15	0.2
 		
 	16	0.2
-		
-	17	0.2
-		
-	18	0.2
 
-	19	0.03
+	17	0.03
+		
+	18	0.003
+		
 	=====	==========================================
 
 
 Reweighted Score
 `````````````````
 
+
 .. table:: Kolmogorov Smirnov p-values for short calibration runs, by reweighted score.
 
 	=====	==========================================
 	No.	Kolmogorov Smirnov p-values
 	-----	------------------------------------------
-	1	0.2
-		
+	1	0.69
+
 	2	0.69
 
-	3	0.03
-
-	4	0.69
-
+	3	0.69
+	
+	4	0.2
+	
 	5	0.2
 		
-	6	0.2
-		
-	7	0.2
-		
-	8	0.69
-		
+	6	0.69
+	
+	7	0.69
+
+	8	0.03
+
 	9	0.69
-
+	
 	10	0.69
-
+	
 	11	0.69
-		
+	
 	12	0.2
+	
+	13	0.2
 		
-	13	0.69
+	14	0.2
+	
+	15	0.009
+	
+	16	0.005
 
-	14	0.03
+	17	0.2
+	
+	18	0.69
 		
-	15	0.69
-		
-	16	0.69
-		
-	17	0.009
-		
-	18	0.005
-
-	19	0.2
 	=====	==========================================
 
 Score vs. Activity plots
 .........................
+.. 8->1 , 9->2 , 16->3 , 5-> 4, 1->5, 4->6, 2-> 7, 3-> 8, 13->9, 15->10, 10->11, 7->12, 6->13, 12->14, 17->15, 18->16, 19->17, 11->18
 
-.. ORA: below: replace those graphs by boxplots with quartiles and outliers (one for the non and one for the substrates) - this provide much better info for distinction between classes. for full training set you can show those correlation plots.
+.. (DONE) ORA: below: replace those graphs by boxplots with quartiles and outliers (one for the non and one for the substrates) - this provide much better info for distinction between classes. for full training set you can show those correlation plots.
+
+.. TODO: resize plots and make larger fonts
 
 .. list-table:: Training set - score vs. activity plots for the short calibration phase
    :widths: 5 30 30 30
@@ -1117,124 +1123,131 @@ Score vs. Activity plots
      - Peptide Score
      - Interface Score
    * - 1
-     - .. image:: plots/ShortCalibration/calibration2_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration2_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration2_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration9.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration9.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration9.png
+     	:scale: 25%
    * - 2
-     - .. image:: plots/ShortCalibration/calibration3_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration3_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration3_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration10.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration10.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration10.png
+     	:scale: 25%
    * - 3
-     - .. image:: plots/ShortCalibration/calibration4_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration4_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration4_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration36.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration36.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration36.png
+     	:scale: 25%
    * - 4
-     - .. image:: plots/ShortCalibration/calibration5_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration5_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration5_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration6.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration6.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration6.png
+     	:scale: 25%
    * - 5
-     - .. image:: plots/ShortCalibration/calibration6_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration6_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration6_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration2.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration2.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration2.png
+     	:scale: 25%
    * - 6
-     - .. image:: plots/ShortCalibration/calibration7_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration7_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration7_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration5.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration5.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration5.png
+     	:scale: 25%
    * - 7
-     - .. image:: plots/ShortCalibration/calibration8_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration8_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration8_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration3.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration3.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration3.png
+     	:scale: 25%
    * - 8
-     - .. image:: plots/ShortCalibration/calibration9_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration9_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration9_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration4.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration4.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration4.png
+     	:scale: 25%
    * - 9
-     - .. image:: plots/ShortCalibration/calibration10_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration10_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration10_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration32.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration32.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration32.png
+     	:scale: 25%
    * - 10
-     - .. image:: plots/ShortCalibration/calibration12_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration12_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration12_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration34.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration34.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration34.png
+     	:scale: 25%
    * - 11
-     - .. image:: plots/ShortCalibration/calibration13_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration13_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration13_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration12.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration12.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration12.png
+     	:scale: 25%
    * - 12
-     - .. image:: plots/ShortCalibration/calibration14_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration14_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration14_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration8.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration8.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration8.png
+     	:scale: 25%
    * - 13
-     - .. image:: plots/ShortCalibration/calibration33_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration33_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration33_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration7.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration7.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration7.png
+     	:scale: 25%
    * - 14
-     - .. image:: plots/ShortCalibration/calibration32_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration32_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration32_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration14.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration14.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration14.png
+     	:scale: 25%
    * - 15
-     - .. image:: plots/ShortCalibration/calibration34_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration34_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration34_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration42.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration42.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration42.png
+     	:scale: 25%
    * - 16
-     - .. image:: plots/ShortCalibration/calibration36_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration36_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration36_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration43.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration43.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration43.png
+     	:scale: 25%
    * - 17
-     - .. image:: plots/ShortCalibration/calibration45_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration45_pep_sc_activity_score.png
-     	:scale: 20%
-     - .. image:: plots/ShortCalibration/calibration45_I_sc_activity_score.png
-     	:scale: 20%
+     - .. image:: plots/ShortCalibration/correlate_short_calibration45.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration45.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration45.png
+     	:scale: 25%
+   * - 18
+     - .. image:: plots/ShortCalibration/correlate_short_calibration47.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration47.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration47.png
+     	:scale: 25%
 
 Training set analysis
 ----------------------
@@ -1252,41 +1265,41 @@ Without clustering
    * - No.
      - Spearman's correlation coefficient
      - KS Test
-   * - 1
+   * - 2(a)
      - * R: -0.2
        * p-value: 0.006
      - * Cutoff: 0.35
        * p-value: 0.008
-   * - 2
-     - * R: -0.2
-       * p-value: 0.006
-     - * Cutoff: 0.35
-       * p-value: :raw-math:`$ 2.78 \times 10^{-8} $`
-   * - 3
-     - * R: -0.13
-       * p-value: 0.076
-     - * Cutoff: 0.35
-       * p-value: 0.001
-   * - 4
-     - * R: -0.25
-       * p-value: 0.0005
-     - * Cutoff: 0.28
-       * p-value: 0.0004
-   * - 5
+   * - 3(a)
      - * R: -0.04
        * p-value: 0.58
      - * Cutoff: 0.22
        * p-value: 0.13
-   * - 6
+   * - 9(a)
+     - * R: -0.13
+       * p-value: 0.076
+     - * Cutoff: 0.35
+       * p-value: 0.001
+   * - 14(a)
+     - * R: -0.25
+       * p-value: 0.0005
+     - * Cutoff: 0.28
+       * p-value: 0.0004
+   * - 16(a)
      - * R: -0.24
        * p-value: 0.0002
      - * Cutoff: 0.35
        * p-value: 0.0005
-   * - 7
+   * - 17(a)
      - * R: -0.2
        * p-value: 0.005
      - * Cutoff: 0.35
        * p-value: 0.007
+   * - 18(a)
+     - * R: -0.2
+       * p-value: 0.006
+     - * Cutoff: 0.35
+       * p-value: :raw-math:`$ 2.78 \times 10^{-8} $`
 
 .. list-table:: Spearman's correlation coefficient for training set simulations (Peptide score)
    :widths: 5 20 20
@@ -1295,42 +1308,43 @@ Without clustering
    * - No.
      - Spearman's correlation coefficient
      - KS Test
-   * - 1
+   * - 2(a)
      - * R: -0.24
        * p-value: 0.01
      - * Cutoff: 0.44
        * p-value: 0.0001
-   * - 2
-     - * R: 0.01
-       * p-value: 0.8
-     - * Cutoff: 0.67
-       * p-value: 0.07
-   * - 3
-     - * R: -0.17
-       * p-value: 0.02
-     - * Cutoff: 0.03
-       * p-value: 0.02
-   * - 4
-     - * R: -0.22
-       * p-value: 0.002
-     - * Cutoff: 0.35
-       * p-value: :raw-math:`$ 4.63 \times 10^{-5} $`
-   * - 5
+   * - 3(a)
      - * R: -0.123
        * p-value: 0.1
      - * Cutoff: 0.63
        * p-value: 0.002
-   * - 6
+   * - 9(a)
+     - * R: -0.17
+       * p-value: 0.02
+     - * Cutoff: 0.03
+       * p-value: 0.02
+   * - 14(a)
+     - * R: -0.22
+       * p-value: 0.002
+     - * Cutoff: 0.35
+       * p-value: :raw-math:`$ 4.63 \times 10^{-5} $`
+   * - 16(a)
      - * R: -0.21
        * p-value: 0.003
      - * Cutoff: 0.44
        * p-value: :raw-math:`$ 1.51 \times 10^{-5} $`
-   * - 7
+   * - 17(a)
      - * R: -0.25
        * p-value: 0.0007
      - * Cutoff: 0.44
        * p-value: :raw-math:`$ 2.79 \times 10^{-5} $`
+   * - 18(a)
+     - * R: 0.01
+       * p-value: 0.8
+     - * Cutoff: 0.67
+       * p-value: 0.07
 
+.. 2(a), 18(a), 9(a), 14(a), 3(a), 16(a), 17(a)
 .. list-table:: Spearman's correlation coefficient for training set simulations (Reweighted score)
    :widths: 5 20 20
    :header-rows: 1
@@ -1338,90 +1352,92 @@ Without clustering
    * - No.
      - Pearson correlation
      - KS Test
-   * - 1
+   * - 2(a)
      - * R: -0.09
        * p-value: 0.2
      - * Cutoff: 0.31
        * p-value: 0.0005
-   * - 2
-     - * R: -0.09
-       * p-value: 0.18
-     - * Cutoff: 0.05
-       * p-value: 0.04
-   * - 3
-     - * R: 0.04
-       * p-value: 0.5
-     - * Cutoff: 0.52
-       * p-value: 0.15
-   * - 4
-     - * R: -0.09
-       * p-value: 0.22
-     - * Cutoff: 0.31
-       * p-value: 0.003
-   * - 5
+   * - 3(a)
      - * R: -0.02
        * p-value: 0.76
      - * Cutoff: 0.31
        * p-value: 0.017
-   * - 6
+   * - 9(a)
+     - * R: 0.04
+       * p-value: 0.5
+     - * Cutoff: 0.52
+       * p-value: 0.15
+   * - 14(a)
+     - * R: -0.09
+       * p-value: 0.22
+     - * Cutoff: 0.31
+       * p-value: 0.003
+   * - 16(a)
      - * R: -0.1
        * p-value: 0.175
      - * Cutoff: 0.31
        * p-value: 0.0015
-   * - 7
+   * - 17(a)
      - * R: -0.12
        * p-value: 0.09
      - * Cutoff: 0.31
        * p-value: 0.0005
+   * - 18(a)
+     - * R: -0.09
+       * p-value: 0.18
+     - * Cutoff: 0.05
+       * p-value: 0.04
        
 --------------------------------------
 
 With clustering
 ````````````````
 
+.. 2(a), 18(a), 9(a), 14(a), 3(a), 16(a), 17(a)
 
- .. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Interface score)
+.. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Interface score)
    :widths: 5 20 20
    :header-rows: 1
 
    * - No.
      - Spearman correlation
      - KS Test
-   * - 1
+   * - 2(a)
      - * R: -0.1
        * p-value: 0.15
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.4 \times 10^{-6} $`
-   * - 2
-     - * R: -0.19
-       * p-value: 0.008
-     - * Cutoff: 0.35
-       * p-value: :raw-math:`$ 1.4 \times 10^{-9} $`
-   * - 3
-     - * R: -0.07
-       * p-value: 0.31
-     - * Cutoff: 0.63
-       * p-value: 0.02
-   * - 4
-     - * R: -0.04
-       * p-value: 0.51
-     - * Cutoff: 0.34
-       * p-value: :raw-math:`$ 4.48 \times 10^{-7} $`
-   * - 5
+   * - 3(a)
      - * R: -0.04
        * p-value: 0.56
      - * Cutoff: 0.09
        * p-value: 0.14
-   * - 6
+   * - 9(a)
+     - * R: -0.07
+       * p-value: 0.31
+     - * Cutoff: 0.63
+       * p-value: 0.02
+   * - 14(a)
+     - * R: -0.04
+       * p-value: 0.51
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$ 4.48 \times 10^{-7} $`
+   * - 16(a)
      - * R: -0.09
        * p-value: 0.19
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 2.64 \times 10^{-6} $`
-   * - 7
+   * - 17(a)
      - * R: -0.09
        * p-value: 0.2
      - * Cutoff: 0.31
        * p-value: :raw-math:`$ 1.53 \times 10^{-6} $`
+   * - 18(a)
+     - * R: -0.19
+       * p-value: 0.008
+     - * Cutoff: 0.35
+       * p-value: :raw-math:`$ 1.4 \times 10^{-9} $`
+.. 2(a), 18(a), 9(a), 14(a), 3(a), 16(a), 17(a)
 
 .. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Peptide score)
    :widths: 5 20 20
@@ -1430,42 +1446,42 @@ With clustering
    * - No.
      - Spearman correlation
      - KS Test
-   * - 1
+   * - 2(a)
      - * R: -0.15
        * p-value: 0.04
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 2.64 \times 10^{-6} $`
-   * - 2
-     - * R: 0.05
-       * p-value: 0.44
-     - * Cutoff: 0.34
-       * p-value: 0.002
-   * - 3
-     - * R: -0.14
-       * p-value: 0.046
-     - * Cutoff: 0.11
-       * p-value: 0.05
-   * - 4
-     - * R: -0.134
-       * p-value: 0.07
-     - * Cutoff: 0.34
-       * p-value: :raw-math:`$ 5.89 \times 10^{-7} $`
-   * - 5
+   * - 3(a)
      - * R: -0.213
        * p-value: 0.003
      - * Cutoff: 0.18
        * p-value: :raw-math:`$ 1.82 \times 10^{-5} $`
-   * - 6
+   * - 9(a)
+     - * R: -0.14
+       * p-value: 0.046
+     - * Cutoff: 0.11
+       * p-value: 0.05
+   * - 14(a)
+     - * R: -0.134
+       * p-value: 0.07
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$ 5.89 \times 10^{-7} $`
+   * - 16(a)
      - * R: -0.164
        * p-value: 0.026
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 2.64 \times 10^{-6} $`
-   * - 7
+   * - 17(a)
      - * R: -0.157
        * p-value: 0.03
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.4 \times 10^{-6} $`
-
+   * - 18(a)
+     - * R: 0.05
+       * p-value: 0.44
+     - * Cutoff: 0.34
+       * p-value: 0.002
+       
 .. list-table:: Spearman's correlation coefficient and KS-test values for training set simulations after a clustering step (Reweighted score)
    :widths: 5 20 20
    :header-rows: 1
@@ -1473,47 +1489,48 @@ With clustering
    * - No.
      - Spearman's correlation
      - KS Test
-   * - 1
+   * - 2(a)
      - * R: -0.09
        * p-value: 0.2
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.4 \times 10^{-6} $`
-   * - 2
-     - * R: -0.1
-       * p-value: 0.16
-     - * Cutoff: 0.05
-       * p-value: 0.01
-   * - 3
-     - * R: 0.05
-       * p-value: 0.47
-     - * Cutoff: 0.44
-       * p-value: 0.14
-   * - 4
-     - * R: -0.1
-       * p-value: 0.16
-     - * Cutoff: 0.34
-       * p-value: :raw-math:`$ 5.9 \times 10^{-7} $`
-   * - 5
+   * - 3(a)
      - * R: -0.05
        * p-value: 0.24
      - * Cutoff: 0.31
        * p-value: 0.006
-   * - 6
+   * - 9(a)
+     - * R: 0.05
+       * p-value: 0.47
+     - * Cutoff: 0.44
+       * p-value: 0.14
+   * - 14(a)
+     - * R: -0.1
+       * p-value: 0.16
+     - * Cutoff: 0.34
+       * p-value: :raw-math:`$ 5.9 \times 10^{-7} $`
+   * - 16(a)
      - * R: -0.13
        * p-value: 0.001
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 4.81 \times 10^{-6} $`
-   * - 7
+   * - 17(a)
      - * R: -0.09
        * p-value: 0.21
      - * Cutoff: 0.34
        * p-value: :raw-math:`$ 7.27 \times 10^{-6} $`
+   * - 18(a)
+     - * R: -0.1
+       * p-value: 0.16
+     - * Cutoff: 0.05
+       * p-value: 0.01
 
 Score vs. Activity plots
 .........................
+.. 2(a), 18(a), 9(a), 14(a), 3(a), 16(a), 17(a)
 
-.. ORA: in the below there are plots without any points (e.g in #3): please adjust the range in all cases for better resolution.
-
+.. (DONE) ORA: in the below there are plots without any points (e.g in #3): please adjust the range in all cases for better resolution.
+.. TODO: Improve resolution of figures
 .. list-table:: Training set - score vs. activity plots
    :widths: 5 30 30 30
    :header-rows: 1
@@ -1522,57 +1539,57 @@ Score vs. Activity plots
      - Reweighted Score
      - Peptide Score
      - Interface Score
-   * - 1
+   * - 2(a)
      - .. image:: plots/TrainingSetAnalysis/calibration16_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration16_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration16_I_sc_activity_score.png
      	:scale: 21%   
-   * - 2
-     - .. image:: plots/TrainingSetAnalysis/calibration18_activity_score.png
+   * - 3(a)
+     - .. image:: plots/TrainingSetAnalysis/calibration39_activity_score.png
      	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/calibration18_pep_sc_activity_score.png
+     - .. image:: plots/TrainingSetAnalysis/calibration39_pep_sc_activity_score.png
      	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/calibration18_I_sc_activity_score.png
-     	:scale: 21%    
-   * - 3
+     - .. image:: plots/TrainingSetAnalysis/calibration39_I_sc_activity_score.png
+     	:scale: 21%
+   * - 9(a)
      - .. image:: plots/TrainingSetAnalysis/calibration33_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration33_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration33_I_sc_activity_score.png
      	:scale: 21%     
-   * - 4
+   * - 14(a)
      - .. image:: plots/TrainingSetAnalysis/calibration38_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration38_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration38_I_sc_activity_score.png
-     	:scale: 21%     
-   * - 5
-     - .. image:: plots/TrainingSetAnalysis/calibration39_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/calibration39_pep_sc_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/calibration39_I_sc_activity_score.png
-     	:scale: 21%   
-   * - 6
+     	:scale: 21%          	   
+   * - 16(a)
      - .. image:: plots/TrainingSetAnalysis/calibration42_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration42_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration42_I_sc_activity_score.png
      	:scale: 21%     
-   * - 7
+   * - 17(a)
      - .. image:: plots/TrainingSetAnalysis/calibration43_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration43_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/calibration43_I_sc_activity_score.png
-     	:scale: 21%     
+     	:scale: 21%  
+   * - 18(a)
+     - .. image:: plots/TrainingSetAnalysis/calibration18_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration18_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/calibration18_I_sc_activity_score.png
+     	:scale: 21%      
      	
-
+.. 2(a), 18(a), 9(a), 14(a), 3(a), 16(a), 17(a)
 .. list-table:: Training set - score vs. activity plots after clustering
    :widths: 5 30 30 30
    :header-rows: 1
@@ -1581,55 +1598,55 @@ Score vs. Activity plots
      - Reweighted Score
      - Peptide Score
      - Interface Score
-   * - 1
+   * - 2(a)
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration16_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration16_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration16_I_sc_activity_score.png
      	:scale: 21%     
-   * - 2
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_pep_sc_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_I_sc_activity_score.png
-     	:scale: 21%    
-   * - 3
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_pep_sc_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_I_sc_activity_score.png
-     	:scale: 21%     
-   * - 4
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_pep_sc_activity_score.png
-     	:scale: 21%
-     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_I_sc_activity_score.png
-     	:scale: 21%     
-   * - 5
+   * - 3(a)
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration39_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration39_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration39_I_sc_activity_score.png
      	:scale: 21%   
-   * - 6
+   * - 9(a)
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration33_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 14(a)
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration38_I_sc_activity_score.png
+     	:scale: 21%     
+   * - 16(a)
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration42_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration42_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration42_I_sc_activity_score.png
      	:scale: 21%     
-   * - 7
+   * - 17(a)
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration43_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration43_pep_sc_activity_score.png
      	:scale: 21%
      - .. image:: plots/TrainingSetAnalysis/Clustering/calibration43_I_sc_activity_score.png
      	:scale: 21%
+   * - 18(a)
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_pep_sc_activity_score.png
+     	:scale: 21%
+     - .. image:: plots/TrainingSetAnalysis/Clustering/calibration18_I_sc_activity_score.png
+     	:scale: 21%    
 
 HDAC8 and CdLS syndrome
 ------------------------
