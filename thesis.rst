@@ -156,7 +156,9 @@ Flexible peptide - protein interactions with FlexPepDock
 
 	:label:`fpdock` an outline of the FlexPepDock protocol (Figure from [15]_).
 	
-	Figure was taken from [15]_ .
+..
+
+Figure was taken from [15]_ .
 
 .. (DONE) ORA: you should move this figure to here %
 ..
@@ -310,9 +312,12 @@ Rigid body movements
 .. figure:: images/anchor_arrows.png
 	:scale: 30 %
 	
-	:label:`mc` Axes used to define rigid body movements. We tested several different axes: K3-Ca defines an axis along the extended Kac side chain, while X4-Ca defines an axis along the extended peptide backbone.
+	:label:`mc` Axes used to define rigid body movements. We tested several different axes: K3-M260 (K - the peptide acetylated lysine) defines an axis along the extended Kac side chain, while X4-G289 (X - variable position) defines an axis along the extended peptide backbone and was chosen by default by the protocol. As was mentioned above, the axis is created by taking the vector that connects the CAs of each residue.
 
-.. ORA: I changed the text, as this is still was not clear to me (as it was not before): Is what I write correct? If so, you need to define how you created those axes (i.e. what atoms you used). Also, what is the original default axis? Mark this vector in the figure too.% 
+.. (DONE) ORA: I changed the text, as this is still was not clear to me (as it was not before): Is what I write correct? If so, you need to define how you created those axes (i.e. what atoms you used). Also, what is the original default axis? Mark this vector in the figure too.% 
+
+.. LIOR: Made it more clear.. hope that its OK now.
+..
 
 Constraints
 ............
@@ -320,7 +325,7 @@ Constraints
 	HDAC8 has the ability to catalyze a deacetylation reaction with several different substrates [30]_ . We believe that its ability to maintain such a diverse specificity profile stems from the fact that its binding motif is encoded in the structure of its substrates. Our previous studies showed that the incorporation of this kind of prior knowledge in the form of constraints improves the correlation between experimental activity and energy scores given to the complex by our protocol [7]_,[8]_. To this date (10/2012) there is only one solved complex containing a peptidic substrate bound to HDAC8 (PDB *2v5w*), so finding a structural motif from solved complexes in our case was somewhat a challenge. Figure :ref:`keyint` describes the features that are estimated to be conserved in all interactions between HDAC8 and peptide substrates.
 
 ..  ORA:  this is confusing: you had a paragraph on constraints above, now you mention it again. Please move to one place%
-
+.. LIOR: The previous paragraph is more about a theoretical background about constraints... Here I show how we use it in practice. If you think it should all be squeezed to one section, let me know...
 	
 	Once a structural motif is determined and constraints are introduced, the scoring function should be modified to favor conformations that include that particular structural motif. This step subsequently directs the search algorithm to sample structures that satisfy this collection of constraints. The most common types of constraints that are available in Rosetta are summarized below:
 	
@@ -398,9 +403,9 @@ Calibration of the protocol
 	+---------------+----------------------+     Binders	  |
 	|GLK(ac)FGC	|66		       |		  |
 	+---------------+----------------------+		  |
-	|GIK(ac)FGC	|64		       |		  |
+	|GFK(ac)FGC	|64		       |		  |
 	+---------------+----------------------+		  |
-	|GRK(ac)YGC	|62		       |		  |
+	|GIK(ac)FGC	|62		       |		  |
 	+---------------+----------------------+------------------+
 	|GQK(ac)YGC	|0		       |		  |
 	+---------------+----------------------+		  |
@@ -560,15 +565,16 @@ Rigid body movements
 
 ..
 
-	Looking at the results we see that selecting an achor that favors an axis that aligns with the vector formed by the acetylated lysine sidechain , that goes into the pocket (see Figure :ref:`constraints`)
+	Looking at the results we see that selecting an achor that favors an axis that aligns with the vector formed by the acetylated lysine sidechain , that goes into the pocket (see Figure :ref:`constraints_figure`)
 	
 .. 
 
 .. figure:: images/anchor_arrows.png
 	:scale: 30 %
 	
-	:label:`constraints` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other approx. around the vector that is formed by the linear conformation of the peptide. **K3** is the acetylated lysine which is located in the 3rd position from the N-terminal, **X4** is the 4th amino acids that is variable for each peptide, as described earlier.
+	:label:`constraints_figure` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other approx. around the vector that is formed by the linear conformation of the peptide. **K3** is the acetylated lysine which is located in the 3rd position from the N-terminal, **X4** is the 4th amino acids that is variable for each peptide, as described earlier.
 
+..
 	
 Constraints
 ............
@@ -922,7 +928,7 @@ Calibration
 Calibration simulations and their performance
 .............................................
 
-Summary of calibration runs
+Results of calibration runs
 ````````````````````````````
 
 .. (DONE) ORA: add indeed p values
