@@ -355,7 +355,28 @@ Constraints
 
 .. (DONE) ORA: for the moment it is nowhere, not here and not there. You include many details about how constraints are defined, how the structure looks like etc, but no info about the constraints you actually used. So either provide the details and the implementation, or shorten this whole paragraph(s). 
 
-.. ORA: I think this is important info, more so than Table 2…. You may mention that you use harmonic constraints, give the formula for that type of constraint, and add a table with details (e.g. atoms, distance, sd, etc). This will not hamper the flow at all. You don't need to write these details in the text, therefore the flow of the text will not be stopped. Without the constraints details, all the introduction to constraints that is pretty long here is useless.%
+.. table:: An elaboration of the constraints that were derived from the crystal structure
+
+	===========	================	=========
+	First atom	Second atom		distance
+	-----------	----------------	---------
+	Asp267 OD2	ac-Lys OH		2.8 A
+	Asp178 OD2	ac-Lys OH		3.8 A
+	His142 NE2	ac-Lys NZ		5.1 A
+	His180 ND1	ac-Lys OH		3.8 A
+	Asp101 OD1	ac-Lys N		3.0 A
+	Asp101 OD2	Coumarin [*]_ N		3.2 A
+	===========	================	=========
+
+..
+
+We used distance constraints that are based on an harmonic function with the distance as the x0 and a standard deviation of 0.2 that was proven to work on previous studies of FlexPepBind mentioned earlier in this text. The first 4 constraints are meant to hold the acetylated lysine in place and prevent it from moving too much in the active site. The last 2 constraints are meant to conserve the important interaction between Asp101 and the backbone of the peptide, as was described by Vannini et al in [1]_.
+
+.. [*] The Coumarin residue is located at the variable position and it is replaced with a different residue. However, its backbone orientation remains the same.
+
+.. (DONE) ORA: I think this is important info, more so than Table 2…. You may mention that you use harmonic constraints, give the formula for that type of constraint, and add a table with details (e.g. atoms, distance, sd, etc). This will not hamper the flow at all. You don't need to write these details in the text, therefore the flow of the text will not be stopped. Without the constraints details, all the introduction to constraints that is pretty long here is useless.%
+
+.. LIOR: I inserted a table that details the constraint set. hope its ok. I still think that some introduction to the concept of constraints is something that is worth mentioning for people who are not familiar with structural modeling.
 
 Results
 ========
@@ -498,7 +519,7 @@ Template selection
 ..
 
 	These short simulations validate our initial assumption that *2v5w* is the best candidate for a template. 
-.. ORA: I would change the legend to what you write in the tables below: this is clearer: "These simulations used the same values as simulation #2, except for….]
+.. ORA: I would change the legend to what you write in the tables below: this is clearer: "These simulations used the same values as simulation #2, except for ...
 	
 Scoring function
 .................
@@ -525,7 +546,9 @@ Scoring function
 ..
 
 	Looking at the results, simulations that involved the generic Rosetta scoring function and the modified scoring function achieved similar ability to distinguish between binders and non binders, in contrast to what we previously anticipated. 
-.. ORA: this also indicates instability - how else would you explain that hackelec 0.5 and 0 work well but 0.25 does not? Maybe mention this instability]
+	The fact that 0,0.5 values for hack_elec work better than 0.25 probably indicates a certain degree of instability since the simulation pathway probably changed significantly between the 0,0.5 hack_elec runs and the 0.25. A stable conformation would probably show a growing increase in performance to a certain degree.
+ 
+.. ORA: this also indicates instability - how else would you explain that hackelec 0.5 and 0 work well but 0.25 does not? Maybe mention this instability
 	
 Rigid body movements
 .....................
@@ -651,7 +674,7 @@ Training a classifier
 .. ORA: the columns that you need: No.; Anchor (residue); Sampling - Perturbation size; Sampling - No. Decoys; Template; threshold value; Scoring function; Scoring Scheme (KS & Spearman p-values). In short, exactly as in the tables above, in particular include the p values.] 
 
 	
-.. table:: Summary of training set simulations. The Numbering is based on the calibration runs (see Table XX above).
+.. table:: Summary of training set simulations. The Numbering is based on the calibration runs (see Table 5 above).
 
 	======		================	===============================	===========	===================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
