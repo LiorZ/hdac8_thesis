@@ -25,7 +25,10 @@ Histone Deacetylase 8
 	
 	In recent years interesting evidence is accumulating, indicating that this is only the tip of the iceberg. Wilson *et al.* showed for the first time that HDAC8 together with Sirt-1 and p300 form an acetylation switch that modulates the transcriptional activity of Estrogen-Related receptor :raw-math:`$\alpha$` (ERR :raw-math:`$\alpha$`), but what's more intriguing is that HDAC8 was found to deacetylate ERR :raw-math:`$\alpha$` itself which is not a histone protein at all. Although it is known for quite some time that various HDACs have the ability to deacetylate non-histone substrates, particularly HDAC1 [40]_  [41]_ - this was the first time that HDAC8 was captured in such a mechanism. A recent study showed that HDAC8 also deacetylates SMC3 - a subunit of the cohesin complex that mediates sister chromatid cohesion. Failure to deacetylate this particular protein might cause CdLS (Cornelia de Lange syndrome) - a genetic disease whose patients suffer from retardation and overall deformity [63]_.
 	
-	HDAC1 was the first HDAC to be identified back in 1996 [27]_ and since then, 18 others were confirmed by various groups [citations]. These enzymes can be divided to 4 subclasses, I-IV, based on their evolutionary descent (see Figure :ref:`hdacphylo`). HDAC8 is unique among all the other HDACs - it possesses several features that make it a great model for studying the biological role of deacetylation. It is the only HDAC that is found as a single polypeptide *in vivo* [34]_ , the rest are found as high molecular weight multiprotein complexes. Furthermore, it is much easier to work with experimentally since most purified recombinant HDACs are enzymatically inactive [35]_. Therefore, we conclude that from a structural biology perspective, HDAC8 is the best model among mammalian HDACs.
+	HDAC1 was the first HDAC to be identified back in 1996 [27]_ and since then, 18 others were confirmed by various groups [68]_ [69]_ [70]_. These enzymes can be divided to 4 subclasses, I-IV, based on their evolutionary descent (see Figure :ref:`hdacphylo`). HDAC8 is unique among all the other HDACs - it possesses several features that make it a great model for studying the biological role of deacetylation. It is the only HDAC that is found as a single polypeptide *in vivo* [34]_ , the rest are found as high molecular weight multiprotein complexes. Furthermore, it is much easier to work with experimentally since most purified recombinant HDACs are enzymatically inactive [35]_. Therefore, we conclude that from a structural biology perspective, HDAC8 is the best model among mammalian HDACs for studying the biologcal role played by deacetylation.
+
+.. (DONE) ORA: Model for what?
+.. LIOR: Right, bad phrasing... fixed.
 
 .. figure:: images/hdac_phylo.png
 	:scale: 35%
@@ -54,8 +57,10 @@ Histone Deacetylase 8
 
 	:label:`catalyticmech` The catalytic mechanism of deacetylation.
 
-	The catalytic mechanism of the reaction involves a simple water mediated nucleophilic attack. The nucleophilic lone electron pair on the metal-bound water molecule becomes available only upon proton abstraction. Christianson *et al.* suggest that the electron pair of the breaking O-H bond could add to the :raw-math:`$\pi^*$` orbital of the substrate carbonyl. [28]_ The oxyanion of the tetrahedral intermediate and its flanking transition states are stabilized by metal coordination as well as hydrogen bond interactions with Y306, H143, and H142. H143 serves as a general acid catalyst to facilitate the collapse of the tetrahedral intermediate to form acetate and lysine after an intervening proton transfer (Figure from [28]_).
+	The catalytic mechanism of the reaction involves a simple water mediated nucleophilic attack. 
+..
 
+	As drawn, the nucleophilic lone electron pair on the metal-bound water molecule becomes available only upon proton abstraction. Christianson *et al.* suggest that the electron pair of the breaking O-H bond could add to the :raw-math:`$\pi^*$` orbital of the substrate carbonyl. [28]_ The oxyanion of the tetrahedral intermediate and its flanking transition states are stabilized by metal coordination as well as hydrogen bond interactions with Y306, H143, and H142. H143 serves as a general acid catalyst to facilitate the collapse of the tetrahedral intermediate to form acetate and lysine after an intervening proton transfer (Figure from [28]_).
 .. (DONE) ORA: is this whole paragraph above part of the legend? If so it should be moved into the figure legend and away from the main text
 
 ..
@@ -350,25 +355,7 @@ Constraints
 
 .. (DONE) ORA: for the moment it is nowhere, not here and not there. You include many details about how constraints are defined, how the structure looks like etc, but no info about the constraints you actually used. So either provide the details and the implementation, or shorten this whole paragraph(s). 
 
-.. table:: An elaboration of the constraints that were derived from the crystal structure
-
-	===========	================	=========
-	First atom	Second atom		distance
-	-----------	----------------	---------
-	Asp267 OD2	ac-Lys OH		2.8 A
-	Asp178 OD2	ac-Lys OH		3.8 A
-	His142 NE2	ac-Lys NZ		5.1 A
-	His180 ND1	ac-Lys OH		3.8 A
-	Asp101 OD1	ac-Lys N		3.0 A
-	Asp101 OD2	Coumarin [*]_ N		3.2 A
-	===========	================	=========
-
-..
-
-We used distance constraints that are based on an harmonic function with the distance as the x0 and a standard deviation of 0.2 that was proven to work on previous studies of FlexPepBind mentioned earlier in this text. The first 4 constraints are meant to hold the acetylated lysine in place and prevent it from moving too much in the active site. The last 2 constraints are meant to conserve the important interaction between Asp101 and the backbone of the peptide, as was described by Vannini et al in [1]_.
-
-.. [*] The Coumarin residue is located at the variable position and it is replaced with a different residue. However, its backbone orientation remains the same.
-
+.. ORA: I think this is important info, more so than Table 2…. You may mention that you use harmonic constraints, give the formula for that type of constraint, and add a table with details (e.g. atoms, distance, sd, etc). This will not hamper the flow at all. You don't need to write these details in the text, therefore the flow of the text will not be stopped. Without the constraints details, all the introduction to constraints that is pretty long here is useless.%
 
 Results
 ========
@@ -378,7 +365,7 @@ Description of the dataset
 --------------------------
 
 	The Fierke group has tested the ability of HDAC8 to deacetylate 361 6-mer peptides with the sequence GXK(Ac)YGC (where X,Y are all the amino acids except Cysteine), under two different conditions: for zinc and iron bound HDAC8 (unpublished results; see Table XX). For each of these peptides, a level of activity with respect to HDAC8 and the bound metal was determined by measuring the percentage of deacetylation after 1 hour.
-	We divided the this dataset to training and test sets by sorting the peptides according to their experimental activity with zn - bound HDAC8, taking all the even rows to be the test set and all the odd rows to be the training set. This division assured even distribution of peptides with respect to their activity levels (avoiding a situation where one set holds a large number of high/low activity decoys).
+	We divided this dataset into a training and a test set, by sorting the peptides according to their experimental activity with Zn - bound HDAC8, and assigning all even-numbered rows to be the test set, and all odd-numbered rows to be the training set. This division assured an even distribution of peptides with respect to their activity levels (avoiding a situation where one set holds a large number of high/low activity decoys).
 
 .. TODO: Add reference to the dataset in the supp material
 .. TODO: Verify exactly how the dataset was made
@@ -386,11 +373,11 @@ Description of the dataset
 Calibration of the protocol
 ------------------------------
 
-	Below we describe the results obtained in the calibration process. The first calibration round was made by taking 5 best binders and 5 bad binders, trying to generate a coarse set of parameters to be refined later using the entire training set (see Table 3). This set of short simulations allowed us to quickly distinguish between sets of parameters.
+	Below we describe the results obtained in the calibration process. The first calibration round was made by taking the 5 peptide substrates with strongest HDAC8 activity and 5 peptides with no detectable HDAC8 activity at all (see Table 3 [ORA: RENUMBER TABLES]). We used this set to identify a coarse set of parameters that could be refined later using the entire training set. This set of short simulations allowed us to quickly distinguish between sets of parameters. [ORA: not clear: what do you mean by distinguishing between sets of parameters? Maybe you mean to identify critical parameters and values?]
 
-	Usually, each step of the calibration process involved changing one degree of freedom of a certain feature (such as - amount of sampling, constraints, etc) while maintaining the others fixed.
-	The performance of each simulation was evaluated by the Pearson correlation coefficient by averaging the score of the top 3 models with the lowest peptide , interface and reweighted score,generating 3 different score estimations. 	
-	This process resulted in a coarse set of parameters, to be refined on the whole training set as part of the classifier learning process. 
+	The performance of each simulation was evaluated by the Kolmogorov-Smirnov two-sample test, where each peptide was assigned a rank based on the average score of the three top-scoring models. We estimated the score using three measures: peptide score, interface score, and reweighted score (see Methods). 
+
+	In general, each step of the calibration process involved changing one degree of freedom of a certain feature (such as - amount of sampling, constraints, etc) while maintaining the others fixed. This process resulted in a coarse set of parameters, to be refined on the whole training set as part of the classifier learning process. 
 
 .. table:: A short version of the dataset used for coarse calibration of our protocol.
 	
@@ -400,7 +387,7 @@ Calibration of the protocol
 	|GYK(ac)FGC	|93		       |		  |
 	+---------------+----------------------+		  |
 	|GYK(ac)WGC	|80		       |		  |
-	+---------------+----------------------+     Binders	  |
+	+---------------+----------------------+     HDAC8 Substrates	  |
 	|GLK(ac)FGC	|66		       |		  |
 	+---------------+----------------------+		  |
 	|GFK(ac)FGC	|64		       |		  |
@@ -410,7 +397,7 @@ Calibration of the protocol
 	|GQK(ac)YGC	|0		       |		  |
 	+---------------+----------------------+		  |
 	|GIK(ac)VGC	|0		       |		  |
-	+---------------+----------------------+   Non Binders	  |
+	+---------------+----------------------+   HDAC8 Non-Substrates	  |
 	|GMK(ac)VGC	|0		       |		  |
 	+---------------+----------------------+		  |
 	|GDK(ac)YGC	|0		       |		  |
@@ -432,14 +419,15 @@ Sampling
 
 Initial parameters
 ``````````````````
-	Since the amount of sampling was the first feature we decided to calibrate, we initialized the other features with values that were found optimal in previous studies [7]_ such as:
+	We initialized the features with values that were found optimal in previous studies [7]_:
 	
-	#) Weight of *hackelec* (electrostatic term) = 0.5
-	#) Standard deviation of constraints = 0.2
-	#) Number of decoys generated per simulation = 200
-	#) Perturbation size = 6 degrees
-	#) Anchor atom was the CA of the acetylated lysine (residue 366 in the pdb). 
-	#) Receptor anchor was the CA of F208 (selected by the algorithm by default since its the closest to the peptide anchor)
+	#) Weight of *hackelec* (electrostatic term): 0.5
+	#) Standard deviation of constraints: 0.2
+	#) Number of decoys generated per simulation: 200
+	#) Perturbation size: 6 degrees
+	#) Structural template: 2v5w - HDAC8 bound to a peptide (see Methods).
+	#) Anchor atom in peptide: CA of the acetylated lysine (residue 366 in the pdb). We assumed that the default anchor chosen in the FlexPepDock protocol will not be optimal in our case since it is farther from the active site, so we determined the anchor to be the acetylated lysine. 
+	#) Anchor atom in receptor: CA of F208 (selected by the algorithm by default since it is closest to the peptide anchor)
 
 	These features were of course, validated and perturbed in later phases.
 	
@@ -510,11 +498,12 @@ Template selection
 ..
 
 	These short simulations validate our initial assumption that *2v5w* is the best candidate for a template. 
+.. ORA: I would change the legend to what you write in the tables below: this is clearer: "These simulations used the same values as simulation #2, except for….]
 	
 Scoring function
 .................
 
-	In our calibration of the scoring function we were interested to see whether our initial parameters - primarily the use of the short electrostatic term (hack_elec) should be refined or modified. For that, we tried to use Rosetta's default scoring function *score12* (that didn't contain any of the modifications described earlier) and another simulation in which we decreased only the weight of the electrostatic term (hackelec) in the scoring function.
+	In our calibration of the scoring function we were interested to see whether our initial parameters - primarily the use of the short electrostatic term (hack_elec) should be refined or modified. For that, we tried to use Rosetta's default scoring function *score12* (that does not contain any of the modifications described earlier) and another simulation in which we decreased only the weight of the electrostatic term (hackelec) in the scoring function.
 	
 	+----------------------------------------------+----------------------------------------------------+
 	|		                	       | **Scoring scheme** (KS p-value)		    |
@@ -536,6 +525,7 @@ Scoring function
 ..
 
 	Looking at the results, simulations that involved the generic Rosetta scoring function and the modified scoring function achieved similar ability to distinguish between binders and non binders, in contrast to what we previously anticipated. 
+.. ORA: this also indicates instability - how else would you explain that hackelec 0.5 and 0 work well but 0.25 does not? Maybe mention this instability]
 	
 Rigid body movements
 .....................
@@ -565,8 +555,9 @@ Rigid body movements
 
 ..
 
-	Looking at the results we see that selecting an achor that favors an axis that aligns with the vector formed by the acetylated lysine sidechain , that goes into the pocket (see Figure :ref:`constraints_figure`)
-	
+	Looking at the results we see that selecting an anchor that favors an axis that aligns with the vector formed by the acetylated lysine sidechain , that goes into the pocket (see Figure :ref:`constraints`), works best.
+
+.. ORA: the connection between the figure and the table is not clear at all: you need to label the atoms and explain the arrows, and explain to what "366" for example corresponds.]	
 .. 
 
 .. figure:: images/anchor_arrows.png
@@ -628,8 +619,8 @@ Threading the peptide
 Summary of calibration runs
 ............................
 	
-	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With this calibration approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulation #18 and simulations #2 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Kolmogorov Smirnov p-values. We also noticed that the interface scoring scheme achieved superior performance to the rest of the schemes in most cases. Moreover, the reweighted score scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in the vast majority of simulations.
-	In the next phase , in which we run our peptide modeling protocol on the whole training set, we mainly use the set of parameters that exhibited superior performance in the short calibration phase.
+	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With this calibration approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulations #18 and #2 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Kolmogorov Smirnov p-values. We also noticed that the interface scoring scheme achieved superior performance to the rest of the schemes in most cases. Moreover, the reweighted score scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in the vast majority of simulations.
+	In the next phase, in which we run our peptide modeling protocol on the whole training set, we mainly use the set of parameters that exhibited superior performance in the short calibration phase.
 
 Whole data set analysis
 --------------------------
@@ -637,7 +628,7 @@ Whole data set analysis
 Training a classifier
 .....................
 
-	After an initial phase of calibration on 10 peptides, we were set to examine and refine the parameters learned on the whole training set, this step allowed us to refine our initial, coarse set of parameters. Table 5 summarizes the simulations on the whole training set.
+	After an initial phase of calibration on 10 peptides, we were set to examine and refine the parameters learned on the whole training set. This step allowed us to refine our initial, coarse set of parameters. Table 5 summarizes the simulations on the whole training set.
 
 	Recall that our dataset contains sequences of lysine acetylated peptides that are ranked by their activity level as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continuous value in [0,1]. In order to train a binary classifier, we needed to define a threshold to create a binary representation. To accomplish that, we selected an experimental level of activity to serve as a cutoff so that each sequence with activity that is lower than the cutoff is labeled as a non-binder and *vice versa*. We derived that cutoff by applying 2 samples Kolmogorov-Smirnov (KS) test on all possible activity levels ([0,1], in resolution of 0.01). The activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that could best differentiate between the 2 distributions of *scores* - that of the substrates and the score distribution of non substrates.  (see Figure :ref:`cutoff`)
 	
@@ -650,16 +641,17 @@ Training a classifier
 
 .. (DONE) ORA: in figure 10 you should define the parameters you used in the simulations.
 .. LIOR: I mentioned the simulation number, in the table below the parameters used can easily be seen. no point in duplicating this information ... 
-..
+..  ORA: what is "simulation 1"???, and why did you use those parameters? The table below does not contain #1…. I would stick to the tables above - it seems this is simulation #2 actually if I get it right.]
+
 
 	This table summarizes the simulations we performed on the whole training set, each of the columns describe a different aspect of the parameter set used.
 	
 	
 .. (DONE) ORA: in the table below you should make the connection between the numbering here and the numbering in the previous section. I suggest to call the runs Xa (e.g. the first would be 9a and the second 11a). Also, the tables should have the same format as before, and include also results (the correct measure of course…)	
-..
-	
-.. table:: Summary of training set simulations. The Numbering is based on calibration runs.
+.. ORA: the columns that you need: No.; Anchor (residue); Sampling - Perturbation size; Sampling - No. Decoys; Template; threshold value; Scoring function; Scoring Scheme (KS & Spearman p-values). In short, exactly as in the tables above, in particular include the p values.] 
 
+	
+.. table:: Summary of training set simulations. The Numbering is based on the calibration runs (see Table XX above).
 
 	======		================	===============================	===========	===================
 	No.		Anchor (residue)	Sampling			Template	Scoring function
@@ -669,7 +661,7 @@ Training a classifier
 
 	3(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
 			anchor was CH		* 200 simulations per peptide.			
-			atom			* low resoultion preopt.							
+			atom			* low resolution preopt.							
 
 	9(a)		366			* perturbation size = 15	3f07		hack_elec = 0.5
 						* 200 simulations per peptide.			
@@ -702,29 +694,37 @@ Scoring of peptides
 
 	We used 2 statistical tests - Kolmogorov Smirnov and Spearman's non parametric correlation, to evaluate the ability of parameter set of a simulation to differentiate between binders and non-binders. 
 	Simulation 18(a) that threaded each sequence on the original peptide found in 2v5w has a p-value of :raw-math:`$ 2.78 \times 10^{-8} $` with a cutoff of 0.35, using the interface scoring scheme - much more significant than the other scoring schemes. However, in terms of correlation, Simulations 14(a) and 16(a) achieved the best correlation with experimental activity on the training set, 0.0005, 0.0002 respectively, using the interface scoring scheme.
+
+.. ORA: these results should be included in the table. You can put the best set of parameters in bold. ]
 	
 .. (DONE) ORA: above you move to peptide score while before you used IF score. You should relate to this and explain.
 .. (DONE) ORA: also, why is the cutoff now 0.44 and not 0.34???
 
-.. LIOR: I drew this plot for each scoring scheme and for each simulation. Not all simulations got the 0.34 as the optimal seperator activity level ... 
-.. (DONE) ORA: below you can add a heading: "scoring of peptides"
-..
+.. LIOR: I drew this plot for each scoring scheme and for each simulation. Not all simulations got the 0.34 as the optimal separator activity level ... 
+.. ORA: ok, so add this in the table as another column; and explain in the text. You may also mention in the figure above that the optimal threshold value may differ among different parameter combinations].
 
-	We clustered [26]_ the decoy structures from each simulation based on their RMSD, and averaged the top 3 ranking decoys in the largest cluster according to the different scoring schemes. (see section `Training set simulations and their performance`_ in the supplementary material) In contrast to previous findings in earlier studies [7]_ , [8]_, we found that clustering improves the differentiation between binders and non binders by several orders of magnitude. For example, Simulation #18(a) (in which we threaded the peptide onto the existing backbone conformation, using the interface scoring scheme) demonstrated the best performance with the interface scoring scheme and a KS p-value of 1.4×10\ :sup:`-9` and a cutoff of 0.35 which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #14(a) (in which the CH atom of the lysine sidechain was used as anchor), it showed a p-value of 4.48×10\ :sup:`-7` using activity level of 0.34 as a cutoff.
+.. ORA: why clustering? This comes "out of the blue" - why didn't you report on this in the previous part on the 10 initial sequences?]
+
+	We clustered [26]_ the decoy structures from each simulation based on their RMSD, and averaged the top 3 ranking decoys in the largest cluster according to the different scoring schemes (see section `Training set simulations and their performance`_ in the supplementary material). In contrast to previous findings in earlier studies [7]_ , [8]_, we found that clustering improves the differentiation between binders and non binders by several orders of magnitude. For example, Simulation #18(a) (in which we threaded the peptide onto the existing backbone conformation, using the interface scoring scheme) demonstrated the best performance with the interface scoring scheme and a KS p-value of 1.4×10\ :sup:`-9` and a cutoff of 0.35 which is two orders of magnitudes increment from the lowest p-values that we obtained without clustering. Another notable candidate was Simulation #14(a) (in which the CH atom of the lysine sidechain was used as anchor), it showed a p-value of 4.48×10\ :sup:`-7` using activity level of 0.34 as a cutoff.
 
 .. (DONE) ORA: Instead of "for example" You need a table with results here (or in the supmat), and then you can summarize your conclusions.
 .. LIOR: Added a reference to the relevant section in the supplementary material
 
-.. (DONE) ORA: cutoff of 0 activity level? rephrase better
+	Interestingly, we saw that the level of activity of around ~ 0.34  recurrs as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example, simulation #16(a), the set of parameters that was one of the best performing in the first initial calibration phase, using the interface scoring scheme, achieved a p-value of 2.64×10\ :sup:`-6` - three orders of magnitudes improvement comparing to its performance without clustering.
 
-	Interestingly, we saw that the level of activity of around ~ 0.34  reccurr as a cutoff for a number of well performing parameter sets that achieved low p-values after clustering under different scoring schemes. For example, simulation #16(a) that has the parameter set that was one of the best performing in the first initial calibration phase with the interface scoring scheme achieved a p-value of 2.64×10\ :sup:`-6` - three orders of magnitudes improvement comparing to its performance without clustering.
+.. ORA: confusing: in the above paragraph you mix two parameters together. You should talk about the threshold 0.34 that is often the optimal value for distinction; then you could talk about clustering for different measures]
 
 	The `Training set simulations and their performance`_ section in the supplementary materual concentrates a summary of all simulations with and without a clustering step, including the statistical evaluation of their performance. 
 
+.. ORA: you may have a final summary table - good  idea. But this does not come instead of a concise table here with the main important results.]
 
 	To visualize the comparison of our ability to distinguish binders from non binders with and without clustering, we plotted *score vs. activity* plots for all simulations and for all scoring schemes. They are available in the `Supplementary Material`_ - `Training set analysis`_
-	From the results above we were able to derive a modeling scheme that could serve us in our future predictions for additional substrates - the scheme we used in simulation #18(a) together with a clustering step achieved best AUC together with the 0.34 cutoff we obtained. (see Figure :ref:`roc`). This modeling scheme used the existing peptide found in the crystal structure of *2v5w* as a starting structure for the simulation. 
 	
+.. ORA: plot one or a few examples of the best performing cases here in the results section, then refer to a full description in the appendix. My main comment for this whole section is that you need to "digest" your data and decide what tables to include here, in addition to the full data at the end].
+
+	From the results above we were able to derive a modeling scheme that could serve us in our future predictions for additional substrates - the scheme we used in simulation #18(a) together with a clustering step achieved best AUC together with the 0.34 cutoff we obtained. (see Figure :ref:`roc`). This modeling scheme used the existing peptide found in the crystal structure of *2v5w* as a starting structure for the simulation. 
+
+.. ORA: Describe ALL parameter details of this scheme, as you are going to use it now as the default scheme. This includes what scoring function, etc. In short all the details].	
 
 Comparison to a minimization only based classifier
 ...................................................
@@ -733,14 +733,17 @@ Comparison to a minimization only based classifier
 
 .. (DONE) ORA: in the below, you need to give the details of the parameters in the run 
 .. LIOR: I don't want to burden the reader with too much technical details in the menuscript. If the reader is interested in the actual parameters, he can look them up in the table (I wrote that the parameters are similar to Simulation #X.. isn't it sufficient?
-
+.. ORA: "similar" is not accurate enough, this is not enough for a scientific report. You do need those values here. I suggest to include all the columns in the table as before, and highlight the changes. Remember, this is to be a report that makes it possible to reproduce, and if someone in the future wants to do this, I don't think that referring to lookup tables is a good idea. Try to adhere to one scheme throughout your thesis, similar to the first part of the results, where you described the results in detail.
+The below should be another table, that also includes results. Then you can discuss these shortly in the text.]
 ..
 	
 	1) Minimization with *score12*, rest of the parameters are similar to Simulation #2(a) applied to the whole training set
 	2) Minimization with exactly the same parameters as Simulation #2(a) (hackelec, etc) applied to the whole training set
 	3) Minimization starting from threaded peptides, identical to simulation #18(a) applied to the whole training set
 	
-	Surprisingly , the 1st approach - the one that didn't require any changes to the scoring function was the one that best correlated with experimental data and showed the best ability so far to distinguish binders from non binders with a KS p-value of 5.95×10\ :sup:`-10` and a cutoff of 0.34 using the peptide scoring scheme. The 2nd approach also performed well with a KS p-value of 4.6×10\ :sup:`-8` and a cutoff of 0.34, using the peptide scoring scheme.Suprisingly, The 3rd approach that showed remarkable ability to distinguish between binders and non-binders, failed to improve any of the p-values obtained in the full simulation runs. Figure :ref:`roc` shows an ROC plot comparing the performance of possible predictors derived from both types of best performing simulations - minimization only and full optimization.
+	Surprisingly , the 1st approach - the one that didn't require any changes to the scoring function was the one that best correlated with experimental data and showed the best ability so far to distinguish binders from non binders with a KS p-value of 5.95×10\ :sup:`-10` and a cutoff of 0.34 using the peptide scoring scheme. The 2nd approach also performed well with a KS p-value of 4.6×10\ :sup:`-8` and a cutoff of 0.34, using the peptide scoring scheme. Suprisingly, The 3rd approach that showed remarkable ability to distinguish between binders and non-binders, failed to improve any of the p-values obtained in the full simulation runs. Figure :ref:`roc` shows an ROC plot comparing the performance of possible predictors derived from both types of best performing simulations - minimization only and full optimization.
+
+.. ORA: as I said, you should have the results in a table, and then in the text only discuss. It is very confusing to have three numbers here - at least refer in the text to the original runs. In turn, you don't need to give p-values or details about the running parameters, as they will be in the table].
 	
 	For comparison purposes, the following table summarizes the performance of these 3 approaches on the 10 sequences used for calibration:
 	
@@ -758,13 +761,15 @@ Comparison to a minimization only based classifier
 	|3		| Exactly like sim #18             | 0.69            | 0.99	        | 0.69             |
 	+---------------+----------------------------------+-----------------+------------------+------------------+				
 
-.. (DONE) ORA: how well do these do on the 10 peptides only that you used for calibration? add a table.	
-	
+.. ORA: this could be (B) in the table I suggested above. Also, why don't you first put the line of results for #2 (#2 here)? Then you change the score and show it in a line after, finally you show #18. Also, why don't you report on #18 with score 12? Are you averaging over top scoring models here? there are many details that just are not here, and make it difficult to assess without jumping back and forth to the appendix….].	
 
 Test set analysis
 ..................
 
 	With our insights from training a classifier on the training set, we applied it on the other part of the sequences - the test set. The simulation scheme used the set of parameters and constraints identical to that of simulation #18(a) in the training set runs, as its resulting predictor has the best ability to distinguish between binders and non binders (ROC plot AUC of 0.95).
+
+.. ORA: where do you show this value? which figure?]
+
 	The below ROC plot summarizes the performance of our classifier on the test set, comparing to its performance on the training set and to a minimization only scheme.
 
 
@@ -774,15 +779,21 @@ Test set analysis
 		:label:`roc` Comparison of the minimization and full optimization schemes that included clustering on both training and test sets.
 ..
 
-	The minimization step uses the *peptide scoring scheme*, while in the full optimization the inteface scoring scheme performed better on the training set and thus - served as the basis for the predictor on the test set.
+	The minimization step uses the *peptide scoring scheme*, while in the full optimization the interface scoring scheme performed better on the training set and thus - served as the basis for the predictor on the test set.
+
+.. ORA: this is confusing. Be more precise: which simulation parameters did you use for "full optimization", which for "min only" - refer to the tables and the exact #run. Also, the legend should be in a logic order. Now you have Full+cl, test - red; same train blue; but min test blue dotted… This is totally confusing, as the coloring and line scheme differences should correlate with parameter differences (e.g. train red; test blue; full line; min dotted for example). You also need a better legend: what is the take home message of this plot? I guess that the test set works less well and we might have overfitted….]
+
 
 Searching for novel, non-histone substrates
 --------------------------------------------
 
 	We used the minimization only version of our predictor to search for potential novel substrates of HDAC8. This version of the predictor achieved both superior performance and is the least computationally intensive. 
-	We downloaded the Phosphosite database from PhosphoSitePlus (PSP) - an online systems biology resource providing comprehensive information and tools for the study of protein post-translational modifications and queried it for lysine acetylated proteins. We trimmed the sequences to the same size of the sequences in our experimental dataset - **YYK(ac)YYY**. 
+	The Phosphosite database from the site PhosphoSitePlus (PSP) - an online systems biology resource providing comprehensive information and tools for the study of protein post-translational modifications, contains a compilation of all experimentally examined acetylation sites in proteins. We downloaded this database and queried it for lysine acetylated proteins. These present a pool of potential targets of HDAC8. In order to evaluate their ability to be deacetylated by HDAC8, we trimmed the sequences around the acetylated lysine to the same size of the sequences in our experimental dataset - **YYK(ac)YYY**, and used these as input. 
 
-	To demonstrate the ability of our classifier to recognize potential substrates among the large database of acetylated sequences, we plotted the distribution of scores of all the acetylated sequences from the database against a background distribution of random peptides that were sampled from the distribution of amino acids in the acetylated sequences in phosphosite(figure :ref:`phosphodist`), under the null hypothesis that both sequences originate from the same distribution. Acetylated peptides obtained lower scores than random peptides (Kolmogorov-Smirnov test p-value =5.07×10\ :sup:`-5`).
+	To demonstrate the ability of our classifier to recognize potential substrates among the large database of acetylated sequences, we plotted the distribution of scores of all the acetylated sequences from the database against a background distribution of random peptides that were sampled from the distribution of amino acids in the acetylated sequences in phosphosite(figure :ref:`phosphodist`), under the null hypothesis that both sequences originate from the same distribution. The plot shows that overall, acetylated peptides obtained lower scores than random peptides (Kolmogorov-Smirnov test p-value =5.07×10\ :sup:`-5`).
+
+.. ORA: add median values for improved "intuition"].
+
 	It is important to note that most sequences in the Phosphosite database are probably not substrates of HDAC8, but nevertheless, we differentiate between a collection of random sequences and a collection of acetylated sequences, some of them potential substrates of HDAC8. This finding could suggest that there are quite a lot potential substrates of HDAC8 or other deacetylases that are yet to be discovered.
 
 	.. figure:: plots/PhosphositeDisr/plot.png
@@ -790,16 +801,22 @@ Searching for novel, non-histone substrates
 
 		:label:`phosphodist` Distribution of scores in both acetylated and random sequences
 	
-		The rightmost bar concentrates all the peptides that have a minimization score above 10. (a high score that suggests that these peptides were not modeled successfully)
+		The rightmost bar concentrates all the peptides that have a minimization score above 10 (a high score that suggests that our approach was not able to model successfully these peptides into the binding site).
 
 
 .. ORA: I think you should add the plots for each protein: this is what the HDAC8 enzyme sees when it comes to work ...
 .. LIOR: What do you mean? which plots?
+.. ORA: I think that it is more meaningful to show values that you would get for all lysines (peptides around) in a certain protein. THis would show that the particular site is indeed very significantly better than the rest. You can then overlap the info about acetylation and the scores to see if both hint at the same place. As I told you, random is not the way to go as you include factors that are irrelevant. In any case, you should at least mention that there are other ways to create background distributions).]
+
+.. ORA: why not add the 25 peptides in table that contains both prediction and experimental results? I think it is an important part of the thesis as it makes it more complete with exp validation of real blind predictions.]
 
 HDAC8 and CdLS syndrome
 ........................
 	
-	A recent study claims that the loss of function of HDAC8 as one of the causes to the Cornelia de Lange syndrome (CdLS) that occurs due to a malfunction in the cohesin acetylation cycle [23]_. In humans the cohesin is a multisubunit complex that is made up of SMC1A, SMC3, RAD21 and a STAG protein. These form a ring structure that is proposed to encircle sister chromatids to mediate sister chromatids cohesion [20]_ and also has key roles in gene regulation [21]_ . Using a monoclonal antibody specific for acetylated SMC3 the researchers found that the total levels of SMC3 is constant throughout the cell cycle while SMC3-ac levels rapidly decline during mitosis, a finding that suggested a coordinated deacetylation. The researchers therefore used RNAi for each of the known histone deacetylases and sirtuins and identified HDAC8 as the primary SMC3 deacetylase. Indeed, SMC3 has 6 known acetylation sites [22]_. Among these, our protocol predicts that 3 are HDAC8 deacetylation substrates:
+	A recent study claims the loss of function of HDAC8 as one of the causes to the Cornelia de Lange syndrome (CdLS), a syndrome that results from malfunction in the cohesin acetylation cycle [23]_. In humans the cohesin is a multisubunit complex that is made up of SMC1A, SMC3, RAD21 and a STAG protein. These form a ring structure that is proposed to encircle sister chromatids to mediate sister chromatids cohesion [20]_ and also plays key roles in gene regulation [21]_ . 
+.. ORA: Improve flow by better describing your underlying assumption and aim. Add here a sentence that reports that mutations in all these proteins have been reported to lead to CdLS phenotype. Then add a sentence that we assume that failure of deacetylation could be the cause: either non-functional HDAC8 as described above, or non-functional deacetylation due to mutations in the vicinity of acetylated lysines. Then, write that you analyzed two proteins for such sites in which acetylation, deacetylation by HDAC8, and mutations co-localize. Then make a title "SMC3" and describe that protein. When you are done, make a title "SMC1" and describe that protein]
+
+Using a monoclonal antibody specific for acetylated SMC3, the researchers found that the total levels of SMC3 is constant throughout the cell cycle while SMC3-ac levels rapidly decline during mitosis, a finding that suggested a coordinated deacetylation. The researchers therefore used RNAi for each of the known histone deacetylases and sirtuins and identified HDAC8 as the primary SMC3 deacetylase. Indeed, SMC3 has 6 known acetylation sites [22]_. Among these, our protocol predicts that 3 are HDAC8 deacetylation substrates:
 	
 .. table:: SMC3 known acetylation sites with FlexPepBind scores
 	
@@ -817,20 +834,21 @@ HDAC8 and CdLS syndrome
 
 ..
 
-.. (DONE) ORA: highlight substrates in table
-..
-
+.. ORA: why put failures first? put the ones with best scores first!]
 	
-	**Are there any more deacetylation sites?** We were interested to see whether our protocol can capture additional deacetylation sites that aren't known yet. For that, we trimmed the SMC3 sequence to short peptides , 6 residues, wherever there was a lysine ( in format identical to the YYK(ac)YYY format, see Figure :ref:`smc3seq`).
+	**Are there any more deacetylation sites?** We were interested to see whether our protocol can capture additional deacetylation sites that are not known yet. For that, we trimmed the SMC3 sequence to short peptides 6 residues long, wherever there was a lysine (in format identical to the YYK(ac)YYY format, see Figure :ref:`smc3seq`).
 	
 .. figure:: images/peptide_collection_arrows.png
 	:scale: 55%
 
-	:label:`smc3seq` From each possible acetylation site (each lysine in SMC3 sequence) we created a peptide as input to our protocol to find putative deacetylation sites
+	:label:`smc3seq` Approach for the identification of additional HDAC8 sites in SMC3 using FlexPepBind: For each possible acetylation site (e.g. each lysine in the SMC3 sequence) we created a peptide as input to our protocol and calculated the binding ability of that peptide sequence to HDAC8. Low-scoring peptides were predicted to be putative deacetylation sites.
 
 ..
 
-	Results from the minimization version of our protocol indicate that there are 13 additional possible deacetylation sites, assuming these sites undergo acetylation in the first place. see table in *HDAC8 and CdLS syndrome* in the supplementary material.
+	Results from the minimization version of our protocol indicate that there are 13 additional possible deacetylation sites, assuming these sites undergo acetylation in the first place (see Table in *HDAC8 and CdLS syndrome* in the supplementary material). 
+.. ORA: include them here, not in supmat - and combine with data on mutation etc]
+
+.. ORA: add here title: SMC1A]
 	
 	Mutations in the SMC1A protein account for ~ 5.. of the cases of CdLS, and several mutations in a number of patients have been reported [24]_. We tested whether any of these mutations are known acetylation sites, and whether these acetylation sites might be deacetylated by HDAC8.
 	
@@ -839,10 +857,11 @@ HDAC8 and CdLS syndrome
 
 	:label:`smc1amut` Known acetylation sites and observed mutations in SMC1A, see summary on the table below
 	
-	**A** - SMC1A sequence annotated with known acetylation sites and mutations, as well as peptides trimmed from the protein that predicted to bind when tested as potential acetylated peptides. (peptides > 6 residues indicate overlapping) **B** - Reproduced from [24]_ , A schema of SMC1A structure annotated with mutations that were discovered in different patients
+	**A** - SMC1A sequence annotated with known acetylation sites and mutations, as well as peptides trimmed from the protein that we predicted to bind when tested as potential acetylated peptides (peptides > 6 residues indicate overlapping regions). **B** Scheme of SMC1A structure annotated with mutations that were discovered in different patients (Reproduced from [24]_).
 
 .. (DONE) ORA: create venn diagram instead of table: circle for FPD, act, and mut	
 .. LIOR: I added a venn diagram in addition to the tables ... 
+.. ORA: I don't think you need the table, you can add one row with this info. In the venn diagram, you can use the circle color (the same as in the figure above, not different colors- this is again confusing) to say which set you show, with a description in the legend. Then, you can put the actual mutations in the circles. In it's current form the Venn Diagram does not contain enough info - it could contain much more).
 
 .. table:: Lysine acetylation positions in SMC1A
 
@@ -886,8 +905,8 @@ HDAC8 and CdLS syndrome
 
 	:label:`venndiagram` Venn diagram illustrating the relationships between the different positions.
 	
-	The positions in the SMC1A protein could be either acetylated, mutated in CdLS patient(s) or be a part of a low-scoring peptide according to FlexPepDock. This Venn diagram shows that these sets intersect each other and most notably, have one position in common.
-
+	Venn diagram that indicates that the CdLS mutation R711W in SMC1 will abolish deacetylation of K713 by HDAC8.
+The positions in the SMC1A protein could be either acetylated (red circle; color legend as in Figure :ref:`venndiagram`), mutated in CdLS patient(s) (blue circles), or/and be a part of a low-scoring peptide according to FlexPepBind (for the wild type sequence, but not for the mutant sequence; green circles). This Venn diagram shows that these sets intersect each other and most notably, have one position in common, R711. 
 ..
 
 	Worth noting is the mutation **R711W** that is located right close to a known acetylation site in the coiled coil region and was predicted by our classifier as a binder. A mutated version of the peptide - **WLKYSQ** was predicted as a  strong non-binder. The authors of the study in ref [24]_ used the Coils program [25]_ , that predicts the probability of protein to form a coiled coil and concluded that the R711W mutation has a low likelihood of disrupting the coiled coil. The authors speculate that the alterations caused by this mutation may affect the angulation of the coiled-coil resulting in impaired intra or intermolecular approximation of the SMC head domains, or disrupt binding of accessory proteins to the cohesin ring. Our findings however suggest yet another possibility - the R711W mutation might disrupt the (acetylation or) deacetylation of SMC1A at position 713, and that might contribute to the protein inability to bind accessory proteins or failure to attain a non-functioning structure.
@@ -896,28 +915,25 @@ HDAC8 and CdLS syndrome
 Discussion
 ===========
 
-	*London et al* have previously developed a method for structure-based prediction of binding specificity to successfully identify both known and novel protein farnesyltransferase (FTase) substrate peptides and BH3 peptides to Bcl-2-like proteins [7]_
-	In this study, we applied the FlexPepBind pipeline to train a predictor that will distinguish between peptide that bind HDAC8 and peptides that do not. Since FlexPepDock only models the interface between the two, and not the catalytic process, we assume that peptides that bind to HDAC8 are subsequently deacetylated. Our studies conclude that the peptide's ability to bind to the receptor is somewhat correlated with the ability of that same sequence to bind when positioned in an exposed region of a protein. This conclusion was shown to be valid on several occasions [62]_.
+	*London et al* have previously developed a method for structure-based prediction of binding specificity to successfully identify both known and novel protein farnesyltransferase (FTase) substrate peptides and BH3 peptides to Bcl-2-like proteins [7]_.
+	In this study, we applied the FlexPepBind pipeline to train a predictor that will distinguish between peptides that bind to HDAC8 and peptides that do not. Since FlexPepDock only models the interface between the two, and not the catalytic process, we assume that peptides that bind to HDAC8 are subsequently deacetylated. Our studies conclude that the peptide's ability to bind to the receptor is somewhat correlated with the ability of that same sequence to bind when positioned in an exposed region of a protein. This conclusion was shown to be valid on several occasions [62]_.
 
-.. (DONE) ORA: do we assume this, or do we conclude this, since our results indicate that the peptide binds in an extended conformation?
-.. LIOR: You are right, fixed.
-..
-
-	The HDAC8 system presents additional challenges to systems studied previously - the extremely flexible loops in the interface have the ability to move and accommodate different substrates for each conformation, the lack of solved crystals that incorporated a genuine substrate and the acetylated lysine - a post translational modification that was poorly addressed in previous computational studies.
-	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. Although the full optimization scheme achieved better AUC than the short minimization pipeline, it was too computationally intensive for high-throughput mode as it included (in addition to the FPDock full optimization runs) an additional clustering step. For that reason, we used the minimization only scheme which was a little less accurate but much faster.
-
-.. (DONE) ORA: what do you mean by "in general"?
-.. LIOR: Bad phrasing, fixed
-..
+	The HDAC8 system presents additional challenges to systems studied previously - the extremely flexible loops in the interface have the ability to move and accommodate different substrates for each conformation, the lack of solved crystals that incorporated a genuine substrate and the acetylated lysine - a post translational modification that was barely addressed in previous computational studies.
+	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying a much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. Although the full optimization scheme achieved better AUC than the short minimization pipeline, it was too computationally intensive for high-throughput mode as it included (in addition to the FPDock full optimization runs) an additional clustering step. For that reason, we used the minimization only scheme which was a little less accurate but much faster.
 
 	We have used the minimization only protocol to predict deacetylation sites on SMC3 - a protein that was confirmed to undergo deacetylation by HDAC8 - a failure to deacetylate this protein causes CdLS. In addition, For SMC1A - another protein that was shown to be involved in CdLS, we mapped all known mutations that lead to the disease, all known acetylation sites, and all predicted strong substrate sequences for HDAC8. Interestingly, we identified one site where all agree, suggesting a possible site of interaction with HDAC8, and thus a functional explanation for the involvement of SMC3 in CdLS.
 	
-	Important emphasis should be put on the fact that the current implementation of our protocol can't distinguish whether the derived peptide is located in an exposed region of the protein. In the case of the SMC proteins, our protocol predicted multiple binders that are originated from regions in the protein that are probably inaccessible to the solvent. A possible improvement to our pipeline could include a secondary structure prediction program that will be able to filter out these kinds of false positives and focus the search only on regions which are able to go through acetylation and deacetylation.
+	Important emphasis should be put on the fact that the current implementation of our protocol cannot distinguish whether the derived peptide is located in an exposed region of the protein. In the case of the SMC proteins, our protocol predicted multiple binders that are originated from regions in the protein that are probably inaccessible to the solvent, or fold into a helix rather than adopting an extended conformation. A possible improvement to our pipeline could include a secondary structure prediction program that will be able to filter out these kinds of false positives and focus the search only on regions which are able to go through acetylation and deacetylation.
 	
-	The interface scoring scheme was shown to be superior to all other schemes in almost all simulations. We hypthesize this fact is related to the up-weighting of the hack_elec score term in most simulations. This score term is calculated only on short range interactions - thus, it is mainly expressed in the calculation of the interface and the peptide scores that take into account *only* short range interactions.
+	The interface scoring scheme was shown to be superior to all other schemes in almost all simulations. We hypothesize that this fact is related to the up-weighting of the hack_elec score term in most simulations. This score term is calculated only on short range interactions - thus, it is mainly expressed in the calculation of the interface and the peptide scores that take into account *only* short range interactions.
+
+.. ORA: I didn't get this argument - can you be more precise? Also, you should maybe write a separate paragraph about the parameters in the simulation, as opposed to a discussion of targets and CdLS. that will improve the flow and prevent surprises of sudden change of subject]
 	
 	We conclude that this project elaborates a method for the elucidation of the substrate profile of HDAC8 with Zn cofactor. This pipeline can be easily applied as is to HDAC8 with an iron cofactor and subsequently to both alltogether - yielding a predictor that is able to tell if a peptide is a substrate of HDAC8 with a particular cofactor. 
 	
+[What do you conclude? I would rather say that it should be noted that this all is aimed at a Zn bound HDAC8 and the Fe bound version needs still to be studied, by the same scheme, by someone else].
+
+.. ORA: I stopped here - I still think that the tables should be organized in a format that is easier to read and does not make you jump from table to table. You could do this in landscape format and include all info about a certain run in one line for example]. Try to finish to look at all remarks, and then we can shortly discuss the supmat.]
 	
 Supplementary Material
 =======================
@@ -1802,5 +1818,8 @@ References
 .. [65] Das R, Baker D. Macromolecular modeling with rosetta. Annu Rev Biochem. 2008;77(1):363-82.
 .. [66] Hornbeck PV, Chabra I, Kornhauser JM, Skrzypek E, Zhang B. PhosphoSite: A bioinformatics resource dedicated to physiological protein phosphorylation. Proteomics. 2004;4(6):1551-61.
 .. [67] Schueler-furman O, Altuvia Y, Sette A, Margalit H. Structure-based prediction of binding peptides to MHC class I molecules: application to a broad range of MHC alleles. Protein Sci. 2000;9(9):1838-46.
+.. [68] Betz R, Gray SG, Ekström C, Larsson C, Ekström TJ. Human histone deacetylase 2, HDAC2 (Human RPD3), is localized to 6q21 by radiation hybrid mapping. Genomics. 1998;52(2):245-6.
+.. [69] Emiliani S, Fischle W, Van lint C, Al-abed Y, Verdin E. Characterization of a human RPD3 ortholog, HDAC3. Proc Natl Acad Sci USA. 1998;95(6):2795-800.
+.. [70] Grozinger CM, Hassig CA, Schreiber SL. Three proteins define a class of human histone deacetylases related to yeast Hda1p. Proc Natl Acad Sci USA. 1999;96(9):4868-73.
 .. footer::
 	Page ###Page### of ###Total###
