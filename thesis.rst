@@ -10,7 +10,7 @@
   
 .. role:: raw-math(raw)
     :format: latex html
-
+	
 Introduction
 =============
 
@@ -61,6 +61,7 @@ Histone Deacetylase 8
 ..
 
 	As drawn, the nucleophilic lone electron pair on the metal-bound water molecule becomes available only upon proton abstraction. Christianson *et al.* suggest that the electron pair of the breaking O-H bond could add to the :raw-math:`$\pi^*$` orbital of the substrate carbonyl. [28]_ The oxyanion of the tetrahedral intermediate and its flanking transition states are stabilized by metal coordination as well as hydrogen bond interactions with Y306, H143, and H142. H143 serves as a general acid catalyst to facilitate the collapse of the tetrahedral intermediate to form acetate and lysine after an intervening proton transfer (Figure from [28]_).
+	
 .. (DONE) ORA: is this whole paragraph above part of the legend? If so it should be moved into the figure legend and away from the main text
 
 ..
@@ -154,19 +155,18 @@ Flexible peptide - protein interactions with FlexPepDock
 	3) Model the peptide backbone on the binding site
 	4) Refine the complex to higher resolution
 	
-	In most cases including the one we describe in this study, the last step is sufficient - several variants of receptor structures or even closely related homologs can be obtained from the PDB database, accompanied with proteins or peptides that are already located at the binding site and provide an approximate starting structure for the refinement process [16]_ [17]_. The FlexPepDock protocol is outlined in Figure :ref:`fpdock`.
+	In most cases including the one we describe in this study, the last step is sufficient - several variants of receptor structures or even closely related homologs can be obtained from the PDB database, accompanied with proteins or peptides that are already located at the binding site and provide an approximate starting structure for the refinement process [16]_ [17]_. The FlexPepDock protocol is outlined in Figure :ref:`fpdock` .
 
 .. figure:: images/fpdock.png
 	:scale: 35%
 
-	:label:`fpdock` an outline of the FlexPepDock protocol (Figure from [15]_).
+	:label:`fpdock` an outline of the FlexPepDock protocol.
 	
 ..
 
-Figure was taken from [15]_ .
+	Figure was taken from [15]_ .
 
 .. (DONE) ORA: you should move this figure to here %
-..
 
 	The first step of each FlexPepDock simulation is the prepacking of the input structure to provide better packing and remove internal clashes. Side chain conformations are optimized by determining the best rotamer combination for both the protein and the peptide separately [15]_ . This starting structure is then used as input to the FlexPepDock optimization protocol. The optimization is performed in 10 cycles. In the first cycle, the weight of the repulsive van der Waals term is reduced to 2% of its normal magnitude, and the attractive van der Waals term is increased by 225%. This allows significant perturbations within the binding pocket, while preventing the peptide and protein to separate during energy minimization. During refinement, the repulsive and attractive terms are gradually ramped back towards their original values (so that in the last cycle the energy function corresponds to the standard Rosetta score). Within each cycle, first the rigid body orientation between the protein and the peptide, then the peptide backbone is optimized in two sets of inner cycles. In 8 such inner cycles, low-energy conformations are searched using a Monte Carlo search with energy minimization [53]_ . In the first 8 cycles, a rigid body perturbation that is sampled from a gaussian distribution is applied and followed by sidechain repacking of interface residues and minimization (The default implementation of the minimization algorithm is DFP [18]_ ). The metropolis criterion is then applied right after the energy minimization step to accept or reject the new conformation.
 
@@ -401,15 +401,15 @@ Calibration of the protocol
 	In general, each step of the calibration process involved changing one degree of freedom of a certain feature (such as - amount of sampling, constraints, etc) while maintaining the others fixed. This process resulted in a coarse set of parameters, to be refined on the whole training set as part of the classifier learning process. 
 
 .. table:: A short version of the dataset used for coarse calibration of our protocol.
-	
+
 	+---------------+----------------------+------------------+
 	|Sequence	|      % deacetylation |annotation	  |
 	+===============+======================+==================+
 	|GYK(ac)FGC	|93		       |		  |
 	+---------------+----------------------+		  |
 	|GYK(ac)WGC	|80		       |		  |
-	+---------------+----------------------+     HDAC8 Substrates	  |
-	|GLK(ac)FGC	|66		       |		  |
+	+---------------+----------------------+ HDAC8 Substrates |
+	|GLK(ac)FGC	|66		       |   	  	  |
 	+---------------+----------------------+		  |
 	|GFK(ac)FGC	|64		       |		  |
 	+---------------+----------------------+		  |
@@ -418,8 +418,8 @@ Calibration of the protocol
 	|GQK(ac)YGC	|0		       |		  |
 	+---------------+----------------------+		  |
 	|GIK(ac)VGC	|0		       |		  |
-	+---------------+----------------------+   HDAC8 Non-Substrates	  |
-	|GMK(ac)VGC	|0		       |		  |
+	+---------------+----------------------+HDAC8 Non- 	  |
+	|GMK(ac)VGC	|0		       |Substrates	  |
 	+---------------+----------------------+		  |
 	|GDK(ac)YGC	|0		       |		  |
 	+---------------+----------------------+		  |
@@ -519,6 +519,7 @@ Template selection
 ..
 
 	These short simulations validate our initial assumption that *2v5w* is the best candidate for a template. 
+	
 .. ORA: I would change the legend to what you write in the tables below: this is clearer: "These simulations used the same values as simulation #2, except for ...
 	
 Scoring function
@@ -546,9 +547,9 @@ Scoring function
 ..
 
 	Looking at the results, simulations that involved the generic Rosetta scoring function and the modified scoring function achieved similar ability to distinguish between binders and non binders, in contrast to what we previously anticipated. 
-	The fact that 0,0.5 values for hack_elec work better than 0.25 probably indicates a certain degree of instability since the simulation pathway probably changed significantly between the 0,0.5 hack_elec runs and the 0.25. A stable conformation would probably show a growing increase in performance to a certain degree.
+	The fact that 0,0.5 values for hack_elec work better than 0.25 probably indicates a certain degree of instability since the simulation pathway is probably very different in the 0,0.5 hack_elec runs and the 0.25, thus, the energy landscape is affected significantly by this small change.
  
-.. ORA: this also indicates instability - how else would you explain that hackelec 0.5 and 0 work well but 0.25 does not? Maybe mention this instability
+.. (DONE) ORA: this also indicates instability - how else would you explain that hackelec 0.5 and 0 work well but 0.25 does not? Maybe mention this instability
 	
 Rigid body movements
 .....................
@@ -560,16 +561,16 @@ Rigid body movements
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
 	|No.		|Anchor (residue) 	  	         | Peptide score | Interface score | Reweighted score |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|2		| 366 (CA atom)		                 | 0.2           | 0.03	           | 0.69             |
+	|2		| acetyl-K4 (CA atom)	                 | 0.2           | 0.03	           | 0.69             |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|13		| 367 (default -			 |		 |		   |		      | 
-	|		| center of mass of the peptide)         | 0.2           | 0.2   	   | 0.2              |
+	|13		| X4 (variable position - CA atom)	 |		 |		   |		      | 
+	|		| (chosen by default by the protocol)    | 0.2           | 0.2   	   | 0.2              |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|14		| 366 (anchor atom was the carbonyl of   |		 |		   |		      |
-	|		| the acetyl in the acetylated lysine, 	 |		 |		   |		      |
+	|14		| acetyl-K3 (anchor atom was the carbonyl|		 |		   |		      |
+	|		| of the acetyl in the acetylated lysine |		 |		   |		      |
 	|		| instead of CA)			 | 0.2           | 0.003	   | 0.69             |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+
-	|15		| 366 , receptor anchor was 		 |		 |		   |		      |
+	|15		| acetyl-K3 , receptor anchor was	 |		 |		   |		      |
 	|		| the CA atom of G303			 | 0.2  	 | 0.2   	   | 0.009            |
 	+---------------+----------------------------------------+---------------+-----------------+------------------+	
 	| These simulations used the same values of simulation #2, except for the anchors     		      	      |
@@ -578,18 +579,16 @@ Rigid body movements
 
 ..
 
-	Looking at the results we see that selecting an anchor that favors an axis that aligns with the vector formed by the acetylated lysine sidechain , that goes into the pocket (see Figure :ref:`constraints`), works best.
+	Looking at the results we see that selecting an anchor that favors an axis that aligns with the vector formed by the acetylated lysine sidechain, that goes into the pocket (see Figure :ref:`constraintsfigure` ), works best. Figure :ref:`constraintsfigure` shows an example of 2 of the axes (from simulation 13 and 15) we used in our calibration.
+	
 
-.. ORA: the connection between the figure and the table is not clear at all: you need to label the atoms and explain the arrows, and explain to what "366" for example corresponds.]	
-.. 
+.. (DONE) ORA: the connection between the figure and the table is not clear at all: you need to label the atoms and explain the arrows, and explain to what "366" for example corresponds.
 
 .. figure:: images/anchor_arrows.png
 	:scale: 30 %
-	
-	:label:`constraints_figure` The main axes we tested in the calibration process. One, rotating the peptide around the Lysine residue, the other approx. around the vector that is formed by the linear conformation of the peptide. **K3** is the acetylated lysine which is located in the 3rd position from the N-terminal, **X4** is the 4th amino acids that is variable for each peptide, as described earlier.
 
-..
-	
+	:label:`constraintsfigure` An illustration of 2 axes we used to sample rigid body movements. **A** (simulation 15) - rotating the peptide around the Lysine residue, the other approx. around the vector that is formed by the linear conformation of the peptide. **B** (simulation 13) - the axis that is formed by default (by selecting the vector that connects the closest c-alphas to center of mass of the peptide and the recetptor). **PDB**: 2v5w with its original substrate.
+
 Constraints
 ............
 
@@ -658,54 +657,48 @@ Training a classifier
 .. figure:: plots/cutoff.png
 	:scale: 50 %
 
-	:label:`cutoff` An example for a log(p-value) of KS test vs. Activity level plot. when using the cutoff from the X axis (simulation 1 - see the relevant parameters in the table below). Clearly, the best cutoff we can choose in this case is 0.34.
+	:label:`cutoff` An example for a log(p-value) of KS test vs. Activity level plot created from simulation #2 (see table below). when using the cutoff from the X axis. Clearly, the best cutoff we can choose in this case is 0.34.
 
 ..
 
 .. (DONE) ORA: in figure 10 you should define the parameters you used in the simulations.
 .. LIOR: I mentioned the simulation number, in the table below the parameters used can easily be seen. no point in duplicating this information ... 
-..  ORA: what is "simulation 1"???, and why did you use those parameters? The table below does not contain #1…. I would stick to the tables above - it seems this is simulation #2 actually if I get it right.]
+.. (DONE) ORA: what is "simulation 1"???, and why did you use those parameters? The table below does not contain #1…. I would stick to the tables above - it seems this is simulation #2 actually if I get it right.]
+.. LIOR: You are correct, I changed the numbering in the tables but not in the legend. I corrected this error.
 
 
 	This table summarizes the simulations we performed on the whole training set, each of the columns describe a different aspect of the parameter set used.
 	
 	
 .. (DONE) ORA: in the table below you should make the connection between the numbering here and the numbering in the previous section. I suggest to call the runs Xa (e.g. the first would be 9a and the second 11a). Also, the tables should have the same format as before, and include also results (the correct measure of course…)	
-.. ORA: the columns that you need: No.; Anchor (residue); Sampling - Perturbation size; Sampling - No. Decoys; Template; threshold value; Scoring function; Scoring Scheme (KS & Spearman p-values). In short, exactly as in the tables above, in particular include the p values.] 
+.. ORA: the columns that you need: No.; Anchor (residue); Sampling - Perturbation size; Sampling - No. Decoys; Template; threshold value; Scoring function; Scoring Scheme (KS & Spearman p-values). In short, exactly as in the tables above, in particular include the p values.
 
-	
 .. table:: Summary of training set simulations. The Numbering is based on the calibration runs (see Table 5 above).
 
-	======		================	===============================	===========	===================
-	No.		Anchor (residue)	Sampling			Template	Scoring function
-	======		================	===============================	===========	===================
-	2(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
-						* 200 simulations per peptide.			
-
-	3(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
-			anchor was CH		* 200 simulations per peptide.			
-			atom			* low resolution preopt.							
-
-	9(a)		366			* perturbation size = 15	3f07		hack_elec = 0.5
-						* 200 simulations per peptide.			
-
-	14(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
-			anchor was CH		* 200 simulations per peptide.			
-
-
-	16(a)		366			* perturbation size = 15	2v5w		
-						* 200 simulations per peptide.			* hack_elec = 0.5
-												* sd of constraints
-												  is 0.15
-
-	17(a)		366			* perturbation size = 15	2v5w		
-						* 200 simulations per peptide.			* hack_elec = 0.5
-												* sd of constraints
-												  is 0.25
-	18(a)		366			* perturbation size = 15	2v5w		hack_elec = 0.5
-						* 200 simulations per peptide.	(threaded)		
-
-	======		================	===============================	===========	===================
+	+---+---------------------+---------------------------------------------+
+	|   |	Sampling 	  |           	                                |
+	+---+------------+--------+-----------+------+--------------------------+
+	|No.| Pert. size | Decoys | Template  |Anchor| Score function	        |
+	+---+------------+--------+-----------+------+--------------------------+
+	|2a |	15	 |  200	  |  2v5w     |	 K3  |hack_elec=0.5             |
+	+---+------------+--------+-----------+------+--------------------------+
+	|3a |	15	 |  200	  |  2v5w     |K3 ch |* hack_elec=0.5           |
+	|   |		 |	  |	      |atom  |* low-res. preoptimization|
+	+---+------------+--------+-----------+------+--------------------------+
+	|9a |	15	 |  200	  |  3f07     |	 K3  |hack_elec=0.5	        |
+	+---+------------+--------+-----------+------+--------------------------+
+	|14a|	15	 |  200	  |  2v5w     |K3 ch |hack_elec=0.5             |
+	|   |		 |        |	      |atom  |		                |
+	+---+------------+--------+-----------+------+--------------------------+
+	|16a|	15	 |  200	  |  2v5w     |	 K3  |* hack_elec=0.5           |
+	|   |		 |	  |	      |      |* sd of constraints = 0.15|
+	+---+------------+--------+-----------+------+--------------------------+
+	|17a|	15	 |  200	  |  2v5w     |	 K3  |hack_elec=0.5	        |
+	|   | 		 |	  |	      |	     |sd of constraints = 0.25  |
+	+---+------------+--------+-----------+------+--------------------------+
+	|18a|	15	 |  200	  |2v5w       |	 K3  | hack_elec=0.5	        |
+	|   | 		 |	  |threaded   |	     |		    	        |
+	+---+------------+--------+-----------+------+--------------------------+
 
 ..
 
@@ -756,8 +749,8 @@ Comparison to a minimization only based classifier
 
 .. (DONE) ORA: in the below, you need to give the details of the parameters in the run 
 .. LIOR: I don't want to burden the reader with too much technical details in the menuscript. If the reader is interested in the actual parameters, he can look them up in the table (I wrote that the parameters are similar to Simulation #X.. isn't it sufficient?
-.. ORA: "similar" is not accurate enough, this is not enough for a scientific report. You do need those values here. I suggest to include all the columns in the table as before, and highlight the changes. Remember, this is to be a report that makes it possible to reproduce, and if someone in the future wants to do this, I don't think that referring to lookup tables is a good idea. Try to adhere to one scheme throughout your thesis, similar to the first part of the results, where you described the results in detail.
-The below should be another table, that also includes results. Then you can discuss these shortly in the text.]
+.. ORA: "similar" is not accurate enough, this is not enough for a scientific report. You do need those values here. I suggest to include all the columns in the table as before, and highlight the changes. Remember, this is to be a report that makes it possible to reproduce, and if someone in the future wants to do this, I don't think that referring to lookup tables is a good idea. Try to adhere to one scheme throughout your thesis, similar to the first part of the results, where you described the results in detail. The below should be another table, that also includes results. Then you can discuss these shortly in the text.]
+
 ..
 	
 	1) Minimization with *score12*, rest of the parameters are similar to Simulation #2(a) applied to the whole training set
@@ -837,9 +830,10 @@ HDAC8 and CdLS syndrome
 ........................
 	
 	A recent study claims the loss of function of HDAC8 as one of the causes to the Cornelia de Lange syndrome (CdLS), a syndrome that results from malfunction in the cohesin acetylation cycle [23]_. In humans the cohesin is a multisubunit complex that is made up of SMC1A, SMC3, RAD21 and a STAG protein. These form a ring structure that is proposed to encircle sister chromatids to mediate sister chromatids cohesion [20]_ and also plays key roles in gene regulation [21]_ . 
-.. ORA: Improve flow by better describing your underlying assumption and aim. Add here a sentence that reports that mutations in all these proteins have been reported to lead to CdLS phenotype. Then add a sentence that we assume that failure of deacetylation could be the cause: either non-functional HDAC8 as described above, or non-functional deacetylation due to mutations in the vicinity of acetylated lysines. Then, write that you analyzed two proteins for such sites in which acetylation, deacetylation by HDAC8, and mutations co-localize. Then make a title "SMC3" and describe that protein. When you are done, make a title "SMC1" and describe that protein]
 
-Using a monoclonal antibody specific for acetylated SMC3, the researchers found that the total levels of SMC3 is constant throughout the cell cycle while SMC3-ac levels rapidly decline during mitosis, a finding that suggested a coordinated deacetylation. The researchers therefore used RNAi for each of the known histone deacetylases and sirtuins and identified HDAC8 as the primary SMC3 deacetylase. Indeed, SMC3 has 6 known acetylation sites [22]_. Among these, our protocol predicts that 3 are HDAC8 deacetylation substrates:
+.. ORA: Improve flow by better describing your underlying assumption and aim. Add here a sentence that reports that mutations in all these proteins have been reported to lead to CdLS phenotype. Then add a sentence that we assume that failure of deacetylation could be the cause: either non-functional HDAC8 as described above, or non-functional deacetylation due to mutations in the vicinity of acetylated lysines. Then, write that you analyzed two proteins for such sites in which acetylation, deacetylation by HDAC8, and mutations co-localize. Then make a title "SMC3" and describe that protein. When you are done, make a title "SMC1" and describe that protein
+
+	Using a monoclonal antibody specific for acetylated SMC3, the researchers found that the total levels of SMC3 is constant throughout the cell cycle while SMC3-ac levels rapidly decline during mitosis, a finding that suggested a coordinated deacetylation. The researchers therefore used RNAi for each of the known histone deacetylases and sirtuins and identified HDAC8 as the primary SMC3 deacetylase. Indeed, SMC3 has 6 known acetylation sites [22]_. Among these, our protocol predicts that 3 are HDAC8 deacetylation substrates:
 	
 .. table:: SMC3 known acetylation sites with FlexPepBind scores
 	
@@ -869,6 +863,7 @@ Using a monoclonal antibody specific for acetylated SMC3, the researchers found 
 ..
 
 	Results from the minimization version of our protocol indicate that there are 13 additional possible deacetylation sites, assuming these sites undergo acetylation in the first place (see Table in *HDAC8 and CdLS syndrome* in the supplementary material). 
+
 .. ORA: include them here, not in supmat - and combine with data on mutation etc]
 
 .. ORA: add here title: SMC1A]
@@ -929,7 +924,8 @@ Using a monoclonal antibody specific for acetylated SMC3, the researchers found 
 	:label:`venndiagram` Venn diagram illustrating the relationships between the different positions.
 	
 	Venn diagram that indicates that the CdLS mutation R711W in SMC1 will abolish deacetylation of K713 by HDAC8.
-The positions in the SMC1A protein could be either acetylated (red circle; color legend as in Figure :ref:`venndiagram`), mutated in CdLS patient(s) (blue circles), or/and be a part of a low-scoring peptide according to FlexPepBind (for the wild type sequence, but not for the mutant sequence; green circles). This Venn diagram shows that these sets intersect each other and most notably, have one position in common, R711. 
+
+	The positions in the SMC1A protein could be either acetylated (red circle; color legend as in Figure :ref:`venndiagram`), mutated in CdLS patient(s) (blue circles), or/and be a part of a low-scoring peptide according to FlexPepBind (for the wild type sequence, but not for the mutant sequence; green circles). This Venn diagram shows that these sets intersect each other and most notably, have one position in common, R711. 
 ..
 
 	Worth noting is the mutation **R711W** that is located right close to a known acetylation site in the coiled coil region and was predicted by our classifier as a binder. A mutated version of the peptide - **WLKYSQ** was predicted as a  strong non-binder. The authors of the study in ref [24]_ used the Coils program [25]_ , that predicts the probability of protein to form a coiled coil and concluded that the R711W mutation has a low likelihood of disrupting the coiled coil. The authors speculate that the alterations caused by this mutation may affect the angulation of the coiled-coil resulting in impaired intra or intermolecular approximation of the SMC head domains, or disrupt binding of accessory proteins to the cohesin ring. Our findings however suggest yet another possibility - the R711W mutation might disrupt the (acetylation or) deacetylation of SMC1A at position 713, and that might contribute to the protein inability to bind accessory proteins or failure to attain a non-functioning structure.
