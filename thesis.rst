@@ -700,7 +700,6 @@ Training a classifier
 	|   | 		 |	  |threaded   |	     |		    	        |
 	+---+------------+--------+-----------+------+--------------------------+
 
-..
 
 .. (DONE) ORA: the paragraph below is NOT a legend, right?
 .. LIOR: Right.
@@ -710,6 +709,15 @@ Scoring of peptides
 
 	We used 2 statistical tests - Kolmogorov Smirnov and Spearman's non parametric correlation, to evaluate the ability of parameter set of a simulation to differentiate between binders and non-binders. 
 	Simulation 18(a) that threaded each sequence on the original peptide found in 2v5w has a p-value of :raw-math:`$ 2.78 \times 10^{-8} $` with a cutoff of 0.35, using the interface scoring scheme - much more significant than the other scoring schemes. However, in terms of correlation, Simulations 14(a) and 16(a) achieved the best correlation with experimental activity on the training set, 0.0005, 0.0002 respectively, using the interface scoring scheme.
+
+
+.. table:: Scoring of training set simulations. The Numbering is based on the calibration runs (see Table 5 above).
+	:class: borderless
+
+	+-------------------------------------------------------------------------------------------------------------------------------------+
+	|	.. figure:: images/table_trainingset_p_val.png									   	      |
+	|		:scale: 100 %												   	      |
+	+-------------------------------------------------------------------------------------------------------------------------------------+
 
 .. ORA: these results should be included in the table. You can put the best set of parameters in bold. ]
 	
