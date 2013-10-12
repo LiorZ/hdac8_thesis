@@ -1,0 +1,29 @@
+,,,,,,
+,,,,,,
+,Peptide Sequence,Uniprot Accession,Protein Name,FPDock Score,poistion of acetyl-lysine,no. substrates / sec (pep conc. 150 μM)
+Class A,SGK(ac)KGQ,Q92922,SWI/SNF complex subunit SMARCC1,-7.495,345,0.000131
+,IIK(ac)DGE,O95831,Apoptosis-inducing factor 1,-7.547,593,0.000304
+,DIK(ac)YPL,P00387,NADH-cytochrome b5 reductase 3,-7.596,42,0.001572
+,PGK(ac)GVK,Q01094,Transcription factor E2F1,-7.597,117,0.000732
+,DDK(ac)YTL,Q15005,Signal peptidase complex subunit 2,-7.597,169,0.000133
+,TQK(ac)QEQ,P12270,Nucleoprotein TPR,-7.604,755,0.000291
+,VSK(ac)GTL,P16401,Histone H1.5,-7.688,93,0.001704
+,SFK(ac)SDQ,Q9UPN9,E3 ubiquitin-protein ligase TRIM33,-7.742,769,0.002459
+,ESK(ac)FQQ,P06400,Retinoblastoma-associated protein,-8.791,896,
+,VSK(ac)GPF,Q92794,Histone acetyltransferase KAT6A,-9.611,350,0.004044
+Class B,FSK(ac)VRT,Q92794,Histone acetyltransferase KAT6A,1791.825,355,
+,VGK(ac)SVS,Q92794,Histone acetyltransferase KAT6A,1750.608,815,-0.00034
+,DHK(ac)TLY,Q92794,Histone acetyltransferase KAT6A,174.228,604,0.001496
+,MIK(ac)HLE,P06400,Retinoblastoma-associated protein,186.349,548,
+,FTK(ac)DHL,Q9UPN9,E3 ubiquitin-protein ligase TRIM33,965.098,252,0.000631
+,KGK(ac)TAQ,Q9UPN9,E3 ubiquitin-protein ligase TRIM33,2.606,953,0.000613
+,GVK(ac)KVA,P16401,Histone H1.5,623.595,168,0.000194
+,KPK(ac)AAK,P16401,Histone H1.5,144.875,209,0.000819
+,SFK(ac)LNK,P16401,Histone H1.5,16.165,109,0.000122
+,IVK(ac)EVE,P12270,Nucleoprotein TPR,1430.129,428,
+,NQK(ac)LTA,P12270,Nucleoprotein TPR,974.523,748,-9.79E-05
+Class C,VSK(ac)AVE,P06733,Alpha-enolase,-5.069,64,
+,MGK(ac)GVS,P06733,Alpha-enolase,-5.162,60,
+,SGK(ac)YDL,P06733,Alpha-enolase,-7.15,256,0.001318
+,DSK(ac)NAK,Q92793,CREB Binding Protein,-4.4,1583,0.001035
+,KKK(ac)NNK,Q92793,CREB Binding Protein,-5.241,1588,0.000332
