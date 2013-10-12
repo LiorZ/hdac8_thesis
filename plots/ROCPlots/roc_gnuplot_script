@@ -1,0 +1,19 @@
+set term pngcairo dashed
+set style line 1 linetype 1 lw 2
+set style line 2 linetype 1 lw 2 linecolor rgb 'green'
+set style line 3 linetype 1 lw 2 linecolor rgb 'blue'
+set style line 4 linetype 3 lw 2 linecolor rgb 'red'
+set style line 5 linetype 3 lw 2 linecolor rgb 'blue'
+
+set border lw 3
+set xtics font ',18'
+set ytics font ',18'
+set title font ',18'
+set xlabel font ',18'
+set ylabel font ',18'
+set xlabel "False Positive Rate"
+set ylabel "True Positive Rate"
+set output 'roc.png'
+set key right bottom
+set title "ROC plots of the different modeling schemes"
+plot x w l ls 2 title "Random", 'roc_fpdock_isc_training' u 1:2 w l ls 4 title "Full optimization+clustering, training set AUC=0.95" , 'roc_fpdock_isc_test' u 1:2 w l ls 1 title "Full optimization+clustering, test set AUC=0.83", 'roc_mini_pep_sc_training' u 1:2 w l ls 5 title "Minimization only, training set AUC=0.92", 'roc_mini_pep_sc_test' u 1:2 w l ls 3 title "Minimization only, test set AUC=0.8"

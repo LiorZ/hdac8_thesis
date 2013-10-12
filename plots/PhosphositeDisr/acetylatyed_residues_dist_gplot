@@ -1,0 +1,19 @@
+set term pngcairo
+min(x,y)=(x>y)?y:x
+bin(x,s)=min(s*int(x/s),10)
+bw=1.0
+set title "Distribution of scores in acetylated and random peptides"
+set xtics font ",13"
+set ytics font ",13"
+set title font ",13"
+set xlabel "Score (rounded to closest integer)"
+set xlabel font ",13"
+
+set ylabel "Number of peptides"
+set ylabel font ",13"
+
+set boxwidth bw*0.6
+set style fill solid 0.4
+set key top left
+set output "plot.png"
+plot [] [0:170] './scores_acetylated' using (bin($2,1)+0.5):(1.0) smooth frequency ti 'Acetylated peptides' w boxes, './scores_random' using (bin($2,1)+0.5+0.25):(1.0) smooth frequency ti 'Random peptides' w boxes

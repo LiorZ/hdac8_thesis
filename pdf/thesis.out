@@ -1,0 +1,12 @@
+\BOOKMARK [1][-]{section*.2}{Introduction}{}
+\BOOKMARK [1][-]{section*.4}{Results}{}
+\BOOKMARK [2][-]{section*.6}{Description of the dataset}{section*.4}
+\BOOKMARK [2][-]{section*.8}{Preparation of starting structure}{section*.4}
+\BOOKMARK [2][-]{section*.10}{Calibration of the protocol}{section*.4}
+\BOOKMARK [3][-]{section*.12}{Scoring function}{section*.10}
+\BOOKMARK [3][-]{section*.14}{Template selection}{section*.10}
+\BOOKMARK [3][-]{section*.16}{Sampling}{section*.10}
+\BOOKMARK [3][-]{section*.18}{Rigid body movements}{section*.10}
+\BOOKMARK [3][-]{section*.20}{Constraints}{section*.10}
+\BOOKMARK [2][-]{section*.22}{Whole data set analysis}{section*.4}
+\BOOKMARK [2][-]{section*.24}{Phosphosite database}{section*.4}

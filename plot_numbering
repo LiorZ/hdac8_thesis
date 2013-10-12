@@ -1,0 +1,141 @@
+Score vs. Activity plots
+.........................
+.. 8->1 , 9->2 , 16->3 , 5-> 4, 1->5, 4->6, 2-> 7, 3-> 8, 13->9, 15->10, 10->11, 7->12, 6->13, 12->14, 17->15, 18->16, 19->17, 11->18
+
+
+.. ORA: boxplots look much better! %
+
+.. list-table:: Training set - score vs. activity plots for the short calibration phase
+   :widths: 5 30 30 30
+   :header-rows: 1
+
+   * - No.
+     - Reweighted Score
+     - Peptide Score
+     - Interface Score
+   * - 1
+     - .. image:: plots/ShortCalibration/correlate_short_calibration9.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration9.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration9.png
+     	:scale: 25%
+   * - 2
+     - .. image:: plots/ShortCalibration/correlate_short_calibration10.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration10.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration10.png
+     	:scale: 25%
+   * - 3
+     - .. image:: plots/ShortCalibration/correlate_short_calibration36.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration36.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration36.png
+     	:scale: 25%
+   * - 4
+     - .. image:: plots/ShortCalibration/correlate_short_calibration6.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration6.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration6.png
+     	:scale: 25%
+   * - 5
+     - .. image:: plots/ShortCalibration/correlate_short_calibration2.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration2.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration2.png
+     	:scale: 25%
+   * - 6
+     - .. image:: plots/ShortCalibration/correlate_short_calibration5.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration5.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration5.png
+     	:scale: 25%
+   * - 7
+     - .. image:: plots/ShortCalibration/correlate_short_calibration3.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration3.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration3.png
+     	:scale: 25%
+   * - 8
+     - .. image:: plots/ShortCalibration/correlate_short_calibration4.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration4.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration4.png
+     	:scale: 25%
+   * - 9
+     - .. image:: plots/ShortCalibration/correlate_short_calibration32.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration32.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration32.png
+     	:scale: 25%
+   * - 10
+     - .. image:: plots/ShortCalibration/correlate_short_calibration34.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration34.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration34.png
+     	:scale: 25%
+   * - 11
+     - .. image:: plots/ShortCalibration/correlate_short_calibration12.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration12.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration12.png
+     	:scale: 25%
+   * - 12
+     - .. image:: plots/ShortCalibration/correlate_short_calibration8.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration8.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration8.png
+     	:scale: 25%
+   * - 13
+     - .. image:: plots/ShortCalibration/correlate_short_calibration7.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration7.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration7.png
+     	:scale: 25%
+   * - 14
+     - .. image:: plots/ShortCalibration/correlate_short_calibration14.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration14.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration14.png
+     	:scale: 25%
+   * - 15
+     - .. image:: plots/ShortCalibration/correlate_short_calibration42.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration42.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration42.png
+     	:scale: 25%
+   * - 16
+     - .. image:: plots/ShortCalibration/correlate_short_calibration43.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration43.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration43.png
+     	:scale: 25%
+   * - 17
+     - .. image:: plots/ShortCalibration/correlate_short_calibration45.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration45.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration45.png
+     	:scale: 25%
+   * - 18
+     - .. image:: plots/ShortCalibration/correlate_short_calibration47.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_pep_sc_short_calibration47.png
+     	:scale: 25%
+     - .. image:: plots/ShortCalibration/correlate_I_sc_short_calibration47.png
+     	:scale: 25%

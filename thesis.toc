@@ -1,0 +1,38 @@
+\contentsline {section}{Introduction}{2}{section*.3}
+\contentsline {subsection}{Histone Deacetylase 8}{2}{section*.5}
+\contentsline {subsection}{The Rosetta Framework}{6}{section*.7}
+\contentsline {subsection}{Specificity prediction of peptide protein interactions}{8}{section*.9}
+\contentsline {section}{Methods}{10}{section*.11}
+\contentsline {subsection}{Overview}{10}{section*.13}
+\contentsline {subsection}{Flexible peptide - protein interactions with FlexPepDock}{10}{section*.15}
+\contentsline {subsection}{Preparation of starting structure}{12}{section*.17}
+\contentsline {subsection}{Calibration of the protocol}{12}{section*.19}
+\contentsline {subsubsection}{Sampling}{13}{section*.21}
+\contentsline {subsubsection}{Template selection}{14}{section*.23}
+\contentsline {subsubsection}{Scoring function}{16}{section*.25}
+\contentsline {subsubsection}{Rigid body movements}{17}{section*.27}
+\contentsline {subsubsection}{Constraints}{17}{section*.29}
+\contentsline {section}{Results}{19}{section*.31}
+\contentsline {subsection}{Description of the dataset}{19}{section*.33}
+\contentsline {subsection}{Calibration of the protocol}{19}{section*.35}
+\contentsline {subsubsection}{Sampling}{20}{section*.37}
+\contentsline {paragraph}{Initial parameters}{20}{section*.40}
+\contentsline {subsubsection}{Template selection}{22}{section*.41}
+\contentsline {subsubsection}{Scoring function}{22}{section*.43}
+\contentsline {subsubsection}{Rigid body movements}{23}{section*.45}
+\contentsline {subsubsection}{Constraints}{24}{section*.47}
+\contentsline {subsubsection}{Threading the peptide}{24}{section*.49}
+\contentsline {subsubsection}{Summary of calibration runs}{25}{section*.51}
+\contentsline {subsection}{Whole data set analysis}{25}{section*.53}
+\contentsline {subsubsection}{Training a classifier}{25}{section*.55}
+\contentsline {paragraph}{Scoring of peptides}{27}{section*.58}
+\contentsline {subsubsection}{Comparison to a minimization only based classifier}{30}{section*.59}
+\contentsline {subsubsection}{Test set analysis}{32}{section*.61}
+\contentsline {subsection}{Searching for novel, non-histone substrates}{32}{section*.63}
+\contentsline {subsubsection}{Experimental validation of de-novo predictions (preliminary results)}{34}{section*.65}
+\contentsline {subsubsection}{HDAC8 and CdLS syndrome}{36}{section*.67}
+\contentsline {paragraph}{SMC3}{36}{section*.70}
+\contentsline {paragraph}{SMC1A}{38}{section*.72}
+\contentsline {section}{Discussion}{40}{section*.73}
+\contentsline {section}{References}{43}{section*.75}
+\contentsline {section}{Supplementary Material}{46}{section*.77}
