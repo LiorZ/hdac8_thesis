@@ -379,7 +379,7 @@ Description of the dataset
 
 	The Fierke group has tested the ability of HDAC8 to deacetylate 361 6-mer peptides with the sequence GXK(Ac)ZGC (where X,Z are all the amino acids except Cysteine), under two different conditions: for zinc and iron bound HDAC8 (unpublished results; see Table 5 in the supplementary material). For each of these peptides, a level of activity with respect to HDAC8 and the bound metal was determined by measuring the percentage of deacetylation after 1 hour.
 	
-	We divided this dataset into a training and a test set, by sorting the peptides according to their experimental activity with Zn - bound HDAC8, and assigning all even-numbered rows to be the test set, and all odd-numbered rows to be the training set. This division assured an even distribution of peptides with respect to their activity levels (avoiding a situation where one set holds a large number of high/low activity decoys).
+	In this study , we focus only on Zn bound HDAC8, as a first step in deciphering the entire co-factor dependent specifity profile of the enzyme. We divided this dataset into a training and a test set, by sorting the peptides according to their experimental activity with Zn - bound HDAC8, and assigning all even-numbered rows to be the test set, and all odd-numbered rows to be the training set. This division assured an even distribution of peptides with respect to their activity levels (avoiding a situation where one set holds a large number of high/low activity decoys).
 
 
 Calibration of the protocol
@@ -418,7 +418,7 @@ Calibration of the protocol
 	+---------------+----------------------+------------------+
 ..
 
-	Below we detail all the different categories we calibrated. Each table elaborates the simulation serial number, and the relevant parameters that were perturbed in that specific category. Table 1 in the supplementary material describes the entire set of property for each simulation and summarizes their performance.
+	Below we detail all the different categories we calibrated. Each table elaborates the simulation serial number, and the relevant parameters that were perturbed in that specific category. Table 1 in the supplementary material describes the entire set of properties for each simulation and summarizes their performance.
 
 Sampling
 .........
@@ -435,7 +435,7 @@ Initial parameters
 	#) Perturbation size: 6 degrees
 	#) Structural template: 2v5w - HDAC8 bound to a peptide (see Methods).
 	#) Anchor atom in peptide: CA of the acetylated lysine (residue 366 in the pdb). We assumed that the default anchor chosen in the FlexPepDock protocol will not be optimal in our case since it is farther from the active site, so we determined the anchor to be the acetylated lysine. 
-	#) Anchor atom in receptor: CA of F208 (selected by the algorithm by default since it is closest to the peptide anchor)
+	#) Anchor atom in receptor: CA of F194
 
 	These features were, of course validated and perturbed in later phases.
 	
@@ -519,7 +519,12 @@ Scoring function
 .................
 
 	In our calibration of the scoring function we were interested to see whether our initial parameters - primarily the use of the short electrostatic term (hack_elec) should be refined or modified. For that, we tried to use Rosetta's default scoring function *score12* (that does not contain any of the modifications described earlier) and another simulation in which we decreased only the weight of the electrostatic term (hackelec) in the scoring function.
-	
+
+.. raw:: LaTeX
+
+     \newpage
+..
+
 .. table:: Calibrating the scoring function (these simulations used the initial values described above, except for the scoring function parameters indicated)
 	
 	+----------------------------------------------+----------------------------------------------------+
@@ -595,7 +600,7 @@ Rigid body movements
 .. figure:: images/anchor_try2_1_complete.png
 	:scale: 50 %
 
-	:label:`constraintsfigure` An illustration of 2 axes we used to sample rigid body movements. **Left** (simulation 14) - rotating the peptide around the acetylated lysine residue, and **Right** (simulation 13) rotating the peptide around a vector that was chosen by the protocol by default (the vector that connects the c-alpha closest to the center of mass of the peptide to the c-alpha atom in the receptor that is closest to this c-alpha. **PDB**: 2v5w with one of the peptides from the data set (GFK(ac)YGC).
+	:label:`constraintsfigure` An illustration of 2 axes we used to sample rigid body movements. **A** (simulation 14) - rotating the peptide around the acetylated lysine residue, and **B** (simulation 13) rotating the peptide around a vector that was chosen by the protocol by default (the vector that connects the c-alpha closest to the center of mass of the peptide to the c-alpha atom in the receptor that is closest to this c-alpha. **PDB**: 2v5w with one of the peptides from the data set (GFK(ac)YGC).
 
 .. ORA: note that I changed the legend a little.
 
@@ -648,7 +653,7 @@ Threading the peptide
 Summary of calibration runs
 ............................
 	
-	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With this calibration approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulations #18 and #2 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Kolmogorov Smirnov p-values. We also noticed that the interface scoring scheme achieved superior performance over the rest of the schemes in most cases. Moreover, the reweighted scoring scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in the vast majority of simulations.
+	This phase of calibration allowed us to select several promising sets of parameters to be refined in a later stage on the whole training set. With that approach we could easily discard sets of parameters that failed to identify highly reactive substrates, and falsely identified zero activity substrates. We note simulations #18 and #2 and their set of parameters, using the interface scoring scheme yielded the best performance in terms of Kolmogorov Smirnov p-values. We also noticed that the interface scoring scheme achieved superior performance over the rest of the schemes in most cases. Moreover, the reweighted scoring scheme that demonstrated good ability to distinguish binders from non binders in previous studies, failed in the vast majority of simulations.
 	In the next phase, in which we run our peptide modeling protocol on the whole training set, we mainly use the set of parameters that exhibited superior performance in the short calibration phase.
 
 Whole data set analysis
@@ -657,7 +662,7 @@ Whole data set analysis
 Training a classifier
 .....................
 
-	After an initial phase of calibration on 10 peptides, we were set to examine and refine the parameters learned on the whole training set. This step allowed us to refine our initial, coarse set of parameters. Table 11 summarizes the parameters of the different simulations on the whole training set, and the following tables present the results of the different parameter combinations.
+	After an initial phase of calibration on 10 peptides, we were set to examine and refine the parameters learned on the whole training set. This step allowed us to refine our initial, coarse set of parameters. Table 11 summarizes the parameters of the different simulations on the whole training set.
 
 	Recall that our dataset contains sequences of lysine acetylated peptides that are ranked by their activity level as substrates. The peptide's level of activity is not represented in a binary fashion (binder / non-binder) , but rather as a continuous value in [0,1]. In order to train a binary classifier, we needed to define a threshold to create a binary representation. To accomplish that, we selected an experimental level of activity to serve as a cutoff so that each sequence with activity that is lower than the cutoff is labeled as a non-binder and *vice versa*. We derived that cutoff by applying 2 samples Kolmogorov-Smirnov (KS) test on all possible activity levels ([0,1], in resolution of 0.01). The activity level that was chosen as cutoff is the one that obtained the lowest p-value in the KS test, thus, the one that could best differentiate between the 2 distributions of *scores* - that of the substrates and the score distribution of non substrates.  (see Figure :ref:`cutoff` )
 
@@ -719,9 +724,9 @@ Scoring of peptides
 ````````````````````
 
 	We used 2 statistical tests - Kolmogorov Smirnov and Spearman's non parametric correlation, to evaluate the ability of parameter set of a simulation to differentiate between binders and non-binders. 
-	Simulation 18(a) that threaded each sequence on the original peptide found in 2v5w has a p-value of :raw-math:`$ 2.78 \times 10^{-8} $` for KS with a cutoff of 0.35, using the interface scoring scheme - much more significant than the other scoring schemes. However, in terms of correlation, Simulations 14(a) and 16(a) achieved the best correlation with experimental activity on the training set, 0.0005, 0.0002 respectively, using the interface scoring scheme. 
+	Simulation 18(a) that threaded each sequence on the original peptide found in 2v5w has a p-value of :raw-math:`$ 2.78 \times 10^{-8} $` for KS with a cutoff of 0.35, using the interface scoring scheme - much more significant than the other scoring schemes. However, in terms of correlation, Simulations 14(a) and 16(a) achieved the best correlation (p-values) with experimental activity on the training set, 0.0005, 0.0002 respectively, using the interface scoring scheme. 
 	
-	Since we're evaluating our hypothesis with more than one method, a Bonferroni correction must be applied. The Bonferroni correction is an adjustment made to P values when several dependent or independent statistical tests are being performed simultaneously on a single data set. Put simply, the probability of identifying at least one significant result due to chance increases as more hypotheses are tested. The idea that behind it is that if an experimenter is testing :raw-math:`$n$`  dependent or independent hypotheses on a set of data, the probability of type I error is offset by testing each hypothesis at a statistical significance level :raw-math:`$ 1/n $` times what it would be if only one hypothesis were tested. And so, to get the corrected p-value, we must multiply it by the number of tests - :raw-math:`$n$`.
+	Since we're evaluating our hypothesis with more than one method, a Bonferroni correction must be applied. The Bonferroni correction is an adjustment made to P values when several dependent or independent statistical tests are being performed simultaneously on a single data set. Put simply, the probability of identifying at least one significant result due to chance increases as more hypotheses are tested. The idea that stands behind it is that if an experimenter is testing :raw-math:`$n$`  dependent or independent hypotheses on a set of data, the probability of type I error is offset by testing each hypothesis at a statistical significance level :raw-math:`$ 1/n $` times what it would be if only one hypothesis were tested. And so, to get the corrected p-value, we must multiply it by the number of tests - :raw-math:`$n$`.
 	Since we used 2 different tests, we multiply the p-value by 2. So, for simulation #18 - we'll get :raw-math:`$ 5.56 \times 10^{-8} $` for KS with a cutoff of 0.35, which is still a significant result.
 
 
@@ -840,7 +845,7 @@ Comparison to a minimization only based classifier
 
 ..
 
-	Surprisingly , simulation #2b* - the one that didn't require any changes to the scoring function was the one that best correlated with experimental data and showed the best ability so far to distinguish binders from non binders with a KS p-value of 5.95×10\ :sup:`-10` and a cutoff of 0.34 using the peptide scoring scheme and the interface scoring scheme. Simulation #18a* also performed well with a KS p-value of 4.6×10\ :sup:`-8` and a cutoff of 0.34, using the peptide scoring scheme. To conclude, it's surprising to see that Simulation #2a* and #18a* that showed remarkable ability to distinguish between binders and non-binders, failed to improve any of the p-values obtained in the full simulation runs. Figure :ref:`roc` shows an ROC plot comparing the performance of possible predictors derived from both types of best performing simulations - minimization only and full optimization. 
+	Surprisingly , simulation #2b* - the one that didn't require any changes to the scoring function was the one that best correlated with experimental data and showed the best ability so far to distinguish binders from non binders with a KS p-value of 5.95×10\ :sup:`-10` and a cutoff of 0.34 using the peptide scoring scheme and the interface scoring scheme. Simulation #18a* also performed well with a KS p-value of 4.6×10\ :sup:`-8` and a cutoff of 0.34, using the peptide scoring scheme. Figure :ref:`roc` shows an ROC plot comparing the performance of possible predictors derived from both types of best performing simulations - minimization only and full optimization. 
 
 
 .. (DONE) ORA: as I said above - I don't get the KS p-values of that table….%
@@ -869,8 +874,8 @@ Test set analysis
 Searching for novel, non-histone substrates
 --------------------------------------------
 
-	We used the minimization only version of our predictor to search for potential novel substrates of HDAC8. This version of the predictor achieved both superior performance and is the least computationally intensive. 
-	The Phosphosite database from the site PhosphoSitePlus (PSP) - an online systems biology resource providing comprehensive information and tools for the study of protein post-translational modifications, contains a compilation of all experimentally examined acetylation sites in proteins [52]_ . We downloaded this database and queried it for lysine acetylated proteins. These present a pool of potential targets of HDAC8. In order to evaluate their ability to be deacetylated by HDAC8, we trimmed the sequences around the acetylated lysine to the same size of the sequences in our experimental dataset - **YYK(ac)YYY**, and used these as input. 
+	We used the minimization only version of our predictor to search for potential novel substrates of HDAC8. This version of the predictor has similar performance to the full optimization scheme and is the least computationally intensive. 
+	The Phosphosite database from the site PhosphoSitePlus (PSP) - an online systems biology resource providing comprehensive information and tools for the study of protein post-translational modifications, contains a compilation of all experimentally examined acetylation sites in proteins [52]_ . We downloaded this database and queried it for lysine acetylated proteins. These present a pool of potential targets of HDAC8. In order to evaluate their ability to be deacetylated by HDAC8, we trimmed the sequences around the acetylated lysine to the same size of the sequences in our experimental dataset - **XXK(ac)XXX**, and used these as input. 
 
 	To demonstrate the ability of our classifier to recognize potential substrates among the large database of acetylated sequences, we plotted the distribution of scores of all the acetylated sequences from the database against a background distribution of random peptides that were sampled from the distribution of amino acids in the acetylated sequences in phosphosite (Figure :ref:`phosphodist`), under the null hypothesis that both sequences originate from the same distribution. The plot shows that overall, acetylated peptides obtained lower scores than random peptides (Kolmogorov-Smirnov test p-value =5.07×10\ :sup:`-5`. The median score for acetylated peptides was 540.6 and for the random peptides 587.98). Looking only at peptides with negative scores, the median score for the acetylated peptides is -4.56 and for the random peptide data set, the median score is -2.19.
 
@@ -928,7 +933,7 @@ Experimental validation of de-novo predictions (preliminary results)
 HDAC8 and CdLS syndrome
 ........................
 	
-	CdLS (Cornelia de Lange syndrome) is a genetic disorder that causes a range of mental and cognitive disabilities. It is long known that this syndrome results from a malfunction in the cohesin acetylation cycle [2]_. In humans, cohesin is a multisubunit complex that is made up of SMC1A, SMC3, RAD21 and a STAG protein. These form a ring structure that is proposed to encircle sister chromatids to mediate sister chromatids cohesion [61]_ and also play key roles in gene regulation [62]_ . 50-60% of all known cases of CdLS are caused by mutations in the cohesin loading protein - NIPBL [63]_. In addition, it is known for quite a while that CdLS is also caused by mutations in both SMC1A and SMC3 [64]_ . Mutations in RAD21 also cause a milder version of the syndrome [65]_. A recent study claims the loss of function of HDAC8 as one of the causes to the Cornelia de Lange syndrome [2]_ , and suggests that a failure to deacetylate SMC3 might be the cause. These observations has led us to hypothesize - First, could some of the SMC3 mutations inhibit the deacetylation of SMC3 , thus, causing CdLS? Second, could HDAC8 deacetylate SMC1A too and as a result - mutations that affect SMC1A ability to go through deacetylation cause CdLS?
+	CdLS (Cornelia de Lange syndrome) is a genetic disorder that causes a range of mental and cognitive disabilities. It is long known that this syndrome results from a malfunction in the cohesin acetylation cycle [2]_. In humans, cohesin is a multisubunit complex that is made up of SMC1A, SMC3, RAD21 and a STAG protein. These form a ring structure that is proposed to encircle sister chromatids to mediate sister chromatids cohesion [61]_ and also play key roles in gene regulation [62]_ . 50-60% of all known cases of CdLS are caused by mutations in the cohesin loading protein - NIPBL [63]_. In addition, it is known for quite a while that CdLS is also caused by mutations in both SMC1A and SMC3 [64]_ . Mutations in RAD21 also cause a milder version of the syndrome [65]_. A recent study claims the loss of function of HDAC8 as one of the causes to the Cornelia de Lange syndrome [2]_ , and suggests that a failure to deacetylate SMC3 might be the cause. These observations have led us to hypothesize - First, could some of the SMC3 mutations inhibit the deacetylation of SMC3 , thus, causing CdLS? Second, could HDAC8 deacetylate SMC1A too and as a result - mutations that affect SMC1A ability to go through deacetylation cause CdLS?
 	
 	We analyzed these 2 proteins for such sites in which acetylation, deacetylation by HDAC8 (as predicted by our protocol) and known CdLS causing mutations co-localize. Our assumption states that mutations that are located next to known acetylation sites and have much higher scores than their unmutated counterparts are prime suspects for being deacetylated by HDAC8, and a failure to go through deacetylation causes the disease.
 
@@ -1040,7 +1045,7 @@ Discussion
 	In this study, we applied the FlexPepBind pipeline to train a classifier that distinguishes between peptides that bind to HDAC8 and peptides that do not. Since FlexPepDock only models the interface between the two and not the catalytic process, we assume that peptides that bind to HDAC8 are subsequently deacetylated. Our studies conclude that the peptide's ability to bind to the receptor is somewhat correlated with the ability of that same sequence to bind when positioned in an exposed region of a protein. This conclusion was shown to be valid on several occasions [68]_.
 
 	The HDAC8 system presents additional challenges to previous studies that applied FlexPepBind - the extremely flexible loops in the interface have the ability to move and accommodate different substrates for each conformation, the lack of solved crystals that incorporated a genuine substrate and the acetylated lysine - a post translational modification that was barely addressed in previous computational studies.
-	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying a much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. Although the full optimization scheme achieved better AUC than the short minimization pipeline, it was too computationally intensive for high-throughput mode as it included (in addition to the FPDock full optimization runs) an additional clustering step. Therefore, we used the minimization only scheme which was a little slightly less accurate but much faster.
+	We calibrated a set of parameters that included the amount of sampling and movement, degree of constraints and some other energy terms in the scoring function and compared the resulting predictor to a predictor that was obtained by applying a much simpler and less computationally intensive approach - the FlexPepDock minimization scheme. Although the full optimization scheme achieved better AUC than the short minimization pipeline, it was too computationally intensive for high-throughput mode as it included (in addition to the FPDock full optimization runs) an additional clustering step. Therefore, we used the minimization only scheme which has a similar accuracy but is also much faster.
 	
 	We note that on both pipelines (minimization and full-optimization+clustering) suggested in this essay the performance of the resulting classifiers on the test set wasn't as good as the training set. One probable reason is overfitting. A method that we could have applied in our analysis to avoid overfitting and build a more robust classifier is **cross validation**, in which the data set is partitioned into complementary subsets, then, the analysis is performed on one subset (the training set), and validating the analysis on the other subset (validation/test set). To reduce variability, multiple rounds of cross-validation are performed using different partitions, and the validation results are averaged over the rounds.
 

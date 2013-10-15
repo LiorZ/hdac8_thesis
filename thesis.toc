@@ -27,7 +27,7 @@
 \contentsline {subsubsection}{Training a classifier}{25}{section*.55}
 \contentsline {paragraph}{Scoring of peptides}{27}{section*.58}
 \contentsline {subsubsection}{Comparison to a minimization only based classifier}{30}{section*.59}
-\contentsline {subsubsection}{Test set analysis}{32}{section*.61}
+\contentsline {subsubsection}{Test set analysis}{31}{section*.61}
 \contentsline {subsection}{Searching for novel, non-histone substrates}{32}{section*.63}
 \contentsline {subsubsection}{Experimental validation of de-novo predictions (preliminary results)}{34}{section*.65}
 \contentsline {subsubsection}{HDAC8 and CdLS syndrome}{36}{section*.67}
